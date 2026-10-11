@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1100" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#022c22"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#064e3b"/>
+    </linearGradient>
+
+    <linearGradient id="card-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <linearGradient id="header-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="50%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#34d399"/>
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
+    </marker>
+  </defs>
+
+  <rect width="1000" height="1100" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <g filter="url(#shadow)">
+    <rect x="50" y="30" width="900" height="65" rx="14" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+    <text x="500" y="67" font-family="Inter, sans-serif" font-size="22" font-weight="800" fill="url(#header-grad)" text-anchor="middle" letter-spacing="1">
+      SERIAL SCHEDULE GENERATION SCHEME (SSGS) DECODER
+    </text>
+  </g>
+
+  <!-- Flowchart Steps -->
+
+  <!-- 1. INPUT -->
+  <g transform="translate(250, 120)" filter="url(#shadow)">
+    <rect x="0" y="0" width="500" height="55" rx="10" fill="url(#card-grad)" stroke="#34d399" stroke-width="1.5"/>
+    <text x="250" y="24" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#34d399" text-anchor="middle">
+      INPUT: Priority Vector λ ∈ ℝ^{N+2}, Graph 𝒢(V, E), Resource Capacities R_k
+    </text>
+    <text x="250" y="42" font-family="Inter, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">
+      Provided by GA, SA, BCO, TS, or PRH heuristic rules
+    </text>
+  </g>
+  <path d="M 500 175 L 500 205" stroke="#34d399" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 2. INITIALIZATION -->
+  <g transform="translate(250, 205)" filter="url(#shadow)">
+    <rect x="0" y="0" width="500" height="65" rx="10" fill="url(#card-grad)" stroke="#34d399" stroke-width="1.5"/>
+    <text x="250" y="26" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">
+      Initialization
+    </text>
+    <text x="250" y="46" font-family="Inter, sans-serif" font-size="11" fill="#cbd5e1" text-anchor="middle">
+      Scheduled Set 𝒮 = {1}, S_1 = 0, C_1 = 0 • Resource Usage U_{k, t} = 0 for all k, t
+    </text>
+  </g>
+  <path d="M 500 270 L 500 300" stroke="#34d399" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 3. FIND ELIGIBLE SET -->
+  <g transform="translate(250, 300)" filter="url(#shadow)">
+    <rect x="0" y="0" width="500" height="65" rx="10" fill="url(#card-grad)" stroke="#10b981" stroke-width="1.5"/>
+    <text x="250" y="26" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#a7f3d0" text-anchor="middle">
+      1. Identify Precedence-Eligible Set ℰ
+    </text>
+    <text x="250" y="46" font-family="Inter, sans-serif" font-size="11" fill="#cbd5e1" text-anchor="middle">
+      ℰ = { j ∉ 𝒮 ∣ all predecessors 𝒫_j ⊆ 𝒮 }
+    </text>
+  </g>
+  <path d="M 500 365 L 500 395" stroke="#34d399" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 4. SELECT HIGHEST PRIORITY ACTIVITY -->
+  <g transform="translate(250, 395)" filter="url(#shadow)">
+    <rect x="0" y="0" width="500" height="65" rx="10" fill="url(#card-grad)" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="250" y="26" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#fbbf24" text-anchor="middle">
+      2. Priority Selection i*
+    </text>
+    <text x="250" y="46" font-family="Inter, sans-serif" font-size="11" fill="#cbd5e1" text-anchor="middle">
+      i* = argmax_{j ∈ ℰ} λ_j  (Select eligible activity with highest priority value)
+    </text>
+  </g>
+  <path d="M 500 460 L 500 490" stroke="#34d399" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 5. COMPUTE EST & SEARCH FEASIBLE SLOT -->
+  <g transform="translate(200, 490)" filter="url(#shadow)">
+    <rect x="0" y="0" width="600" height="110" rx="12" fill="url(#card-grad)" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="300" y="26" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#38bdf8" text-anchor="middle">
+      3. Earliest Precedence Start &amp; Resource Slot Search
+    </text>
+
+    <g transform="translate(20, 38)" font-family="Inter, sans-serif" font-size="11" fill="#e2e8f0">
+      <rect x="0" y="0" width="560" height="30" rx="4" fill="#0f172a" stroke="#334155"/>
+      <text x="280" y="20" text-anchor="middle">Calculate Precedence Earliest Start: t_{est} = max_{p ∈ 𝒫_{i*}} C_p</text>
+
+      <rect x="0" y="36" width="560" height="30" rx="4" fill="#0f172a" stroke="#334155"/>
+      <text x="280" y="56" fill="#a5f3fc" text-anchor="middle">Find earliest t ≥ t_{est} such that U_{k, τ} + r_{i*k} ≤ R_k for all τ ∈ [t, t + d_{i*}) &amp; ∀ k</text>
+    </g>
+  </g>
+  <path d="M 500 600 L 500 630" stroke="#34d399" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 6. UPDATE SCHEDULE & RESOURCES -->
+  <g transform="translate(250, 630)" filter="url(#shadow)">
+    <rect x="0" y="0" width="500" height="75" rx="10" fill="url(#card-grad)" stroke="#34d399" stroke-width="1.5"/>
+    <text x="250" y="26" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#34d399" text-anchor="middle">
+      4. Schedule Activity i* &amp; Update State
+    </text>
+    <text x="250" y="46" font-family="Inter, sans-serif" font-size="11" fill="#cbd5e1" text-anchor="middle">
+      Set S_{i*} = t, C_{i*} = t + d_{i*} • Add i* to 𝒮
+    </text>
+    <text x="250" y="62" font-family="Inter, sans-serif" font-size="11" fill="#cbd5e1" text-anchor="middle">
+      Update U_{k, τ} 𝜗 U_{k, τ} + r_{i*k} for all τ ∈ [S_{i*}, C_{i*})
+    </text>
+  </g>
+  <path d="M 500 705 L 500 735" stroke="#34d399" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 7. DECISION: ALL ACTIVITIES SCHEDULED? -->
+  <g transform="translate(300, 735)" filter="url(#shadow)">
+    <polygon points="200,0 400,45 200,90 0,45" fill="#1e1b4b" stroke="#818cf8" stroke-width="1.5"/>
+    <text x="200" y="42" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">
+      All Activities Scheduled?
+    </text>
+    <text x="200" y="58" font-family="Inter, sans-serif" font-size="10" fill="#c7d2fe" text-anchor="middle">
+      |𝒮| == N + 2 ?
+    </text>
+  </g>
+
+  <!-- LOOP BACK -->
+  <path d="M 300 780 L 120 780 L 120 332 L 250 332" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow-amber)"/>
+  <text x="70" y="560" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#f59e0b" transform="rotate(-90 70 560)">NO: Next Unscheduled Activity</text>
+
+  <!-- YES BRANCH -->
+  <path d="M 500 825 L 500 855" stroke="#34d399" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="515" y="842" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#34d399">YES</text>
+
+  <!-- 8. OUTPUT MAKESPAN -->
+  <g transform="translate(250, 855)" filter="url(#shadow)">
+    <rect x="0" y="0" width="500" height="65" rx="10" fill="url(#card-grad)" stroke="#10b981" stroke-width="1.5"/>
+    <text x="250" y="26" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#34d399" text-anchor="middle">
+      5. Compute Project Makespan M
+    </text>
+    <text x="250" y="46" font-family="Inter, sans-serif" font-size="11" fill="#cbd5e1" text-anchor="middle">
+      M = max_{i} C_i = C_{sink} • Return Feasible Schedule Window Array [S_i, C_i]
+    </text>
+  </g>
+  <path d="M 500 920 L 500 950" stroke="#34d399" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 9. RETURN TO METAHEURISTIC -->
+  <g transform="translate(250, 950)" filter="url(#shadow)">
+    <rect x="0" y="0" width="500" height="50" rx="25" fill="url(#header-grad)"/>
+    <text x="250" y="31" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#ffffff" text-anchor="middle">
+      RETURN RESULT TO METAHEURISTIC FITNESS EVALUATOR
+    </text>
+  </g>
+</svg>

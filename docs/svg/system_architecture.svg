@@ -1,0 +1,301 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 950" width="100%" height="100%">
+  <defs>
+    <!-- Dark Gradient Background -->
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+
+    <!-- Glassmorphism Card Gradients -->
+    <linearGradient id="card-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.9"/>
+    </linearGradient>
+    
+    <linearGradient id="header-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+
+    <linearGradient id="accent-cyan" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+
+    <linearGradient id="accent-emerald" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+
+    <linearGradient id="accent-amber" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+
+    <linearGradient id="accent-purple" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+
+    <linearGradient id="accent-rose" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f43f5e"/>
+      <stop offset="100%" stop-color="#e11d48"/>
+    </linearGradient>
+
+    <!-- Filters for Glow Effects -->
+    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#a855f7"/>
+    </marker>
+    <marker id="arrow-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="950" fill="url(#bg-gradient)"/>
+  
+  <!-- Subtle Grid Lines -->
+  <g stroke="#ffffff" stroke-opacity="0.03" stroke-width="1">
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40"/>
+    </pattern>
+    <rect width="1200" height="950" fill="url(#grid)"/>
+  </g>
+
+  <!-- Title Header -->
+  <g filter="url(#shadow)">
+    <rect x="50" y="35" width="1100" height="70" rx="16" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <text x="600" y="77" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="26" font-weight="800" fill="url(#header-gradient)" text-anchor="middle" letter-spacing="1">
+      AI-ENHANCED RCPSP SYSTEM ARCHITECTURE
+    </text>
+    <text x="600" y="96" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#94a3b8" text-anchor="middle">
+      Machine Learning Controlled Metaheuristics &amp; Serial Schedule Generation Scheme (SSGS)
+    </text>
+  </g>
+
+  <!-- LAYER 1: DATA INPUT & PARSING -->
+  <g filter="url(#shadow)">
+    <rect x="50" y="140" width="330" height="220" rx="14" fill="url(#card-blue)" stroke="#06b6d4" stroke-width="1.5"/>
+    <rect x="50" y="140" width="330" height="36" rx="14" fill="url(#accent-cyan)"/>
+    <!-- Unround bottom corners of header bar -->
+    <rect x="50" y="162" width="330" height="14" fill="#06b6d4"/>
+    <text x="215" y="163" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">
+      1. Project File Parser &amp; DAG Construction
+    </text>
+    
+    <g transform="translate(70, 190)" font-family="Inter, sans-serif" font-size="12" fill="#cbd5e1">
+      <rect x="0" y="0" width="290" height="32" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="145" y="20" text-anchor="middle" fill="#38bdf8" font-weight="600">PSPLIB Parser (.sm) &amp; Custom Parser (.rcp, .json)</text>
+      
+      <rect x="0" y="42" width="290" height="32" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="145" y="62" text-anchor="middle">Index Normalisation (0-Shift to 1-Based)</text>
+
+      <rect x="0" y="84" width="290" height="32" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="145" y="104" text-anchor="middle">Dummy Start (Job 1) &amp; Dummy Sink (Job N+2)</text>
+
+      <rect x="0" y="126" width="290" height="32" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="145" y="146" text-anchor="middle" fill="#10b981">Kahn's Topological Sort &amp; Cycle Detection</text>
+    </g>
+  </g>
+
+  <!-- LAYER 2: FEATURE EXTRACTION ENGINE -->
+  <g filter="url(#shadow)">
+    <rect x="435" y="140" width="330" height="220" rx="14" fill="url(#card-blue)" stroke="#8b5cf6" stroke-width="1.5"/>
+    <rect x="435" y="140" width="330" height="36" rx="14" fill="url(#accent-purple)"/>
+    <rect x="435" y="162" width="330" height="14" fill="#8b5cf6"/>
+    <text x="600" y="163" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">
+      2. 30-Feature Extraction Engine
+    </text>
+
+    <g transform="translate(455, 190)" font-family="Inter, sans-serif" font-size="11" fill="#cbd5e1">
+      <rect x="0" y="0" width="138" height="70" rx="6" fill="#0f172a" stroke="#475569"/>
+      <text x="69" y="18" font-weight="700" fill="#c084fc" text-anchor="middle">Structural (8)</text>
+      <text x="69" y="36" text-anchor="middle">NC = |E| / N</text>
+      <text x="69" y="52" text-anchor="middle">PD, Deg Mean/Max</text>
+
+      <rect x="152" y="0" width="138" height="70" rx="6" fill="#0f172a" stroke="#475569"/>
+      <text x="69" y="18" font-weight="700" stroke-width="0" fill="#c084fc" text-anchor="middle" transform="translate(152,0)">Resource (10)</text>
+      <text x="221" y="36" text-anchor="middle">RF (Factor), RS (Strength)</text>
+      <text x="221" y="52" text-anchor="middle">RT (Tightness per k)</text>
+
+      <rect x="0" y="80" width="138" height="70" rx="6" fill="#0f172a" stroke="#475569"/>
+      <text x="69" y="18" font-weight="700" fill="#c084fc" text-anchor="middle">Critical Path (7)</text>
+      <text x="69" y="36" text-anchor="middle">CP_D, EST, LST, TS</text>
+      <text x="69" y="52" text-anchor="middle">EP = Σd_i / CP_D</text>
+
+      <rect x="152" y="80" width="138" height="70" rx="6" fill="#0f172a" stroke="#475569"/>
+      <text x="221" y="18" font-weight="700" fill="#c084fc" text-anchor="middle">Summary (5)</text>
+      <text x="221" y="36" text-anchor="middle">Duration μ, σ, Min, Max</text>
+      <text x="221" y="52" text-anchor="middle">Resource Variance</text>
+    </g>
+  </g>
+
+  <!-- LAYER 3: AI / ML SELECTOR -->
+  <g filter="url(#shadow)">
+    <rect x="820" y="140" width="330" height="220" rx="14" fill="url(#card-blue)" stroke="#f59e0b" stroke-width="1.5"/>
+    <rect x="820" y="140" width="330" height="36" rx="14" fill="url(#accent-amber)"/>
+    <rect x="820" y="162" width="330" height="14" fill="#f59e0b"/>
+    <text x="985" y="163" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">
+      3. AI/ML Algorithm Selector
+    </text>
+
+    <g transform="translate(840, 190)" font-family="Inter, sans-serif" font-size="12" fill="#cbd5e1">
+      <rect x="0" y="0" width="290" height="32" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="145" y="20" text-anchor="middle" fill="#fbbf24" font-weight="600">StandardScaler Feature Normalization</text>
+
+      <rect x="0" y="42" width="290" height="32" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="145" y="62" text-anchor="middle">Deep MLP Neural Net / XGBoost / RF</text>
+
+      <rect x="0" y="84" width="290" height="32" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="145" y="104" text-anchor="middle">Softmax Probability Vector [P_GA ... P_TS]</text>
+
+      <rect x="0" y="126" width="290" height="32" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="145" y="146" text-anchor="middle" fill="#10b981">Algorithm Recommendation &amp; Confidence</text>
+    </g>
+  </g>
+
+  <!-- ARROWS BETWEEN TOP LAYERS -->
+  <path d="M 380 250 L 435 250" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow-cyan)"/>
+  <path d="M 765 250 L 820 250" stroke="#a855f7" stroke-width="2.5" marker-end="url(#arrow-purple)"/>
+
+  <!-- LAYER 4: METAHEURISTIC OPTIMIZATION ENGINE (5 SOLVERS) -->
+  <g filter="url(#shadow)">
+    <rect x="50" y="410" width="1100" height="200" rx="14" fill="url(#card-blue)" stroke="#38bdf8" stroke-width="1.5"/>
+    <rect x="50" y="410" width="1100" height="36" rx="14" fill="url(#header-gradient)"/>
+    <rect x="50" y="432" width="1100" height="14" fill="#6366f1"/>
+    <text x="600" y="433" font-family="Inter, sans-serif" font-size="15" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="0.5">
+      4. Metaheuristic Optimization Core (5 Solvers operating on Random-Key Priority Vectors)
+    </text>
+
+    <!-- 5 Solver Boxes -->
+    <g transform="translate(70, 460)" font-family="Inter, sans-serif">
+      <!-- GA -->
+      <rect x="0" y="0" width="195" height="130" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="97" y="24" font-size="14" font-weight="700" fill="#38bdf8" text-anchor="middle">Genetic Alg (GA)</text>
+      <line x1="15" y1="34" x2="180" y2="34" stroke="#334155"/>
+      <text x="15" y="52" font-size="11" fill="#94a3b8">• Population: 50</text>
+      <text x="15" y="70" font-size="11" fill="#94a3b8">• Tournament (k=3)</text>
+      <text x="15" y="88" font-size="11" fill="#94a3b8">• Uniform Blend X-over</text>
+      <text x="15" y="106" font-size="11" fill="#94a3b8">• Creep Mutation (0.05)</text>
+
+      <!-- SA -->
+      <rect x="220" y="0" width="195" height="130" rx="10" fill="#0f172a" stroke="#f43f5e" stroke-width="1.5"/>
+      <text x="317" y="24" font-size="14" font-weight="700" fill="#f43f5e" text-anchor="middle">Simulated Anneal (SA)</text>
+      <line x1="235" y1="34" x2="400" y2="34" stroke="#334155"/>
+      <text x="235" y="52" font-size="11" fill="#94a3b8">• Single Trajectory</text>
+      <text x="235" y="70" font-size="11" fill="#94a3b8">• Metropolis P=exp(-Δ/T)</text>
+      <text x="235" y="88" font-size="11" fill="#94a3b8">• Geom Cooling (α=0.98)</text>
+      <text x="235" y="106" font-size="11" fill="#94a3b8">• Swap &amp; Jitter Perturb</text>
+
+      <!-- BCO -->
+      <rect x="440" y="0" width="195" height="130" rx="10" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="537" y="24" font-size="14" font-weight="700" fill="#f59e0b" text-anchor="middle">Bee Colony (BCO)</text>
+      <line x1="455" y1="34" x2="620" y2="34" stroke="#334155"/>
+      <text x="455" y="52" font-size="11" fill="#94a3b8">• Employed Bees (v_ik)</text>
+      <text x="455" y="70" font-size="11" fill="#94a3b8">• Onlooker Prob Selection</text>
+      <text x="455" y="88" font-size="11" fill="#94a3b8">• Scout Stagnation Reset</text>
+      <text x="455" y="106" font-size="11" fill="#94a3b8">• ABC Search Dynamics</text>
+
+      <!-- TS -->
+      <rect x="660" y="0" width="195" height="130" rx="10" fill="#0f172a" stroke="#a855f7" stroke-width="1.5"/>
+      <text x="757" y="24" font-size="14" font-weight="700" fill="#a855f7" text-anchor="middle">Tabu Search (TS)</text>
+      <line x1="675" y1="34" x2="840" y2="34" stroke="#334155"/>
+      <text x="675" y="52" font-size="11" fill="#94a3b8">• Pairwise Swap Nbrhd</text>
+      <text x="675" y="70" font-size="11" fill="#94a3b8">• Tabu Tenure T=7</text>
+      <text x="675" y="88" font-size="11" fill="#94a3b8">• Aspiration Criterion</text>
+      <text x="675" y="106" font-size="11" fill="#94a3b8">• Cycling Prevention</text>
+
+      <!-- PRH -->
+      <rect x="880" y="0" width="180" height="130" rx="10" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
+      <text x="970" y="24" font-size="14" font-weight="700" fill="#10b981" text-anchor="middle">Priority Rules (PRH)</text>
+      <line x1="895" y1="34" x2="1050" y2="34" stroke="#334155"/>
+      <text x="895" y="52" font-size="11" fill="#94a3b8">• EST / EFT Heuristic</text>
+      <text x="895" y="70" font-size="11" fill="#94a3b8">• LST / LFT Heuristic</text>
+      <text x="895" y="88" font-size="11" fill="#94a3b8">• RAND Baseline Rule</text>
+      <text x="895" y="106" font-size="11" fill="#94a3b8">• Deterministic Direct</text>
+    </g>
+  </g>
+
+  <!-- ARROW FROM AI TO SOLVERS -->
+  <path d="M 985 360 L 985 410" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#arrow-amber)"/>
+
+  <!-- ARROW FROM SOLVERS TO SSGS -->
+  <path d="M 600 610 L 600 655" stroke="#10b981" stroke-width="3" marker-end="url(#arrow-emerald)"/>
+
+  <!-- LAYER 5: SSGS DECODER & FEASIBILITY ENGINE -->
+  <g filter="url(#shadow)">
+    <rect x="50" y="655" width="1100" height="125" rx="14" fill="url(#card-blue)" stroke="#10b981" stroke-width="1.5"/>
+    <rect x="50" y="655" width="1100" height="32" rx="14" fill="url(#accent-emerald)"/>
+    <rect x="50" y="675" width="1100" height="12" fill="#10b981"/>
+    <text x="600" y="676" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">
+      5. Serial Schedule Generation Scheme (SSGS) — Unified Schedule Decoder &amp; Evaluator
+    </text>
+
+    <g transform="translate(70, 698)" font-family="Inter, sans-serif" font-size="11" fill="#cbd5e1">
+      <rect x="0" y="0" width="245" height="70" rx="8" fill="#0f172a" stroke="#334155"/>
+      <text x="122" y="20" font-weight="700" fill="#34d399" text-anchor="middle">1. Eligible Set Formation</text>
+      <text x="122" y="40" text-anchor="middle">E = { j ∉ Scheduled | P_j ⊆ S }</text>
+      <text x="122" y="56" text-anchor="middle">Precedence Feasibility</text>
+
+      <rect x="275" y="0" width="245" height="70" rx="8" fill="#0f172a" stroke="#334155"/>
+      <text x="397" y="20" font-weight="700" fill="#34d399" text-anchor="middle">2. Priority Activity Selection</text>
+      <text x="397" y="40" text-anchor="middle">i* = argmax_{j ∈ E} λ_j</text>
+      <text x="397" y="56" text-anchor="middle">Random-Key Vector Decoding</text>
+
+      <rect x="550" y="0" width="245" height="70" rx="8" fill="#0f172a" stroke="#334155"/>
+      <text x="672" y="20" font-weight="700" fill="#34d399" text-anchor="middle">3. EST &amp; Resource Scan</text>
+      <text x="672" y="40" text-anchor="middle">S_i ≥ max C_p (Precedence)</text>
+      <text x="672" y="56" text-anchor="middle">Σ r_ik ≤ R_k (Capacity Limit)</text>
+
+      <rect x="825" y="0" width="235" height="70" rx="8" fill="#0f172a" stroke="#334155"/>
+      <text x="942" y="20" font-weight="700" fill="#34d399" text-anchor="middle">4. Makespan Calculation</text>
+      <text x="942" y="40" text-anchor="middle">Makespan M = max C_i</text>
+      <text x="942" y="56" text-anchor="middle">Evaluation Budget Tracking</text>
+    </g>
+  </g>
+
+  <!-- ARROW FROM SSGS TO OUTPUT -->
+  <path d="M 600 780 L 600 815" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow-cyan)"/>
+
+  <!-- LAYER 6: ANALYTICS & DASHBOARD -->
+  <g filter="url(#shadow)">
+    <rect x="50" y="815" width="1100" height="95" rx="14" fill="url(#card-blue)" stroke="#38bdf8" stroke-width="1.5"/>
+    <rect x="50" y="815" width="1100" height="30" rx="14" fill="url(#accent-cyan)"/>
+    <rect x="50" y="833" width="1100" height="12" fill="#06b6d4"/>
+    <text x="600" y="835" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">
+      6. Output, Visualization &amp; Web Dashboard (Streamlit / Plotly / NetworkX)
+    </text>
+
+    <g transform="translate(70, 853)" font-family="Inter, sans-serif" font-size="11" fill="#cbd5e1">
+      <rect x="0" y="0" width="245" height="42" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="122" y="26" font-weight="600" fill="#38bdf8" text-anchor="middle">Interactive Gantt Chart</text>
+
+      <rect x="275" y="0" width="245" height="42" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="397" y="26" font-weight="600" fill="#38bdf8" text-anchor="middle">Resource Utilization Profile</text>
+
+      <rect x="550" y="0" width="245" height="42" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="672" y="26" font-weight="600" fill="#38bdf8" text-anchor="middle">NetworkX DAG Graph View</text>
+
+      <rect x="825" y="0" width="235" height="42" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="942" y="26" font-weight="600" fill="#38bdf8" text-anchor="middle">Benchmark Comparison Report</text>
+    </g>
+  </g>
+</svg>

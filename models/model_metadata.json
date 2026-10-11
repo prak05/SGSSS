@@ -1,0 +1,336 @@
+{
+  "model_version": "1.0",
+  "training_timestamp": "2026-10-07T01:08:31.393270+00:00",
+  "model_type": "MLPClassifier",
+  "solver": "lbfgs",
+  "activation": "relu",
+  "architecture": [
+    32
+  ],
+  "random_state": 42,
+  "classes": [
+    "ALL",
+    "BCO",
+    "GA",
+    "PRH",
+    "SA",
+    "TS"
+  ],
+  "features_baseline": [
+    "NC",
+    "RF",
+    "RS"
+  ],
+  "features_extended": [
+    "N",
+    "NC",
+    "RF",
+    "RS",
+    "activity_count",
+    "resource_count",
+    "average_duration",
+    "duration_std",
+    "minimum_duration",
+    "maximum_duration",
+    "total_duration",
+    "precedence_edge_count",
+    "precedence_density",
+    "average_predecessors",
+    "average_successors",
+    "maximum_predecessors",
+    "maximum_successors",
+    "source_count",
+    "sink_count",
+    "network_depth",
+    "estimated_parallelism",
+    "average_parallel_activities",
+    "average_resource_demand",
+    "resource_demand_std",
+    "resource_utilization_ratio",
+    "average_resource_tightness",
+    "maximum_resource_tightness",
+    "number_of_unused_resource_dimensions",
+    "critical_path_duration",
+    "critical_path_activity_count"
+  ],
+  "validation_strategy": "GroupKFold(5)",
+  "metrics_model_a_baseline": {
+    "accuracy": 0.55,
+    "balanced_accuracy": 0.298,
+    "macro_precision": 0.3042,
+    "macro_recall": 0.298,
+    "macro_f1": 0.2988,
+    "weighted_f1": 0.5589,
+    "confusion_matrix": [
+      [
+        24,
+        2,
+        4,
+        7,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        2,
+        0,
+        26,
+        3,
+        0,
+        6
+      ],
+      [
+        3,
+        0,
+        7,
+        2,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        4,
+        2,
+        0,
+        3
+      ]
+    ],
+    "classification_report": {
+      "ALL": {
+        "precision": 0.8,
+        "recall": 0.631578947368421,
+        "f1-score": 0.7058823529411765,
+        "support": 38.0
+      },
+      "BCO": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 1.0
+      },
+      "GA": {
+        "precision": 0.6190476190476191,
+        "recall": 0.7027027027027027,
+        "f1-score": 0.6582278481012658,
+        "support": 37.0
+      },
+      "PRH": {
+        "precision": 0.13333333333333333,
+        "recall": 0.15384615384615385,
+        "f1-score": 0.14285714285714285,
+        "support": 13.0
+      },
+      "SA": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 1.0
+      },
+      "TS": {
+        "precision": 0.2727272727272727,
+        "recall": 0.3,
+        "f1-score": 0.2857142857142857,
+        "support": 10.0
+      },
+      "accuracy": 0.55,
+      "macro avg": {
+        "precision": 0.30418470418470417,
+        "recall": 0.29802130065287963,
+        "f1-score": 0.2987802716023118,
+        "support": 100.0
+      },
+      "weighted avg": {
+        "precision": 0.5776536796536796,
+        "recall": 0.55,
+        "f1-score": 0.5589224550579724,
+        "support": 100.0
+      }
+    }
+  },
+  "metrics_model_b_extended": {
+    "accuracy": 0.64,
+    "balanced_accuracy": 0.342,
+    "macro_precision": 0.3522,
+    "macro_recall": 0.342,
+    "macro_f1": 0.345,
+    "weighted_f1": 0.631,
+    "confusion_matrix": [
+      [
+        33,
+        1,
+        3,
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        2,
+        0,
+        25,
+        7,
+        0,
+        3
+      ],
+      [
+        0,
+        0,
+        7,
+        4,
+        0,
+        2
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        2,
+        0,
+        6,
+        0,
+        0,
+        2
+      ]
+    ],
+    "classification_report": {
+      "ALL": {
+        "precision": 0.868421052631579,
+        "recall": 0.868421052631579,
+        "f1-score": 0.868421052631579,
+        "support": 38.0
+      },
+      "BCO": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 1.0
+      },
+      "GA": {
+        "precision": 0.5952380952380952,
+        "recall": 0.6756756756756757,
+        "f1-score": 0.6329113924050633,
+        "support": 37.0
+      },
+      "PRH": {
+        "precision": 0.36363636363636365,
+        "recall": 0.3076923076923077,
+        "f1-score": 0.3333333333333333,
+        "support": 13.0
+      },
+      "SA": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 1.0
+      },
+      "TS": {
+        "precision": 0.2857142857142857,
+        "recall": 0.2,
+        "f1-score": 0.23529411764705882,
+        "support": 10.0
+      },
+      "accuracy": 0.64,
+      "macro avg": {
+        "precision": 0.3521682995367206,
+        "recall": 0.3419648393332604,
+        "f1-score": 0.34499331600283906,
+        "support": 100.0
+      },
+      "weighted avg": {
+        "precision": 0.626082251082251,
+        "recall": 0.64,
+        "f1-score": 0.6310399602879126,
+        "support": 100.0
+      }
+    }
+  },
+  "top_features_importance": [
+    {
+      "feature": "RS",
+      "mean_importance": 0.223,
+      "std_importance": 0.04267
+    },
+    {
+      "feature": "resource_utilization_ratio",
+      "mean_importance": 0.133,
+      "std_importance": 0.02795
+    },
+    {
+      "feature": "average_duration",
+      "mean_importance": 0.132,
+      "std_importance": 0.02227
+    },
+    {
+      "feature": "NC",
+      "mean_importance": 0.097,
+      "std_importance": 0.02002
+    },
+    {
+      "feature": "average_successors",
+      "mean_importance": 0.096,
+      "std_importance": 0.02107
+    },
+    {
+      "feature": "RF",
+      "mean_importance": 0.093,
+      "std_importance": 0.03348
+    },
+    {
+      "feature": "critical_path_activity_count",
+      "mean_importance": 0.092,
+      "std_importance": 0.02315
+    },
+    {
+      "feature": "average_predecessors",
+      "mean_importance": 0.09,
+      "std_importance": 0.01732
+    },
+    {
+      "feature": "average_resource_demand",
+      "mean_importance": 0.088,
+      "std_importance": 0.02857
+    },
+    {
+      "feature": "resource_demand_std",
+      "mean_importance": 0.082,
+      "std_importance": 0.01661
+    }
+  ],
+  "confidence_policy": {
+    "high_confidence_threshold": 0.8,
+    "medium_confidence_threshold": 0.5,
+    "policy_rules": [
+      "confidence >= 0.80: execute predicted top algorithm",
+      "0.50 <= confidence < 0.80: execute top 2 predicted algorithms",
+      "confidence < 0.50: execute all 5 algorithms"
+    ]
+  }
+}

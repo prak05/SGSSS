@@ -1,0 +1,261 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1550" width="100%" height="100%">
+  <defs>
+    <!-- Dark Background -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#18181b"/>
+    </linearGradient>
+
+    <!-- Node Gradients -->
+    <linearGradient id="start-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+
+    <linearGradient id="process-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <linearGradient id="decision-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#312e81"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+
+    <linearGradient id="ai-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#701a75"/>
+      <stop offset="100%" stop-color="#4c1d95"/>
+    </linearGradient>
+
+    <linearGradient id="ssgs-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b"/>
+      <stop offset="100%" stop-color="#022c22"/>
+    </linearGradient>
+
+    <linearGradient id="end-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+
+    <!-- Glow & Shadow -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+
+    <!-- Markers -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrow-rose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f43f5e"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+    </marker>
+  </defs>
+
+  <rect width="1000" height="1550" fill="url(#bg-grad)"/>
+
+  <!-- Title -->
+  <g filter="url(#shadow)">
+    <rect x="100" y="30" width="800" height="60" rx="14" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="500" y="67" font-family="Inter, sans-serif" font-size="22" font-weight="800" fill="#38bdf8" text-anchor="middle" letter-spacing="1">
+      AI-RCPSP SYSTEM EXECUTION FLOWCHART
+    </text>
+  </g>
+
+  <!-- Flowchart Nodes -->
+
+  <!-- 1. START -->
+  <g transform="translate(350, 120)" filter="url(#shadow)">
+    <rect x="0" y="0" width="300" height="50" rx="25" fill="url(#start-grad)"/>
+    <text x="150" y="31" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">
+      START: Upload Project File (.sm / .rcp / .json)
+    </text>
+  </g>
+  <path d="M 500 170 L 500 200" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 2. PARSE FILE -->
+  <g transform="translate(300, 200)" filter="url(#shadow)">
+    <rect x="0" y="0" width="400" height="60" rx="10" fill="url(#process-grad)" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="200" y="26" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#f8fafc" text-anchor="middle">
+      Parser.parse(file_path)
+    </text>
+    <text x="200" y="46" font-family="Inter, sans-serif" font-size="11" fill="#94a3b8" text-anchor="middle">
+      Extract Activities V, Durations d_i, Precedence P_i, Resource Capacities R_k
+    </text>
+  </g>
+  <path d="M 500 260 L 500 290" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 3. NORMALIZE & DUMMY NODES -->
+  <g transform="translate(300, 290)" filter="url(#shadow)">
+    <rect x="0" y="0" width="400" height="60" rx="10" fill="url(#process-grad)" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="200" y="26" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#f8fafc" text-anchor="middle">
+      Graph Pre-processing &amp; Normalisation
+    </text>
+    <text x="200" y="46" font-family="Inter, sans-serif" font-size="11" fill="#94a3b8" text-anchor="middle">
+      Shift to 1-based indexing • Add Dummy Start (1) &amp; Sink (N+2)
+    </text>
+  </g>
+  <path d="M 500 350 L 500 380" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 4. DECISION: DAG VALIDATION -->
+  <g transform="translate(350, 380)" filter="url(#shadow)">
+    <polygon points="150,0 300,45 150,90 0,45" fill="url(#decision-grad)" stroke="#818cf8" stroke-width="1.5"/>
+    <text x="150" y="42" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">
+      Valid DAG? (Kahn's Sort)
+    </text>
+    <text x="150" y="58" font-family="Inter, sans-serif" font-size="10" fill="#c7d2fe" text-anchor="middle">
+      No Cycles Detected
+    </text>
+  </g>
+
+  <!-- CYCLE ERROR BRANCH -->
+  <path d="M 500 470 L 500 500" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <text x="515" y="488" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#10b981">YES</text>
+
+  <path d="M 650 425 L 770 425 L 770 460" stroke="#f43f5e" stroke-width="2" marker-end="url(#arrow-rose)"/>
+  <text x="680" y="415" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#f43f5e">NO</text>
+
+  <g transform="translate(680, 460)" filter="url(#shadow)">
+    <rect x="0" y="0" width="180" height="50" rx="8" fill="#450a0a" stroke="#f43f5e" stroke-width="1.5"/>
+    <text x="90" y="22" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#fca5a5" text-anchor="middle">Raise ValueError</text>
+    <text x="90" y="38" font-family="Inter, sans-serif" font-size="10" fill="#f87171" text-anchor="middle">"Precedence Cycle Found"</text>
+  </g>
+
+  <!-- 5. FEATURE EXTRACTION -->
+  <g transform="translate(275, 500)" filter="url(#shadow)">
+    <rect x="0" y="0" width="450" height="65" rx="10" fill="url(#process-grad)" stroke="#8b5cf6" stroke-width="1.5"/>
+    <text x="225" y="26" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#c084fc" text-anchor="middle">
+      FeatureExtractor.extract_all(project)
+    </text>
+    <text x="225" y="46" font-family="Inter, sans-serif" font-size="11" fill="#94a3b8" text-anchor="middle">
+      Computes 30 Features: NC, RF, RS, RT_k, CPM (CP_D, EST, LST, TS), EP, Slack Metrics
+    </text>
+  </g>
+  <path d="M 500 565 L 500 595" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 6. AI/ML PREDICTION -->
+  <g transform="translate(250, 595)" filter="url(#shadow)">
+    <rect x="0" y="0" width="500" height="75" rx="12" fill="url(#ai-grad)" stroke="#d946ef" stroke-width="1.5"/>
+    <text x="250" y="26" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">
+      AI Algorithm Selector (MLP Neural Net Inference)
+    </text>
+    <text x="250" y="46" font-family="Inter, sans-serif" font-size="11" fill="#f0abfc" text-anchor="middle">
+      StandardScaler(X_30) ➔ Deep Neural Net Layer Stack ➔ Softmax Probabilities [P_GA ... P_TS]
+    </text>
+    <text x="250" y="63" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#e9d5ff" text-anchor="middle">
+      Recommends Optimal Algorithm based on Project Profile
+    </text>
+  </g>
+  <path d="M 500 670 L 500 700" stroke="#d946ef" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 7. EXECUTION MODE SELECTION -->
+  <g transform="translate(300, 700)" filter="url(#shadow)">
+    <polygon points="200,0 400,45 200,90 0,45" fill="url(#decision-grad)" stroke="#a855f7" stroke-width="1.5"/>
+    <text x="200" y="42" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">
+      Execution Mode?
+    </text>
+    <text x="200" y="58" font-family="Inter, sans-serif" font-size="10" fill="#c7d2fe" text-anchor="middle">
+      AI Single Recommendation vs. Full 5-Algorithm Benchmark
+    </text>
+  </g>
+
+  <!-- BRANCHES FOR MODE -->
+  <path d="M 300 745 L 200 745 L 200 810" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="210" y="735" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#38bdf8">AI Selected Solver Only</text>
+
+  <path d="M 500 790 L 500 810" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="515" y="802" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#f59e0b">Run Benchmark Suite (All 5)</text>
+
+  <!-- 8. SOLVER RUNNER -->
+  <g transform="translate(80, 810)" filter="url(#shadow)">
+    <rect x="0" y="0" width="240" height="60" rx="10" fill="url(#process-grad)" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="120" y="26" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#38bdf8" text-anchor="middle">
+      Run Single Recommended Solver
+    </text>
+    <text x="120" y="44" font-family="Inter, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">
+      (e.g., GA / SA / BCO / TS / PRH)
+    </text>
+  </g>
+
+  <g transform="translate(380, 810)" filter="url(#shadow)">
+    <rect x="0" y="0" width="240" height="60" rx="10" fill="url(#process-grad)" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="120" y="26" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#f59e0b" text-anchor="middle">
+      Run Parallel Benchmark Suite
+    </text>
+    <text x="120" y="44" font-family="Inter, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">
+      Execute GA, SA, BCO, PRH, TS over N Seeds
+    </text>
+  </g>
+
+  <path d="M 200 870 L 200 905 L 340 905" stroke="#38bdf8" stroke-width="2"/>
+  <path d="M 500 870 L 500 905 L 340 905" stroke="#f59e0b" stroke-width="2"/>
+  <path d="M 340 905 L 340 930" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+  <!-- 9. SSGS DECODING LOOP -->
+  <g transform="translate(100, 930)" filter="url(#shadow)">
+    <rect x="0" y="0" width="800" height="230" rx="14" fill="url(#ssgs-grad)" stroke="#10b981" stroke-width="2"/>
+    <text x="400" y="28" font-family="Inter, sans-serif" font-size="15" font-weight="800" fill="#34d399" text-anchor="middle">
+      SSGS DECODER INNER LOOP (Shared Engine for candidate priority vectors λ)
+    </text>
+
+    <g transform="translate(30, 45)" font-family="Inter, sans-serif" font-size="11" fill="#e2e8f0">
+      <rect x="0" y="0" width="740" height="34" rx="6" fill="#064e3b" stroke="#059669"/>
+      <text x="370" y="22" font-weight="600" text-anchor="middle">Initialize: Scheduled set S = {1}, S_1 = 0, C_1 = 0; Resource usage U_k(t) = 0</text>
+
+      <rect x="0" y="44" width="740" height="34" rx="6" fill="#064e3b" stroke="#059669"/>
+      <text x="370" y="66" font-weight="600" text-anchor="middle">Find Eligible Set E = { j ∉ S | all predecessors P_j ⊆ S }</text>
+
+      <rect x="0" y="88" width="740" height="34" rx="6" fill="#064e3b" stroke="#059669"/>
+      <text x="370" y="110" font-weight="600" fill="#a7f3d0" text-anchor="middle">Select activity i* = argmax_{j ∈ E} λ_j  (Decode Priority Vector)</text>
+
+      <rect x="0" y="132" width="740" height="34" rx="6" fill="#064e3b" stroke="#059669"/>
+      <text x="370" y="154" font-weight="600" text-anchor="middle">Find earliest start t ≥ max_{p ∈ P_i*} C_p where Σ r_i*k + U_k(τ) ≤ R_k for all τ ∈ [t, t+d_i*)</text>
+    </g>
+  </g>
+  <path d="M 500 1160 L 500 1190" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+  <!-- 10. EVALUATION BUDGET CHECK -->
+  <g transform="translate(300, 1190)" filter="url(#shadow)">
+    <polygon points="200,0 400,45 200,90 0,45" fill="url(#decision-grad)" stroke="#818cf8" stroke-width="1.5"/>
+    <text x="200" y="42" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">
+      Evaluation Budget Exhausted?
+    </text>
+    <text x="200" y="58" font-family="Inter, sans-serif" font-size="10" fill="#c7d2fe" text-anchor="middle">
+      (e.g., 5000 SSGS Evaluations)
+    </text>
+  </g>
+
+  <!-- LOOP BACK FOR METAHEURISTIC SEARCH -->
+  <path d="M 100 1235 L 50 1235 L 50 970 L 100 970" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="20" y="1100" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#f59e0b" transform="rotate(-90 20 1100)">NO: Metaheuristic Mutation / Perturb λ</text>
+
+  <!-- YES BRANCH TO RESULTS -->
+  <path d="M 500 1280 L 500 1310" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <text x="515" y="1295" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#10b981">YES: Search Complete</text>
+
+  <!-- 11. VALIDATION & ANALYTICS -->
+  <g transform="translate(250, 1310)" filter="url(#shadow)">
+    <rect x="0" y="0" width="500" height="65" rx="10" fill="url(#process-grad)" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="250" y="26" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#f8fafc" text-anchor="middle">
+      Schedule Validation &amp; Comparative Analytics
+    </text>
+    <text x="250" y="46" font-family="Inter, sans-serif" font-size="11" fill="#94a3b8" text-anchor="middle">
+      Check Feasibility (Precedence &amp; Resource limits) • Calculate Mean/Std Makespan &amp; Rank
+    </text>
+  </g>
+  <path d="M 500 1375 L 500 1405" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 12. END: STREAMLIT DASHBOARD -->
+  <g transform="translate(250, 1405)" filter="url(#shadow)">
+    <rect x="0" y="0" width="500" height="65" rx="32" fill="url(#end-grad)"/>
+    <text x="250" y="30" font-family="Inter, sans-serif" font-size="14" font-weight="800" fill="#ffffff" text-anchor="middle">
+      END: Render Interactive Streamlit Dashboard (app.py)
+    </text>
+    <text x="250" y="48" font-family="Inter, sans-serif" font-size="11" fill="#d1fae5" text-anchor="middle">
+      Plotly Gantt Chart • Resource Utilization Profile • NetworkX DAG • Solvers Comparison
+    </text>
+  </g>
+</svg>

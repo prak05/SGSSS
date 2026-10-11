@@ -1,0 +1,29 @@
+# Python virtual environments
+venv/
+**/venv/
+.env
+.venv
+ENV/
+
+# Python cache & compiled bytecode
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Test & coverage caches
+.pytest_cache/
+**/.pytest_cache/
+.coverage
+htmlcov/
+
+# Editor / OS files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Temporary runtime files
+*.log

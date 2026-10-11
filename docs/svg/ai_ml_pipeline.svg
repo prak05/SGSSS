@@ -1,0 +1,214 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+
+    <linearGradient id="card-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <linearGradient id="title-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="50%" stop-color="#ec4899"/>
+      <stop offset="100%" stop-color="#f43f5e"/>
+    </linearGradient>
+
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#c084fc"/>
+    </marker>
+    <marker id="arrow-pink" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f43f5e"/>
+    </marker>
+  </defs>
+
+  <rect width="1100" height="800" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <g filter="url(#shadow)">
+    <rect x="50" y="30" width="1000" height="65" rx="14" fill="#1e293b" stroke="#a855f7" stroke-width="1.5"/>
+    <text x="550" y="66" font-family="Inter, sans-serif" font-size="22" font-weight="800" fill="url(#title-grad)" text-anchor="middle" letter-spacing="1">
+      AI-RCPSP NEURAL NETWORK &amp; ML SELECTOR PIPELINE
+    </text>
+  </g>
+
+  <!-- Left Column: Dataset & Training -->
+  <g transform="translate(50, 120)" filter="url(#shadow)">
+    <rect x="0" y="0" width="310" height="630" rx="14" fill="url(#card-grad)" stroke="#8b5cf6" stroke-width="1.5"/>
+    <rect x="0" y="0" width="310" height="36" rx="14" fill="#8b5cf6"/>
+    <rect x="0" y="24" width="310" height="12" fill="#8b5cf6"/>
+    <text x="155" y="23" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">
+      Offline Training &amp; Dataset Gen
+    </text>
+
+    <g transform="translate(20, 55)" font-family="Inter, sans-serif" font-size="11" fill="#cbd5e1">
+      <rect x="0" y="0" width="270" height="55" rx="8" fill="#0f172a" stroke="#334155"/>
+      <text x="135" y="22" font-weight="700" fill="#c084fc" text-anchor="middle">PSPLIB Benchmarks</text>
+      <text x="135" y="40" text-anchor="middle">J30 (480), J60 (480), J120 (600) instances</text>
+
+      <rect x="0" y="70" width="270" height="75" rx="8" fill="#0f172a" stroke="#334155"/>
+      <text x="135" y="22" font-weight="700" fill="#c084fc" text-anchor="middle">Multi-Seed Solver Runs</text>
+      <text x="135" y="38" text-anchor="middle">Execute GA, SA, BCO, PRH, TS</text>
+      <text x="135" y="54" text-anchor="middle">Budget: 5 000 SSGS calls / run</text>
+      <text x="135" y="68" font-size="9" fill="#94a3b8" text-anchor="middle">Ground Truth: Lowest Mean Makespan</text>
+
+      <rect x="0" y="160" width="270" height="65" rx="8" fill="#0f172a" stroke="#334155"/>
+      <text x="135" y="22" font-weight="700" fill="#c084fc" text-anchor="middle">Feature Matrix Compilation</text>
+      <text x="135" y="40" text-anchor="middle">X ∈ ℝ^{M × 30} (30 Descriptors)</text>
+      <text x="135" y="56" text-anchor="middle">y ∈ {0,1,2,3,4}^{M} (Optimal Label)</text>
+
+      <rect x="0" y="240" width="270" height="95" rx="8" fill="#0f172a" stroke="#334155"/>
+      <text x="135" y="22" font-weight="700" fill="#c084fc" text-anchor="middle">Classifier Model Training</text>
+      <text x="135" y="40" text-anchor="middle">• Stratified K-Fold CV (k=5)</text>
+      <text x="135" y="56" text-anchor="middle">• Deep MLP PyTorch Neural Net</text>
+      <text x="135" y="72" text-anchor="middle">• XGBoost / Random Forest Ensembles</text>
+      <text x="135" y="86" font-size="9" fill="#94a3b8" text-anchor="middle">Loss: Cross-Entropy + AdamW</text>
+
+      <rect x="0" y="350" width="270" height="80" rx="8" fill="#0f172a" stroke="#334155"/>
+      <text x="135" y="22" font-weight="700" fill="#10b981" text-anchor="middle">Quality Audit Gate</text>
+      <text x="135" y="40" text-anchor="middle">`generate_quality_report.py`</text>
+      <text x="135" y="56" text-anchor="middle">Checks Missing Values &amp; Class Imbalance</text>
+      <text x="135" y="70" font-size="9" fill="#34d399" text-anchor="middle">Outputs audit_report.json</text>
+    </g>
+  </g>
+
+  <!-- ARROW FROM TRAINING TO NEURAL NET -->
+  <path d="M 360 435 L 400 435" stroke="#c084fc" stroke-width="2.5" marker-end="url(#arrow-purple)"/>
+
+  <!-- Right Block: Deep Neural Network Architecture -->
+  <g transform="translate(400, 120)" filter="url(#shadow)">
+    <rect x="0" y="0" width="650" height="630" rx="14" fill="url(#card-grad)" stroke="#ec4899" stroke-width="1.5"/>
+    <rect x="0" y="0" width="650" height="36" rx="14" fill="url(#title-grad)"/>
+    <rect x="0" y="24" width="650" height="12" fill="#ec4899"/>
+    <text x="325" y="23" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">
+      Online Inference Engine &amp; Deep MLP Neural Architecture
+    </text>
+
+    <!-- Neural Network Layers Illustration -->
+    <g transform="translate(30, 60)">
+      <!-- Layer 1: Input (30 Features) -->
+      <g transform="translate(0, 0)">
+        <rect x="0" y="0" width="110" height="280" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+        <text x="55" y="25" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#38bdf8" text-anchor="middle">Input Layer</text>
+        <text x="55" y="42" font-family="Inter, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">(30 Features)</text>
+        <line x1="10" y1="52" x2="100" y2="52" stroke="#334155"/>
+
+        <!-- Feature Nodes -->
+        <circle cx="55" cy="75" r="10" fill="#0284c7"/>
+        <text x="55" y="79" font-family="Inter, sans-serif" font-size="8" fill="#ffffff" text-anchor="middle">NC</text>
+
+        <circle cx="55" cy="105" r="10" fill="#0284c7"/>
+        <text x="55" y="109" font-family="Inter, sans-serif" font-size="8" fill="#ffffff" text-anchor="middle">RF</text>
+
+        <circle cx="55" cy="135" r="10" fill="#0284c7"/>
+        <text x="55" y="139" font-family="Inter, sans-serif" font-size="8" fill="#ffffff" text-anchor="middle">RS</text>
+
+        <circle cx="55" cy="165" r="4" fill="#94a3b8"/>
+        <circle cx="55" cy="180" r="4" fill="#94a3b8"/>
+        <circle cx="55" cy="195" r="4" fill="#94a3b8"/>
+
+        <circle cx="55" cy="225" r="10" fill="#0284c7"/>
+        <text x="55" y="229" font-family="Inter, sans-serif" font-size="8" fill="#ffffff" text-anchor="middle">CP_D</text>
+
+        <circle cx="55" cy="255" r="10" fill="#0284c7"/>
+        <text x="55" y="259" font-family="Inter, sans-serif" font-size="8" fill="#ffffff" text-anchor="middle">EP</text>
+      </g>
+
+      <!-- Connections L1 to L2 -->
+      <path d="M 110 75 L 160 100" stroke="#38bdf8" stroke-opacity="0.3" stroke-width="1"/>
+      <path d="M 110 135 L 160 140" stroke="#38bdf8" stroke-opacity="0.3" stroke-width="1"/>
+      <path d="M 110 225 L 160 180" stroke="#38bdf8" stroke-opacity="0.3" stroke-width="1"/>
+
+      <!-- Layer 2: Hidden 1 (128 Neurons + ReLU + Dropout) -->
+      <g transform="translate(160, 20)">
+        <rect x="0" y="0" width="110" height="240" rx="10" fill="#0f172a" stroke="#8b5cf6" stroke-width="1.5"/>
+        <text x="55" y="22" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#c084fc" text-anchor="middle">Dense 1</text>
+        <text x="55" y="38" font-family="Inter, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">128 Neurons</text>
+        <line x1="10" y1="46" x2="100" y2="46" stroke="#334155"/>
+
+        <circle cx="55" cy="70" r="10" fill="#7c3aed"/>
+        <circle cx="55" cy="100" r="10" fill="#7c3aed"/>
+        <circle cx="55" cy="130" r="10" fill="#7c3aed"/>
+        <circle cx="55" cy="150" r="3" fill="#94a3b8"/>
+        <circle cx="55" cy="165" r="3" fill="#94a3b8"/>
+        <circle cx="55" cy="195" r="10" fill="#7c3aed"/>
+        <text x="55" y="222" font-family="Inter, sans-serif" font-size="8" fill="#a7f3d0" text-anchor="middle">ReLU + Drop(0.2)</text>
+      </g>
+
+      <!-- Connections L2 to L3 -->
+      <path d="M 270 100 L 320 110" stroke="#a855f7" stroke-opacity="0.3" stroke-width="1"/>
+      <path d="M 270 130 L 320 140" stroke="#a855f7" stroke-opacity="0.3" stroke-width="1"/>
+
+      <!-- Layer 3: Hidden 2 (64 Neurons + ReLU) -->
+      <g transform="translate(320, 35)">
+        <rect x="0" y="0" width="100" height="210" rx="10" fill="#0f172a" stroke="#ec4899" stroke-width="1.5"/>
+        <text x="50" y="22" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#f472b6" text-anchor="middle">Dense 2</text>
+        <text x="50" y="38" font-family="Inter, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">64 Neurons</text>
+        <line x1="10" y1="46" x2="90" y2="46" stroke="#334155"/>
+
+        <circle cx="50" cy="70" r="9" fill="#db2777"/>
+        <circle cx="50" cy="100" r="9" fill="#db2777"/>
+        <circle cx="50" cy="120" r="3" fill="#94a3b8"/>
+        <circle cx="50" cy="135" r="3" fill="#94a3b8"/>
+        <circle cx="50" cy="165" r="9" fill="#db2777"/>
+        <text x="50" y="195" font-family="Inter, sans-serif" font-size="8" fill="#a7f3d0" text-anchor="middle">ReLU</text>
+      </g>
+
+      <!-- Connections L3 to L4 -->
+      <path d="M 420 100 L 470 100" stroke="#ec4899" stroke-opacity="0.3" stroke-width="1"/>
+      <path d="M 420 165 L 470 180" stroke="#ec4899" stroke-opacity="0.3" stroke-width="1"/>
+
+      <!-- Layer 4: Output Softmax (5 Classes) -->
+      <g transform="translate(470, 10)">
+        <rect x="0" y="0" width="120" height="260" rx="10" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
+        <text x="60" y="22" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#34d399" text-anchor="middle">Softmax Output</text>
+        <text x="60" y="38" font-family="Inter, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">5 Algorithms</text>
+        <line x1="10" y1="46" x2="110" y2="46" stroke="#334155"/>
+
+        <!-- 5 Classes -->
+        <rect x="10" y="55" width="100" height="32" rx="4" fill="#064e3b" stroke="#059669"/>
+        <text x="60" y="75" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#34d399" text-anchor="middle">P(GA)</text>
+
+        <rect x="10" y="94" width="100" height="32" rx="4" fill="#4c0519" stroke="#be123c"/>
+        <text x="60" y="114" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#fb7185" text-anchor="middle">P(SA)</text>
+
+        <rect x="10" y="133" width="100" height="32" rx="4" fill="#451a03" stroke="#d97706"/>
+        <text x="60" y="153" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#fbbf24" text-anchor="middle">P(BCO)</text>
+
+        <rect x="10" y="172" width="100" height="32" rx="4" fill="#3b0764" stroke="#7e22ce"/>
+        <text x="60" y="192" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#c084fc" text-anchor="middle">P(TS)</text>
+
+        <rect x="10" y="211" width="100" height="32" rx="4" fill="#064e3b" stroke="#059669"/>
+        <text x="60" y="231" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#34d399" text-anchor="middle">P(PRH)</text>
+      </g>
+    </g>
+
+    <!-- Bottom Section of Right Card: Confidence Controller -->
+    <g transform="translate(30, 365)" font-family="Inter, sans-serif">
+      <rect x="0" y="0" width="590" height="185" rx="10" fill="#0f172a" stroke="#f43f5e" stroke-width="1.5"/>
+      <text x="295" y="26" font-size="13" font-weight="800" fill="#f43f5e" text-anchor="middle">
+        Confidence-Based Execution &amp; Fallback Controller (`predict.py`)
+      </text>
+
+      <g transform="translate(20, 42)" font-size="11" fill="#cbd5e1">
+        <rect x="0" y="0" width="265" height="60" rx="6" fill="#1e293b" stroke="#334155"/>
+        <text x="132" y="20" font-weight="700" fill="#38bdf8" text-anchor="middle">High Confidence (P_max ≥ 0.50)</text>
+        <text x="132" y="40" text-anchor="middle">Execute ONLY top predicted algorithm</text>
+
+        <rect x="285" y="0" width="265" height="60" rx="6" fill="#1e293b" stroke="#334155"/>
+        <text x="132" y="20" font-weight="700" fill="#f59e0b" text-anchor="middle">Low Confidence (P_max &lt; 0.50)</text>
+        <text x="132" y="40" text-anchor="middle">Execute Top 2 Metaheuristics + PRH Heuristic</text>
+
+        <rect x="0" y="72" width="550" height="55" rx="6" fill="#1e293b" stroke="#334155"/>
+        <text x="275" y="22" font-weight="700" fill="#10b981" text-anchor="middle">Execution Policy Output Contract</text>
+        <text x="275" y="40" text-anchor="middle">Recommended Algorithm • Confidence Score • Allocated Budget Strategy</text>
+      </g>
+    </g>
+  </g>
+</svg>
