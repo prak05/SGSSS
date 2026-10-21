@@ -71,6 +71,7 @@ def solve(
     seed: int = 42,
     tenure: int = 7,
     n_neighbours: int = 10,
+    initial_seed: Optional[List[float]] = None,
 ) -> AlgorithmResult:
     """
     Run Tabu Search on *project*.
@@ -85,6 +86,10 @@ def solve(
         Number of iterations a move stays tabu.
     n_neighbours : int
         Neighbourhood size per iteration.
+    initial_seed : Optional[List[float]]
+        GNN-predicted priority vector for warm-starting Tabu Search.
+        When provided, search starts from this solution, so tabu memory
+        prevents cycles around high-quality schedules from iteration 1.
     """
     rng = random.Random(seed)
     start_ts = time.perf_counter()
@@ -95,7 +100,10 @@ def solve(
     convergence_history: List[Tuple[int, int]] = []
 
     # Initial solution
-    current = [rng.random() for _ in range(n)]
+    if initial_seed is not None and len(initial_seed) == n:
+        current = initial_seed[:]
+    else:
+        current = [rng.random() for _ in range(n)]
     _, current_ms, current_sched = Evaluator.evaluate(project, current)
     evaluations += 1
 

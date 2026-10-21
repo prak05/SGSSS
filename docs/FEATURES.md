@@ -1,6 +1,6 @@
 # Project Features Documentation (AI-RCPSP)
 
-This document provides a comprehensive reference for all project characteristics extracted by [`src/features.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/features.py).
+This document provides a comprehensive reference for all project characteristics extracted by [`src/features.py`](src/features.py).
 
 The feature extractor translates an RCPSP instance into a fixed-length numerical descriptor used for topological analysis, project characterization, and downstream algorithm selection.
 

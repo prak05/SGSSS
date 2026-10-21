@@ -10,6 +10,7 @@ from rcpsp_all_in_one import (
     solve_bco,
     solve_tabu,
     solve_prh,
+    solve_gnn_priority,
     run_benchmark,
     compare_algorithms,
 )
@@ -52,12 +53,27 @@ def test_all_in_one_solvers():
     assert res_prh.makespan > 0
     assert Evaluator.check_constraints(project, res_prh.schedule)
 
+    res_gnn = solve_gnn_priority(project, evaluation_budget=100, seed=42)
+    assert res_gnn.makespan > 0
+    assert Evaluator.check_constraints(project, res_gnn.schedule)
+
 def test_all_in_one_benchmark():
     if not Path(SAMPLE_SM).exists():
         pytest.skip("Sample SM file not found")
     project = Parser.parse(SAMPLE_SM)
+    # Default 5 metaheuristics
     records = run_benchmark(project, seeds=[42], evaluation_budget=100)
     assert len(records) == 5
 
-    report = compare_algorithms(records)
+    # Full 6-algorithm suite including GNN
+    records_6 = run_benchmark(
+        project,
+        seeds=[42],
+        evaluation_budget=100,
+        algorithms=["GA", "SA", "BCO", "PRH", "TS", "GNN-Priority"],
+    )
+    assert len(records_6) == 6
+    assert any(r.algorithm == "GNN-Priority" for r in records_6)
+
+    report = compare_algorithms(records_6)
     assert "Comparison Report" in report.to_text()

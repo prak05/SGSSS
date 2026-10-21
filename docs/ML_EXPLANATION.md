@@ -8,7 +8,7 @@ This document provides foundational and mathematical explanations for all projec
 - **Simple Definition:** A discrete unit of work within a project that takes time to complete and requires resources.
 - **Mathematical Meaning:** An entity $j \in \{1, \dots, J\}$ characterized by processing duration $p_j \ge 0$ and resource demands $r_{j,k}$.
 - **Tiny Example:** "Pour Concrete Foundation" (takes 4 days, needs 2 workers).
-- **How Calculated in System:** Parsed from instance definition into [Activity](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/model.py) object with ID, duration, demands, and precedence lists.
+- **How Calculated in System:** Parsed from instance definition into [Activity](src/model.py) object with ID, duration, demands, and precedence lists.
 - **Why It Matters:** Activities are the atomic building blocks of the scheduling problem.
 
 ---
@@ -44,7 +44,7 @@ This document provides foundational and mathematical explanations for all projec
 - **Simple Definition:** A reusable asset (such as labor, cranes, or machinery) necessary to execute an activity.
 - **Mathematical Meaning:** Discrete renewal resource dimension $k \in \{1, \dots, K\}$.
 - **Tiny Example:** "Skilled Electrician" or "Heavy Excavator".
-- **How Calculated in System:** Modeled as [Resource](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/model.py) with total renewable capacity $R_k$.
+- **How Calculated in System:** Modeled as [Resource](src/model.py) with total renewable capacity $R_k$.
 - **Why It Matters:** Resource limits prevent all tasks from running in parallel, creating resource bottlenecks.
 
 ---
@@ -80,7 +80,7 @@ This document provides foundational and mathematical explanations for all projec
 - **Simple Definition:** The total elapsed time from project start to final activity completion.
 - **Mathematical Meaning:** Objective function $C_{\max} = \max_j (S_j + p_j) = S_{\text{finish}}$.
 - **Tiny Example:** A project starts on day 0 and all tasks finish on day 42 $\implies$ Makespan = 42.
-- **How Calculated in System:** Finish time of dummy sink node returned by [evaluate_schedule()](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/evaluation.py).
+- **How Calculated in System:** Finish time of dummy sink node returned by [evaluate_schedule()](src/evaluation.py).
 - **Why It Matters:** The primary optimization objective that all 5 metaheuristics aim to minimize.
 
 ---
@@ -89,7 +89,7 @@ This document provides foundational and mathematical explanations for all projec
 - **Simple Definition:** The total number of genuine, work-bearing tasks in the project (excluding dummy start/finish).
 - **Mathematical Meaning:** $N = J - 2$.
 - **Tiny Example:** In a 32-node graph with 2 dummies, $N = 30$.
-- **How Calculated in System:** Count of activities with non-zero duration or non-dummy indices in [src/features.py](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/features.py).
+- **How Calculated in System:** Count of activities with non-zero duration or non-dummy indices in [src/features.py](src/features.py).
 - **Why It Matters:** Governs problem scale, search space dimensionality ($N!$), and computational complexity.
 
 ---
@@ -98,7 +98,7 @@ This document provides foundational and mathematical explanations for all projec
 - **Simple Definition:** The average number of immediate precedence relationships per non-dummy activity.
 - **Mathematical Meaning:** $NC = \frac{|E|}{N}$.
 - **Tiny Example:** 48 precedence arcs across 30 activities $\implies NC = 1.60$.
-- **How Calculated in System:** `precedence_edge_count / N` in [extract_features()](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/features.py).
+- **How Calculated in System:** `precedence_edge_count / N` in [extract_features()](src/features.py).
 - **Why It Matters:** High $NC$ means tightly constrained task sequences; low $NC$ offers more scheduling freedom.
 
 ---
@@ -116,7 +116,7 @@ This document provides foundational and mathematical explanations for all projec
 - **Simple Definition:** How plentiful resource capacities are compared to minimum and maximum demand.
 - **Mathematical Meaning:** $RS_k = \frac{R_k - r_{k}^{\min}}{r_{k}^{\max} - r_{k}^{\min}}$, where $r_k^{\min} = \max_j r_{j,k}$ and $r_k^{\max}$ is peak concurrent demand under earliest start times.
 - **Tiny Example:** $RS \approx 1.0 \implies$ resources virtually unconstrained; $RS \approx 0.1 \implies$ extreme scarcity.
-- **How Calculated in System:** Calculated in [src/features.py](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/features.py) using earliest-start resource demand profiles.
+- **How Calculated in System:** Calculated in [src/features.py](src/features.py) using earliest-start resource demand profiles.
 - **Why It Matters:** Governs whether a project is primarily precedence-constrained or resource-constrained.
 
 ---
@@ -143,7 +143,7 @@ This document provides foundational and mathematical explanations for all projec
 - **Simple Definition:** A deterministic simulation engine that converts an activity priority list into an active, 100% feasible schedule.
 - **Mathematical Meaning:** An iterative builder that places activities one by one at their earliest precedence- and resource-valid start times.
 - **Tiny Example:** Places task 1 at day 0-4; task 2 at day 4-7 based on crane availability.
-- **How Calculated in System:** Implemented in [src/ssgs.py](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/ssgs.py) using a fast capacity timeline array.
+- **How Calculated in System:** Implemented in [src/ssgs.py](src/ssgs.py) using a fast capacity timeline array.
 - **Why It Matters:** Guarantees zero constraint violations while searching the space of active schedules.
 
 ---
@@ -152,7 +152,7 @@ This document provides foundational and mathematical explanations for all projec
 - **Simple Definition:** Evolutionary search inspired by natural selection, maintaining a population of solutions that undergo crossover and mutation.
 - **Mathematical Meaning:** Population-based metaheuristic using elitism, two-point crossover, and Gaussian mutation on random-key vectors.
 - **Tiny Example:** Combines good traits of Schedule A and Schedule B to discover a superior Schedule C.
-- **How Calculated in System:** Implemented in [src/algorithms/ga.py](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/algorithms/ga.py).
+- **How Calculated in System:** Implemented in [src/algorithms/ga.py](src/algorithms/ga.py).
 - **Why It Matters:** Particularly dominant on large, highly constrained project instances (J90/J120).
 
 ---
@@ -161,7 +161,7 @@ This document provides foundational and mathematical explanations for all projec
 - **Simple Definition:** Physics-inspired search that mimics cooling metal, accepting worse solutions with decreasing probability to escape local optima.
 - **Mathematical Meaning:** Metropolis acceptance probability $P = \exp(-\Delta / T)$ with geometric cooling $T_{k+1} = \alpha T_k$.
 - **Tiny Example:** High initial temperature explores widely; low temperature fine-tunes local schedule details.
-- **How Calculated in System:** Implemented in [src/algorithms/sa.py](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/algorithms/sa.py).
+- **How Calculated in System:** Implemented in [src/algorithms/sa.py](src/algorithms/sa.py).
 - **Why It Matters:** Very fast execution per evaluation; effective on moderately sized problem instances.
 
 ---
@@ -170,7 +170,7 @@ This document provides foundational and mathematical explanations for all projec
 - **Simple Definition:** Swarm-intelligence algorithm inspired by the foraging behavior of honeybees sharing nectar source locations.
 - **Mathematical Meaning:** Employed bees perform local search, onlooker bees recruit probabilistically, scout bees explore randomly.
 - **Tiny Example:** Bees scout promising priority vectors and recruit neighbors to improve makespan.
-- **How Calculated in System:** Implemented in [src/algorithms/bco.py](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/algorithms/bco.py).
+- **How Calculated in System:** Implemented in [src/algorithms/bco.py](src/algorithms/bco.py).
 - **Why It Matters:** Balances exploration and exploitation in continuous parameter space.
 
 ---
@@ -179,7 +179,7 @@ This document provides foundational and mathematical explanations for all projec
 - **Simple Definition:** Fast, rule-based dispatching heuristics that prioritize activities using domain rules (e.g. latest finish time).
 - **Mathematical Meaning:** Static rule selection $\pi_j = \text{score}(j)$ evaluating rules like LFT, LST, MIS, MTS, and randomized variants.
 - **Tiny Example:** Always schedule the activity with the strictest deadline first.
-- **How Calculated in System:** Implemented in [src/algorithms/prh.py](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/algorithms/prh.py).
+- **How Calculated in System:** Implemented in [src/algorithms/prh.py](src/algorithms/prh.py).
 - **Why It Matters:** Ultra-fast baseline that provides strong initial schedules without lengthy iterative search.
 
 ---
@@ -188,7 +188,7 @@ This document provides foundational and mathematical explanations for all projec
 - **Simple Definition:** Local neighborhood search that uses a short-term memory list (tabu list) to prevent cycling back to recently visited solutions.
 - **Mathematical Meaning:** Neighborhood generation $\mathcal{N}(\mathbf{x})$ with tabu tenure $T_{\text{tenure}}$ and aspiration criteria.
 - **Tiny Example:** Forbids reverting recently swapped activity priorities for 10 iterations.
-- **How Calculated in System:** Implemented in [src/algorithms/tabu.py](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/algorithms/tabu.py).
+- **How Calculated in System:** Implemented in [src/algorithms/tabu.py](src/algorithms/tabu.py).
 - **Why It Matters:** Our research extension beyond the original 4-algorithm paper, providing systematic memory-based local search.
 
 ---
@@ -197,7 +197,7 @@ This document provides foundational and mathematical explanations for all projec
 - **Simple Definition:** An AI model composed of interconnected layers of artificial neurons that learns non-linear patterns from training data.
 - **Mathematical Meaning:** Function approximator $\hat{\mathbf{y}} = \text{softmax}(W_2 \cdot \text{ReLU}(W_1 \mathbf{x} + \mathbf{b}_1) + \mathbf{b}_2)$.
 - **Tiny Example:** Takes 30 project metrics and outputs probability distribution over candidate algorithms.
-- **How Calculated in System:** Built with scikit-learn `MLPClassifier` in [src/ml/train.py](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/ml/train.py).
+- **How Calculated in System:** Built with scikit-learn `MLPClassifier` in [src/ml/train.py](src/ml/train.py).
 - **Why It Matters:** Acts as the Level 1 meta-controller, predicting the best algorithm before optimization begins.
 
 ---
@@ -206,7 +206,7 @@ This document provides foundational and mathematical explanations for all projec
 - **Simple Definition:** A single project project instance along with its extracted numerical features and experimental winner label.
 - **Mathematical Meaning:** Tuple $(\mathbf{x}_i, y_i) \in \mathbb{R}^{30} \times \{\text{GA}, \text{SA}, \text{BCO}, \text{PRH}, \text{TS}, \text{ALL}\}$.
 - **Tiny Example:** Instance `j3010_1` with feature vector $\mathbf{x}$ and label `ALL`.
-- **How Calculated in System:** Recorded in [data/training/training_dataset.csv](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/data/training/training_dataset.csv).
+- **How Calculated in System:** Recorded in [data/training/training_dataset.csv](data/training/training_dataset.csv).
 - **Why It Matters:** Provides the ground-truth empirical evidence required for supervised machine learning.
 
 ---
@@ -215,7 +215,7 @@ This document provides foundational and mathematical explanations for all projec
 - **Simple Definition:** A measurable numerical property or characteristic of a project instance.
 - **Mathematical Meaning:** Scalar coordinate $x_k \in \mathbb{R}$ in the feature vector $\mathbf{x}$.
 - **Tiny Example:** `precedence_density = 0.0967`.
-- **How Calculated in System:** Extracted deterministically via [src/features.py](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/features.py).
+- **How Calculated in System:** Extracted deterministically via [src/features.py](src/features.py).
 - **Why It Matters:** Informs the neural network about project structure without requiring full schedule evaluation.
 
 ---
@@ -224,7 +224,7 @@ This document provides foundational and mathematical explanations for all projec
 - **Simple Definition:** The algorithm selected by the trained neural network as most likely to produce the shortest makespan.
 - **Mathematical Meaning:** $\hat{y} = \arg\max_{c} P(y = c \mid \mathbf{x})$.
 - **Tiny Example:** Given a high-tightness project, the model predicts `GA`.
-- **How Calculated in System:** Output of [predict_algorithm()](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/ml/predict.py).
+- **How Calculated in System:** Output of [predict_algorithm()](src/ml/predict.py).
 - **Why It Matters:** Automates expert algorithm selection for non-expert users.
 
 ---
@@ -233,7 +233,7 @@ This document provides foundational and mathematical explanations for all projec
 - **Simple Definition:** A numerical score indicating how certain the neural network is in its top recommendation.
 - **Mathematical Meaning:** Maximum class probability $C = \max_{c} P(y = c \mid \mathbf{x}) \in [0, 1]$.
 - **Tiny Example:** Confidence = 0.88 means the model assigned 88% probability to the top class.
-- **How Calculated in System:** `res.confidence` in [PredictionResult](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/ml/predict.py).
+- **How Calculated in System:** `res.confidence` in [PredictionResult](src/ml/predict.py).
 - **Why It Matters:** Governs the confidence policy to determine whether to run 1, 2, or all 5 algorithms.
 
 ---
@@ -242,5 +242,5 @@ This document provides foundational and mathematical explanations for all projec
 - **Simple Definition:** A special classification label indicating that all five metaheuristics found the identical best makespan.
 - **Mathematical Meaning:** Condition where $\text{makespan}(\text{GA}) = \text{makespan}(\text{SA}) = \text{makespan}(\text{BCO}) = \text{makespan}(\text{PRH}) = \text{makespan}(\text{TS})$.
 - **Tiny Example:** On small project `j10_sample`, all 5 algorithms achieve makespan 31.
-- **How Calculated in System:** Assigned by [src/ml/generate_dataset.py](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/ml/generate_dataset.py) under `exact_five_way_tie`.
+- **How Calculated in System:** Assigned by [src/ml/generate_dataset.py](src/ml/generate_dataset.py) under `exact_five_way_tie`.
 - **Why It Matters:** Prevents artificial tie-breaking on instances where all algorithms perform equally well, maintaining academic honesty.

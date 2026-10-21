@@ -23,7 +23,7 @@ This document describes the design, schema, aggregation methodology, and data sp
 
 ## 2. Dataset Files and Directory Structure
 
-The training dataset is structured under [`data/training/`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/data/training/):
+The training dataset is structured under [`data/training/`](data/training/):
 
 ```
 data/training/
@@ -83,7 +83,7 @@ Contains granular data per run:
 
 Mitsou & Koulinas (2026) discuss label conflicts that arise when project instances with identical high-level parameters ($NC, RF, RS$) possess different latent structures that favor different algorithms.
 
-Our system provides [`src/ml/conflict_analysis.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/ml/conflict_analysis.py) to measure:
+Our system provides [`src/ml/conflict_analysis.py`](src/ml/conflict_analysis.py) to measure:
 1. **Exact duplicate feature vectors**: Instances sharing identical numerical vectors.
 2. **Consistent duplicates**: Instances with identical feature vectors and identical labels.
 3. **Conflicting duplicates**: Instances with identical feature vectors but different labels.

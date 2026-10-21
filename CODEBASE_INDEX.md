@@ -8,29 +8,29 @@ This document provides a single, comprehensive reference for the entire **AI-RCP
 
 | File Path | Component Category | Primary Purpose | Key Formulas / Algorithms Implemented |
 | :--- | :--- | :--- | :--- |
-| [`rcpsp_all_in_one.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/rcpsp_all_in_one.py) | Standalone All-in-One | Complete framework in 1 file | Models, SSGS, 30 Features, Parsers, GA, SA, BCO, TS, PRH, ML predictor, CLI |
-| [`src/model.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/model.py) | Data Models | Problem domain dataclasses | `Resource`, `Activity`, `Project`, `ScheduleEntry`, `AlgorithmResult` |
-| [`src/ssgs.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/ssgs.py) | Decoder | Serial Schedule Generation Scheme | Precedence EST: $S_i \ge \max C_p$; Time-indexed capacity check: $\sum r_{ik} \le R_k$; Makespan: $\max C_i$ |
-| [`src/features.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/features.py) | Feature Engine | Extracts 30 project characteristics | Paper metrics ($N, NC, RF, RS$), CPM ($EST, EFT, LST, LFT, TS$), $EP, RT_k$, Kahn's DAG sort |
-| [`src/parser.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/parser.py) | File Parser | Parses `.sm`, `.rcp`, `.json` files | PSPLIB file tokenizing, 0-to-1 job index shift, dummy source/sink activity injection |
-| [`src/evaluation.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/evaluation.py) | Evaluator | SSGS wrapper & constraint checker | Dual constraint validation: Precedence ($C_p \le S_i$) and Resource limit ($\sum r_{ik} \le R_k$) |
-| [`src/benchmark.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/benchmark.py) | Benchmarking | Multi-algorithm solver runner | Budget enforcement, seed isolation, `BenchmarkRecord` construction |
-| [`src/comparison.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/comparison.py) | Analytics | Statistical comparison engine | Mean $\mu$, Std $\sigma$, Feasibility rate, Hierarchical ranking (Best MS $\to$ Mean MS $\to$ Runtime) |
-| [`src/algorithms/ga.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/algorithms/ga.py) | Optimization | Genetic Algorithm | Tournament Selection ($k=3$), Uniform Blend Crossover, Creep Mutation ($p_m=0.05$), Elitism ($E=2$) |
-| [`src/algorithms/sa.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/algorithms/sa.py) | Optimization | Simulated Annealing | Metropolis Acceptance: $P = \exp(-\Delta / T)$, Geometric Cooling: $T_{k+1} = \alpha T_k$, Swap & Perturb operators |
-| [`src/algorithms/bco.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/algorithms/bco.py) | Optimization | Artificial Bee Colony | Employed Bee Perturbation ($v_{i,k} = x_{i,k} + \phi(x_{i,k}-x_{j,k})$), Onlooker Probability $p_i$, Scout reset |
-| [`src/algorithms/tabu.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/algorithms/tabu.py) | Optimization | Tabu Search | Pairwise index swap neighborhood, Tabu queue (Tenure $T=7$), Aspiration criterion ($M_{\text{cand}} < M_{\text{best}}$) |
-| [`src/algorithms/prh.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/algorithms/prh.py) | Optimization | Priority Rule Heuristics | Rule-to-Priority mapping: EST ($P_i = -EST_i$), EFT, LST, LFT, RAND ($P_i \sim U(0,1)$) |
-| [`src/ml/dataset.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/ml/dataset.py) | Machine Learning | Dataset container | PyTorch `Dataset` & NumPy array loader for algorithm selection dataset |
-| [`src/ml/generate_dataset.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/ml/generate_dataset.py) | Machine Learning | Dataset generator | Parallel processing across PSPLIB files, metaheuristic execution, feature-label matrix compilation |
-| [`src/ml/train.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/ml/train.py) | Machine Learning | Model training pipeline | Multi-model training (RF, XGBoost, LightGBM, MLP, SVM), Stratified K-Fold CV, hyperparameter tuning |
-| [`src/ml/predict.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/ml/predict.py) | Machine Learning | Inference engine | Feature extraction $\to$ `StandardScaler` $\to$ MLP prediction $\to$ Confidence Execution Policy |
-| [`src/ml/conflict_analysis.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/ml/conflict_analysis.py) | Analytics | Bottleneck analysis | Resource & precedence conflict matrix calculation |
-| [`src/ml/generate_quality_report.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/ml/generate_quality_report.py) | Quality Gate | Quality audit report | Dataset validation gate, class distribution audit, missing value checks |
-| [`app.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/app.py) | User Interface | Interactive Web Application | Streamlit GUI, file parsing, feature summary, ML recommendation, Plotly Gantt & Resource charts, NetworkX DAG |
-| [`scripts/download_psplib_100.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/scripts/download_psplib_100.py) | Utility Script | PSPLIB Benchmark Downloader | Automated retrieval of PSPLIB J30/J60/J120 problem sets |
-| [`scripts/demo_end_to_end_ml.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/scripts/demo_end_to_end_ml.py) | Utility Script | ML Workflow Demo | End-to-end pipeline execution demonstration |
-| [`scripts/audit_dataset.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/scripts/audit_dataset.py) | Utility Script | Dataset Auditor | Integrity check for training CSV files |
+| [`rcpsp_all_in_one.py`](rcpsp_all_in_one.py) | Standalone All-in-One | Complete framework in 1 file | Models, SSGS, 30 Features, Parsers, GA, SA, BCO, TS, PRH, ML predictor, CLI |
+| [`src/model.py`](src/model.py) | Data Models | Problem domain dataclasses | `Resource`, `Activity`, `Project`, `ScheduleEntry`, `AlgorithmResult` |
+| [`src/ssgs.py`](src/ssgs.py) | Decoder | Serial Schedule Generation Scheme | Precedence EST: $S_i \ge \max C_p$; Time-indexed capacity check: $\sum r_{ik} \le R_k$; Makespan: $\max C_i$ |
+| [`src/features.py`](src/features.py) | Feature Engine | Extracts 30 project characteristics | Paper metrics ($N, NC, RF, RS$), CPM ($EST, EFT, LST, LFT, TS$), $EP, RT_k$, Kahn's DAG sort |
+| [`src/parser.py`](src/parser.py) | File Parser | Parses `.sm`, `.rcp`, `.json` files | PSPLIB file tokenizing, 0-to-1 job index shift, dummy source/sink activity injection |
+| [`src/evaluation.py`](src/evaluation.py) | Evaluator | SSGS wrapper & constraint checker | Dual constraint validation: Precedence ($C_p \le S_i$) and Resource limit ($\sum r_{ik} \le R_k$) |
+| [`src/benchmark.py`](src/benchmark.py) | Benchmarking | Multi-algorithm solver runner | Budget enforcement, seed isolation, `BenchmarkRecord` construction |
+| [`src/comparison.py`](src/comparison.py) | Analytics | Statistical comparison engine | Mean $\mu$, Std $\sigma$, Feasibility rate, Hierarchical ranking (Best MS $\to$ Mean MS $\to$ Runtime) |
+| [`src/algorithms/ga.py`](src/algorithms/ga.py) | Optimization | Genetic Algorithm | Tournament Selection ($k=3$), Uniform Blend Crossover, Creep Mutation ($p_m=0.05$), Elitism ($E=2$) |
+| [`src/algorithms/sa.py`](src/algorithms/sa.py) | Optimization | Simulated Annealing | Metropolis Acceptance: $P = \exp(-\Delta / T)$, Geometric Cooling: $T_{k+1} = \alpha T_k$, Swap & Perturb operators |
+| [`src/algorithms/bco.py`](src/algorithms/bco.py) | Optimization | Artificial Bee Colony | Employed Bee Perturbation ($v_{i,k} = x_{i,k} + \phi(x_{i,k}-x_{j,k})$), Onlooker Probability $p_i$, Scout reset |
+| [`src/algorithms/tabu.py`](src/algorithms/tabu.py) | Optimization | Tabu Search | Pairwise index swap neighborhood, Tabu queue (Tenure $T=7$), Aspiration criterion ($M_{\text{cand}} < M_{\text{best}}$) |
+| [`src/algorithms/prh.py`](src/algorithms/prh.py) | Optimization | Priority Rule Heuristics | Rule-to-Priority mapping: EST ($P_i = -EST_i$), EFT, LST, LFT, RAND ($P_i \sim U(0,1)$) |
+| [`src/ml/dataset.py`](src/ml/dataset.py) | Machine Learning | Dataset container | PyTorch `Dataset` & NumPy array loader for algorithm selection dataset |
+| [`src/ml/generate_dataset.py`](src/ml/generate_dataset.py) | Machine Learning | Dataset generator | Parallel processing across PSPLIB files, metaheuristic execution, feature-label matrix compilation |
+| [`src/ml/train.py`](src/ml/train.py) | Machine Learning | Model training pipeline | Multi-model training (RF, XGBoost, LightGBM, MLP, SVM), Stratified K-Fold CV, hyperparameter tuning |
+| [`src/ml/predict.py`](src/ml/predict.py) | Machine Learning | Inference engine | Feature extraction $\to$ `StandardScaler` $\to$ MLP prediction $\to$ Confidence Execution Policy |
+| [`src/ml/conflict_analysis.py`](src/ml/conflict_analysis.py) | Analytics | Bottleneck analysis | Resource & precedence conflict matrix calculation |
+| [`src/ml/generate_quality_report.py`](src/ml/generate_quality_report.py) | Quality Gate | Quality audit report | Dataset validation gate, class distribution audit, missing value checks |
+| [`app.py`](app.py) | User Interface | Interactive Web Application | Streamlit GUI, file parsing, feature summary, ML recommendation, Plotly Gantt & Resource charts, NetworkX DAG |
+| [`scripts/download_psplib_100.py`](scripts/download_psplib_100.py) | Utility Script | PSPLIB Benchmark Downloader | Automated retrieval of PSPLIB J30/J60/J120 problem sets |
+| [`scripts/demo_end_to_end_ml.py`](scripts/demo_end_to_end_ml.py) | Utility Script | ML Workflow Demo | End-to-end pipeline execution demonstration |
+| [`scripts/audit_dataset.py`](scripts/audit_dataset.py) | Utility Script | Dataset Auditor | Integrity check for training CSV files |
 
 ---
 
@@ -40,7 +40,7 @@ This document provides a single, comprehensive reference for the entire **AI-RCP
 
 ### 📁 Core Domain Models & Scheduler
 
-#### 📄 [`src/model.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/model.py)
+#### 📄 [`src/model.py`](src/model.py)
 - **Role**: Defines the fundamental domain entities for RCPSP.
 - **Classes**:
   - `Resource(id: str, capacity: int)`: Renewable resource type with capacity $R_k$.
@@ -51,7 +51,7 @@ This document provides a single, comprehensive reference for the entire **AI-RCP
 
 ---
 
-#### 📄 [`src/ssgs.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/ssgs.py)
+#### 📄 [`src/ssgs.py`](src/ssgs.py)
 - **Role**: Serial Schedule Generation Scheme (SSGS) decoder — converts priority vectors into feasible schedules.
 - **Mathematical Formulations & Logic**:
   1. **Precedence Earliest Start Time ($EST_i$)**:
@@ -67,7 +67,7 @@ This document provides a single, comprehensive reference for the entire **AI-RCP
 
 ---
 
-#### 📄 [`src/features.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/features.py)
+#### 📄 [`src/features.py`](src/features.py)
 - **Role**: Feature Extraction Engine — computes 30 structural, precedence, resource, and critical path features.
 - **Mathematical Formulations**:
   1. **Paper Activity Count ($N$)**: Real activities excluding dummy start and sink:
@@ -93,7 +93,7 @@ This document provides a single, comprehensive reference for the entire **AI-RCP
 
 ---
 
-#### 📄 [`src/parser.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/parser.py)
+#### 📄 [`src/parser.py`](src/parser.py)
 - **Role**: Multi-format loader (`.sm`, `.rcp`, `.json`).
 - **Functions**:
   - `Parser.parse(file_path)`: Format auto-detection based on file extension.
@@ -103,7 +103,7 @@ This document provides a single, comprehensive reference for the entire **AI-RCP
 
 ---
 
-#### 📄 [`src/evaluation.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/evaluation.py)
+#### 📄 [`src/evaluation.py`](src/evaluation.py)
 - **Role**: Solution Evaluator & Constraint Validator.
 - **Functions**:
   - `Evaluator.evaluate(project, priority_vector)`: Invokes `SSGS.generate_schedule()` and validates feasibility.
@@ -111,7 +111,7 @@ This document provides a single, comprehensive reference for the entire **AI-RCP
 
 ---
 
-#### 📄 [`src/benchmark.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/benchmark.py)
+#### 📄 [`src/benchmark.py`](src/benchmark.py)
 - **Role**: Multi-algorithm benchmark execution manager.
 - **Functions & Dataclasses**:
   - `BenchmarkRecord`: Struct containing instance ID, algorithm name, seed, makespan, runtime, evaluations, feasibility status, priority vector, and convergence history.
@@ -120,7 +120,7 @@ This document provides a single, comprehensive reference for the entire **AI-RCP
 
 ---
 
-#### 📄 [`src/comparison.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/comparison.py)
+#### 📄 [`src/comparison.py`](src/comparison.py)
 - **Role**: Statistical comparison & ranking engine.
 - **Formulas & Ranking Rules**:
   - Mean makespan: $\mu = \frac{1}{M} \sum_{m=1}^M M_m$
@@ -135,7 +135,7 @@ This document provides a single, comprehensive reference for the entire **AI-RCP
 
 ### 📁 Metaheuristic Optimization Solvers (`src/algorithms/`)
 
-#### 📄 [`src/algorithms/ga.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/algorithms/ga.py)
+#### 📄 [`src/algorithms/ga.py`](src/algorithms/ga.py)
 - **Role**: Genetic Algorithm solver.
 - **Operators & Formulas**:
   - Chromosome: Random-key priority vector $\mathbf{x} \in [0, 1]^N$.
@@ -148,7 +148,7 @@ This document provides a single, comprehensive reference for the entire **AI-RCP
 
 ---
 
-#### 📄 [`src/algorithms/sa.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/algorithms/sa.py)
+#### 📄 [`src/algorithms/sa.py`](src/algorithms/sa.py)
 - **Role**: Simulated Annealing solver.
 - **Operators & Formulas**:
   - Neighborhood Operators:
@@ -162,7 +162,7 @@ This document provides a single, comprehensive reference for the entire **AI-RCP
 
 ---
 
-#### 📄 [`src/algorithms/bco.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/algorithms/bco.py)
+#### 📄 [`src/algorithms/bco.py`](src/algorithms/bco.py)
 - **Role**: Artificial Bee Colony (ABC) Optimization solver.
 - **Operators & Formulas**:
   - Employed Bee Perturbation:
@@ -173,7 +173,7 @@ This document provides a single, comprehensive reference for the entire **AI-RCP
 
 ---
 
-#### 📄 [`src/algorithms/tabu.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/algorithms/tabu.py)
+#### 📄 [`src/algorithms/tabu.py`](src/algorithms/tabu.py)
 - **Role**: Tabu Search solver.
 - **Operators & Formulas**:
   - Neighborhood Generation: Pairwise index swaps $(i, j)$.
@@ -183,7 +183,7 @@ This document provides a single, comprehensive reference for the entire **AI-RCP
 
 ---
 
-#### 📄 [`src/algorithms/prh.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/algorithms/prh.py)
+#### 📄 [`src/algorithms/prh.py`](src/algorithms/prh.py)
 - **Role**: Priority Rule-based Heuristic solver.
 - **Rules & Formulas**:
   - **EST Rule**: $P_i = -EST_i$ (Earliest Start Time first).
@@ -196,26 +196,26 @@ This document provides a single, comprehensive reference for the entire **AI-RCP
 
 ### 📁 Machine Learning Engine (`src/ml/`)
 
-#### 📄 [`src/ml/dataset.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/ml/dataset.py)
+#### 📄 [`src/ml/dataset.py`](src/ml/dataset.py)
 - **Role**: PyTorch & NumPy dataset loader for RCPSP algorithm selection.
 - **Classes**: `RCPSPDataset(Dataset)` converting feature matrices and algorithm labels into PyTorch Tensors.
 
 ---
 
-#### 📄 [`src/ml/generate_dataset.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/ml/generate_dataset.py)
+#### 📄 [`src/ml/generate_dataset.py`](src/ml/generate_dataset.py)
 - **Role**: Parallel dataset generation pipeline.
 - **Logic**: Executes all 5 metaheuristics on PSPLIB instances across multiple random seeds, extracts 30 project features, determines winning algorithm label, and exports training CSVs.
 
 ---
 
-#### 📄 [`src/ml/train.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/ml/train.py)
+#### 📄 [`src/ml/train.py`](src/ml/train.py)
 - **Role**: Multi-model training and evaluation pipeline.
 - **Models Trained**: Random Forest, XGBoost, LightGBM, MLPClassifier, SVM.
 - **Evaluation**: Stratified K-Fold Cross Validation, accuracy, macro-F1, confusion matrix generation, model serialization to `models/`.
 
 ---
 
-#### 📄 [`src/ml/predict.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/ml/predict.py)
+#### 📄 [`src/ml/predict.py`](src/ml/predict.py)
 - **Role**: Inference API & Confidence Execution Policy engine.
 - **Logic & Policy Rules**:
   1. Feature extraction $\to$ `StandardScaler` normalization.
@@ -227,13 +227,13 @@ This document provides a single, comprehensive reference for the entire **AI-RCP
 
 ---
 
-#### 📄 [`src/ml/conflict_analysis.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/ml/conflict_analysis.py)
+#### 📄 [`src/ml/conflict_analysis.py`](src/ml/conflict_analysis.py)
 - **Role**: Resource and precedence bottleneck analysis engine.
 - **Calculations**: Precedence concurrency bounds and resource demand overlap matrices.
 
 ---
 
-#### 📄 [`src/ml/generate_quality_report.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/src/ml/generate_quality_report.py)
+#### 📄 [`src/ml/generate_quality_report.py`](src/ml/generate_quality_report.py)
 - **Role**: Step 0 Quality Gate audit report generator.
 - **Checks**: Class balance, feature value ranges, missing values, duplicate records.
 
@@ -241,7 +241,7 @@ This document provides a single, comprehensive reference for the entire **AI-RCP
 
 ### 📁 User Interface & Utility Scripts
 
-#### 📄 [`app.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/app.py)
+#### 📄 [`app.py`](app.py)
 - **Role**: Interactive Streamlit web application.
 - **Features**:
   - File uploader supporting `.sm`, `.rcp`, `.json`.
@@ -252,17 +252,17 @@ This document provides a single, comprehensive reference for the entire **AI-RCP
 
 ---
 
-#### 📄 [`scripts/download_psplib_100.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/scripts/download_psplib_100.py)
+#### 📄 [`scripts/download_psplib_100.py`](scripts/download_psplib_100.py)
 - **Role**: Automated PSPLIB benchmark dataset downloader. downloads J30, J60, J120 benchmark instances into `data/`.
 
 ---
 
-#### 📄 [`scripts/demo_end_to_end_ml.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/scripts/demo_end_to_end_ml.py)
+#### 📄 [`scripts/demo_end_to_end_ml.py`](scripts/demo_end_to_end_ml.py)
 - **Role**: Demonstration script executing full end-to-end workflow: parsing $\to$ feature extraction $\to$ model prediction $\to$ algorithm execution.
 
 ---
 
-#### 📄 [`scripts/audit_dataset.py`](file:///home/prak05/GITHUB/fuck%20shit/AI-RCPSP/scripts/audit_dataset.py)
+#### 📄 [`scripts/audit_dataset.py`](scripts/audit_dataset.py)
 - **Role**: CLI tool for auditing dataset CSV file validity.
 
 ---

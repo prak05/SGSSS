@@ -51,6 +51,14 @@ try:
 except ImportError:
     HAS_NUMPY = False
 
+# Optional PyTorch & GNN integration
+try:
+    import torch
+    from src.ml.gnn_model import GNNPriorityScheduler
+    HAS_GNN = True
+except Exception:
+    HAS_GNN = False
+
 
 # ==============================================================================
 # SECTION 1: DATA MODELS
@@ -1215,6 +1223,28 @@ def solve_prh(
     )
 
 
+def solve_gnn_priority(
+    project: Project,
+    evaluation_budget: int = 100,
+    seed: int = 42,
+) -> AlgorithmResult:
+    """
+    Graph Neural Network (GNN) Priority Seeding Solver.
+    Uses deep message passing along precedence edges to predict activity priorities
+    and decodes them via SSGS in milliseconds.
+    """
+    start_ts = time.perf_counter()
+    if HAS_GNN:
+        model_ckpt = Path(__file__).resolve().parent / "models" / "gnn_dual_head.pt"
+        ckpt_str = str(model_ckpt) if model_ckpt.exists() else None
+        scheduler = GNNPriorityScheduler(model_path=ckpt_str)
+        result = scheduler.solve(project, name="GNN-Priority")
+        return result
+    else:
+        # Fallback to deterministic PRH if GNN is not loaded
+        return solve_prh(project, evaluation_budget=evaluation_budget, seed=seed)
+
+
 # Solver Registry Map
 SOLVER_REGISTRY = {
     "GA": solve_ga,
@@ -1222,6 +1252,8 @@ SOLVER_REGISTRY = {
     "BCO": solve_bco,
     "TS": solve_tabu,
     "PRH": solve_prh,
+    "GNN": solve_gnn_priority,
+    "GNN-Priority": solve_gnn_priority,
 }
 
 
@@ -1283,13 +1315,17 @@ def run_benchmark(
     seeds: List[int] = [42],
     evaluation_budget: int = 5000,
     instance_id: str = "instance",
+    algorithms: Optional[List[str]] = None,
 ) -> List[BenchmarkRecord]:
-    """Execute all 5 solvers across multiple random seeds."""
+    """Execute solvers across multiple random seeds."""
+    target_algos = algorithms if algorithms is not None else ["GA", "SA", "BCO", "PRH", "TS"]
     records = []
     for seed in seeds:
-        for algo_name, solver_fn in SOLVER_REGISTRY.items():
-            res = solver_fn(project, evaluation_budget=evaluation_budget, seed=seed)
-            feasible = Evaluator.check_constraints(project, res.schedule)
+        for algo_name in target_algos:
+            if algo_name in SOLVER_REGISTRY:
+                solver_fn = SOLVER_REGISTRY[algo_name]
+                res = solver_fn(project, evaluation_budget=evaluation_budget, seed=seed)
+                feasible = Evaluator.check_constraints(project, res.schedule)
             records.append(
                 BenchmarkRecord(
                     instance_id=instance_id,

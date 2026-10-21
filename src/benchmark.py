@@ -25,7 +25,7 @@ from typing import Any, Dict, List, Optional
 from src.evaluation import Evaluator
 from src.model import AlgorithmResult, Project
 
-from src.algorithms import ga, sa, bco, prh, tabu
+from src.algorithms import ga, sa, bco, prh, tabu, pso
 
 
 # ---------------------------------------------------------------------------
@@ -52,8 +52,29 @@ class BenchmarkRecord:
 
 
 # ---------------------------------------------------------------------------
-# Algorithm registry
-# ---------------------------------------------------------------------------
+from pathlib import Path
+
+
+def gnn_solve(
+    project: Project,
+    evaluation_budget: int = 100,
+    seed: int = 42,
+    **kwargs,
+) -> AlgorithmResult:
+    """
+    Graph Neural Network (GNN) Priority Seeding Solver.
+    Uses deep message passing along precedence edges to predict activity priorities
+    and decodes them via SSGS in milliseconds.
+    """
+    try:
+        from src.ml.gnn_model import GNNPriorityScheduler
+        ckpt_path = Path(__file__).resolve().parent.parent / "models" / "gnn_dual_head.pt"
+        ckpt_str = str(ckpt_path) if ckpt_path.exists() else None
+        scheduler = GNNPriorityScheduler(model_path=ckpt_str)
+        return scheduler.solve(project, name="GNN-Priority")
+    except Exception:
+        return prh.solve(project, evaluation_budget=evaluation_budget, seed=seed)
+
 
 # Maps short names to solve callables.
 # Each callable must accept (project, evaluation_budget, seed, **kwargs).
@@ -63,9 +84,19 @@ ALGORITHM_REGISTRY: Dict[str, Any] = {
     "BCO": bco.solve,
     "PRH": prh.solve,
     "TS":  tabu.solve,
+    "PSO": pso.solve,
+    "GNN": gnn_solve,
+    "GNN-Priority": gnn_solve,
 }
 
-ALGORITHM_NAMES = list(ALGORITHM_REGISTRY.keys())
+# 5 Baseline Metaheuristic algorithms (4 from paper + Tabu Search)
+ALGORITHM_NAMES = ["GA", "SA", "BCO", "PRH", "TS"]
+
+# 6 Core Metaheuristic algorithms including PSO extension
+METAHEURISTIC_NAMES = ["GA", "SA", "BCO", "PRH", "TS", "PSO"]
+
+# Full 7-algorithm suite (6 Metaheuristics + 1 GNN Priority Seeder)
+ALL_ALGORITHM_NAMES = ["GA", "SA", "BCO", "PRH", "TS", "PSO", "GNN"]
 
 
 # ---------------------------------------------------------------------------
@@ -145,32 +176,38 @@ def run_all_algorithms(
     seeds: List[int],
     evaluation_budget: int = 5000,
     instance_id: str = "unnamed",
+    algorithms: Optional[List[str]] = None,
     ga_kwargs:  Optional[Dict] = None,
     sa_kwargs:  Optional[Dict] = None,
     bco_kwargs: Optional[Dict] = None,
     prh_kwargs: Optional[Dict] = None,
     ts_kwargs:  Optional[Dict] = None,
+    pso_kwargs: Optional[Dict] = None,
+    gnn_kwargs: Optional[Dict] = None,
 ) -> List[BenchmarkRecord]:
     """
-    Run all five algorithms for each seed and return a flat list of records.
+    Run algorithms for each seed and return a flat list of records.
 
     Parameters
     ----------
     project          : Project to solve.
-    seeds            : List of integer seeds (one run per algorithm per seed).
+    seeds            : List of integer seeds.
     evaluation_budget: Same budget applied to every algorithm and seed.
     instance_id      : Label attached to all result records.
+    algorithms       : Optional list of algorithm names (defaults to 5 paper metaheuristics).
     *_kwargs         : Optional per-algorithm extra parameters.
 
     Returns
     -------
-    List[BenchmarkRecord] — length = 5 × len(seeds)
+    List[BenchmarkRecord]
     """
     ga_kwargs  = ga_kwargs  or {}
     sa_kwargs  = sa_kwargs  or {}
     bco_kwargs = bco_kwargs or {}
     prh_kwargs = prh_kwargs or {}
     ts_kwargs  = ts_kwargs  or {}
+    pso_kwargs = pso_kwargs or {}
+    gnn_kwargs = gnn_kwargs or {}
 
     algo_kwargs_map = {
         "GA":  ga_kwargs,
@@ -178,19 +215,23 @@ def run_all_algorithms(
         "BCO": bco_kwargs,
         "PRH": prh_kwargs,
         "TS":  ts_kwargs,
+        "PSO": pso_kwargs,
+        "GNN": gnn_kwargs,
+        "GNN-Priority": gnn_kwargs,
     }
 
+    target_algos = algorithms if algorithms is not None else ALGORITHM_NAMES
     records: List[BenchmarkRecord] = []
 
     for seed in seeds:
-        for algo_name in ALGORITHM_NAMES:
+        for algo_name in target_algos:
             record = run_single(
                 project=project,
                 algorithm=algo_name,
                 seed=seed,
                 evaluation_budget=evaluation_budget,
                 instance_id=instance_id,
-                **algo_kwargs_map[algo_name],
+                **algo_kwargs_map.get(algo_name, {}),
             )
             records.append(record)
 

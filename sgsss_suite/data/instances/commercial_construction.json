@@ -1,0 +1,81 @@
+{
+  "resources": {
+    "R1_Engineers": 4,
+    "R2_Cranes": 2,
+    "R3_Technicians": 5
+  },
+  "activities": [
+    {
+      "id": 1,
+      "duration": 0,
+      "predecessors": [],
+      "resource_requirements": { "R1_Engineers": 0, "R2_Cranes": 0, "R3_Technicians": 0 }
+    },
+    {
+      "id": 2,
+      "duration": 5,
+      "predecessors": [1],
+      "resource_requirements": { "R1_Engineers": 2, "R2_Cranes": 1, "R3_Technicians": 2 }
+    },
+    {
+      "id": 3,
+      "duration": 7,
+      "predecessors": [1],
+      "resource_requirements": { "R1_Engineers": 1, "R2_Cranes": 0, "R3_Technicians": 3 }
+    },
+    {
+      "id": 4,
+      "duration": 4,
+      "predecessors": [2],
+      "resource_requirements": { "R1_Engineers": 3, "R2_Cranes": 1, "R3_Technicians": 1 }
+    },
+    {
+      "id": 5,
+      "duration": 6,
+      "predecessors": [2, 3],
+      "resource_requirements": { "R1_Engineers": 2, "R2_Cranes": 2, "R3_Technicians": 2 }
+    },
+    {
+      "id": 6,
+      "duration": 8,
+      "predecessors": [3],
+      "resource_requirements": { "R1_Engineers": 1, "R2_Cranes": 0, "R3_Technicians": 4 }
+    },
+    {
+      "id": 7,
+      "duration": 5,
+      "predecessors": [4, 5],
+      "resource_requirements": { "R1_Engineers": 2, "R2_Cranes": 1, "R3_Technicians": 2 }
+    },
+    {
+      "id": 8,
+      "duration": 9,
+      "predecessors": [5, 6],
+      "resource_requirements": { "R1_Engineers": 2, "R2_Cranes": 1, "R3_Technicians": 3 }
+    },
+    {
+      "id": 9,
+      "duration": 3,
+      "predecessors": [7],
+      "resource_requirements": { "R1_Engineers": 1, "R2_Cranes": 0, "R3_Technicians": 2 }
+    },
+    {
+      "id": 10,
+      "duration": 4,
+      "predecessors": [7, 8],
+      "resource_requirements": { "R1_Engineers": 2, "R2_Cranes": 1, "R3_Technicians": 1 }
+    },
+    {
+      "id": 11,
+      "duration": 6,
+      "predecessors": [8],
+      "resource_requirements": { "R1_Engineers": 1, "R2_Cranes": 1, "R3_Technicians": 2 }
+    },
+    {
+      "id": 12,
+      "duration": 0,
+      "predecessors": [9, 10, 11],
+      "resource_requirements": { "R1_Engineers": 0, "R2_Cranes": 0, "R3_Technicians": 0 }
+    }
+  ]
+}

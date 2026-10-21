@@ -27,3 +27,13 @@ htmlcov/
 
 # Temporary runtime files
 *.log
+**/.DS_Store
+**/.idea/
+**/.vscode/
+.~lock*
+*.tmp
+venv
+**/venv
+.venv
+**/.venv
+Adithya Baiju

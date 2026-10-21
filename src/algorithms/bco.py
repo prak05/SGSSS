@@ -68,6 +68,7 @@ def solve(
     seed: int = 42,
     colony_size: int = 20,
     limit: int = 15,
+    initial_seed: Optional[List[float]] = None,
 ) -> AlgorithmResult:
     """
     Run the ABC-style Bee Colony Optimisation on *project*.
@@ -83,6 +84,10 @@ def solve(
         Onlooker bees also = colony_size per cycle.
     limit : int
         Maximum trials before a food source is abandoned (scout trigger).
+    initial_seed : Optional[List[float]]
+        GNN-predicted priority vector for warm-starting the colony.
+        When provided, the top food sources are initialized around this
+        vector, allowing immediate exploitation of GNN-predicted priorities.
     """
     rng = random.Random(seed)
     start_ts = time.perf_counter()
@@ -93,7 +98,23 @@ def solve(
     convergence_history: List[Tuple[int, int]] = []
 
     # ---- Initialise food sources ----
-    sources: List[List[float]] = [_random_source(n, rng) for _ in range(colony_size)]
+    sources: List[List[float]] = []
+
+    if initial_seed is not None and len(initial_seed) == n:
+        # GNN-seeded: first source is exact seed, then perturbations
+        sources.append(initial_seed[:])
+        n_seeded = max(1, colony_size // 5)
+        for _ in range(n_seeded):
+            perturbed = [
+                max(0.0, min(1.0, g + rng.gauss(0, 0.1)))
+                for g in initial_seed
+            ]
+            sources.append(perturbed)
+        # Fill rest randomly
+        for _ in range(colony_size - 1 - n_seeded):
+            sources.append(_random_source(n, rng))
+    else:
+        sources = [_random_source(n, rng) for _ in range(colony_size)]
     fitnesses: List[int] = []
     schedules: List[List[ScheduleEntry]] = []
     trials: List[int] = [0] * colony_size  # trial counters

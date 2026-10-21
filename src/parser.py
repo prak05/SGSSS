@@ -307,6 +307,43 @@ class Parser:
         with open(file_path, "r") as fh:
             lines = fh.readlines()
 
+        non_empty = [l.strip() for l in lines if l.strip() and not l.strip().startswith("#")]
+        if not non_empty:
+            raise ValueError(f"Empty RCP file: '{file_path}'")
+
+        # Check if file is standard numeric Patterson benchmark format
+        first_parts = non_empty[0].split()
+        if len(first_parts) >= 2 and first_parts[0].isdigit() and first_parts[1].isdigit():
+            n_act = int(first_parts[0])
+            n_res = int(first_parts[1])
+            caps = list(map(int, non_empty[1].split()[:n_res]))
+            for idx, cap in enumerate(caps):
+                r_id = f"R{idx + 1}"
+                project.resources[r_id] = Resource(id=r_id, capacity=cap)
+
+            for idx, line in enumerate(non_empty[2:2 + n_act], start=1):
+                parts = list(map(int, line.split()))
+                dur = parts[0]
+                reqs = {f"R{k + 1}": parts[1 + k] for k in range(n_res)}
+                n_succ = parts[1 + n_res]
+                succs = parts[2 + n_res: 2 + n_res + n_succ]
+                project.activities[idx] = Activity(
+                    id=idx,
+                    duration=dur,
+                    resource_requirements=reqs,
+                    successors=succs,
+                    predecessors=[]
+                )
+
+            for a_id, act in project.activities.items():
+                for s_id in act.successors:
+                    if s_id in project.activities:
+                        if a_id not in project.activities[s_id].predecessors:
+                            project.activities[s_id].predecessors.append(a_id)
+
+            return project
+
+        # Otherwise parse keyword-based RCP format
         resources_declared = 0
         activity_lines: List[str] = []
         reading_activities = False
@@ -346,6 +383,7 @@ class Parser:
                 f"No resources found in '{file_path}'. "
                 "Check RESOURCES and CAPACITY lines."
             )
+
 
         for line in activity_lines:
             parts = line.split()

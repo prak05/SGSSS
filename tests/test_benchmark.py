@@ -273,6 +273,24 @@ class TestFairnessVerification(unittest.TestCase):
         instance_ids = {rec.instance_id for rec in records}
         self.assertEqual(instance_ids, {"FAIRNESS"})
 
+    def test_six_algorithms_suite(self):
+        """All algorithms in ALL_ALGORITHM_NAMES run and return valid records."""
+        from src.benchmark import ALL_ALGORITHM_NAMES
+        records = run_all_algorithms(
+            self.project,
+            seeds=[1],
+            evaluation_budget=200,
+            instance_id="ALL_ALGOS",
+            algorithms=ALL_ALGORITHM_NAMES,
+        )
+        self.assertEqual(len(records), len(ALL_ALGORITHM_NAMES))
+        algos_in_records = {r.algorithm for r in records}
+        self.assertTrue(any("GNN" in a for a in algos_in_records))
+        self.assertTrue(any("PSO" in a for a in algos_in_records))
+        for r in records:
+            self.assertTrue(r.feasible)
+            self.assertGreater(r.makespan, 0)
+
 
 if __name__ == "__main__":
     unittest.main()

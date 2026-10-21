@@ -58,6 +58,7 @@ def solve(
     initial_temp: float = 100.0,
     cooling_rate: float = 0.995,
     min_temp: float = 0.01,
+    initial_seed: Optional[List[float]] = None,
 ) -> AlgorithmResult:
     """
     Run Simulated Annealing on *project*.
@@ -74,6 +75,10 @@ def solve(
         Geometric cooling factor α  (T ← α·T after each step).
     min_temp : float
         Algorithm stops when T falls below this value.
+    initial_seed : Optional[List[float]]
+        GNN-predicted priority vector for warm-starting SA.
+        When provided, SA begins from this solution instead of random,
+        eliminating burn-in and focusing cooling on GNN-quality regions.
     """
     rng = random.Random(seed)
     start_ts = time.perf_counter()
@@ -84,7 +89,10 @@ def solve(
     convergence_history: List[Tuple[int, int]] = []
 
     # Initial solution
-    current = [rng.random() for _ in range(n)]
+    if initial_seed is not None and len(initial_seed) == n:
+        current = initial_seed[:]
+    else:
+        current = [rng.random() for _ in range(n)]
     _, current_ms, current_sched = Evaluator.evaluate(project, current)
     evaluations += 1
 

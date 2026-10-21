@@ -79,6 +79,7 @@ def solve(
     mutation_rate: float = 0.05,
     elite_count: int = 2,
     tournament_k: int = 3,
+    initial_seed: Optional[List[float]] = None,
 ) -> AlgorithmResult:
     """
     Run a random-key Genetic Algorithm on *project*.
@@ -99,6 +100,10 @@ def solve(
         Number of best individuals carried unchanged to next generation.
     tournament_k : int
         Tournament size for parent selection.
+    initial_seed : Optional[List[float]]
+        GNN-predicted priority vector for warm-starting the population.
+        When provided, ~20%% of the initial population is seeded with
+        Gaussian perturbations around this vector.
     """
     rng = random.Random(seed)
     start_ts = time.perf_counter()
@@ -110,7 +115,23 @@ def solve(
     convergence_history: List[Tuple[int, int]] = []
 
     # ---- Initialise population ----
-    population: List[List[float]] = [_random_individual(n, rng) for _ in range(population_size)]
+    population: List[List[float]] = []
+
+    if initial_seed is not None and len(initial_seed) == n:
+        # GNN-seeded: ~20% of population from GNN priorities
+        population.append(initial_seed[:])  # Exact GNN seed
+        n_seeded = max(1, population_size // 5)
+        for _ in range(n_seeded):
+            perturbed = [
+                max(0.0, min(1.0, g + rng.gauss(0, 0.1)))
+                for g in initial_seed
+            ]
+            population.append(perturbed)
+        # Fill rest randomly
+        for _ in range(population_size - 1 - n_seeded):
+            population.append(_random_individual(n, rng))
+    else:
+        population = [_random_individual(n, rng) for _ in range(population_size)]
     fitnesses: List[int] = []
     schedules: List[List[ScheduleEntry]] = []
 
