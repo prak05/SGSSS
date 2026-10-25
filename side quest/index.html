@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-[#09090B]">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deadpool &amp; Wolverine // Ticket Terminal</title>
+  <meta name="description" content="Fan-made ticket booking terminal for Deadpool &amp; Wolverine. Not affiliated with Marvel, Disney or any cinema.">
+  <meta name="color-scheme" content="dark">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@700;800&display=swap">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    if (window.tailwind) {
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { void: '#09090B', bone: '#FAFAFA', ash: '#27272A', blood: '#991B1B' },
+            fontFamily: {
+              display: ['Syne', 'Impact', '"Arial Narrow Bold"', 'Haettenschweiler', 'sans-serif'],
+              mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', '"DejaVu Sans Mono"', 'monospace']
+            }
+          }
+        }
+      };
+    }
+  </script>
+
+  <style>
+    /* ---- Core styles: always applied, independent of the Tailwind CDN ---- */
+    :root {
+      --void: #09090B; --bone: #FAFAFA; --ash: #27272A; --ash-2: #3F3F46; --mute: #A1A1AA; --blood: #991B1B;
+      --quint: cubic-bezier(0.16, 1, 0.3, 1);
+      --quart: cubic-bezier(0.25, 1, 0.5, 1);
+      --f-display: 'Syne', Impact, 'Arial Narrow Bold', Haettenschweiler, sans-serif;
+      --f-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+    }
+    html, body { background: var(--void); color: var(--bone); margin: 0; }
+    body { font-family: var(--f-mono); -webkit-font-smoothing: antialiased; }
+    .font-display { font-family: var(--f-display); }
+    .font-mono { font-family: var(--f-mono); }
+
+    /* Structural background grid (1px zinc lines) */
+    .bg-grid {
+      background-image:
+        linear-gradient(to right, rgba(39,39,42,.55) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(39,39,42,.55) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+
+    /* Screen: 1px curved top border with faded horizontal edges */
+    .screen-arc {
+      height: 28px;
+      border-top: 1px solid var(--bone);
+      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 18%, #000 82%, transparent 100%);
+              mask-image: linear-gradient(to right, transparent 0%, #000 18%, #000 82%, transparent 100%);
+    }
+
+    /* Seats: 14x14 sharp squares */
+    .seat {
+      width: 14px; height: 14px; padding: 0; margin: 0;
+      border: 1px solid var(--ash-2); border-radius: 0;
+      background: transparent; cursor: pointer;
+      transition: background-color 200ms var(--quart), border-color 200ms var(--quart), transform 200ms var(--quart);
+    }
+    .seat:hover { border-color: var(--bone); }
+    .seat:focus-visible { outline: 1px solid var(--bone); outline-offset: 2px; }
+    .seat[aria-pressed="true"] { background: var(--blood); border-color: var(--blood); transition: none; } /* instant snap */
+    .seat[data-state="reserved"] { background: var(--ash); border-color: var(--ash); cursor: not-allowed; }
+    .seat[data-state="reserved"]:hover { border-color: var(--ash); }
+    .seat-row { display: flex; align-items: center; gap: 6px; }
+    .seat-gap { width: 14px; height: 14px; flex: none; }
+
+    /* Chips */
+    .chip {
+      font-family: var(--f-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--mute); background: transparent; border: 1px solid var(--ash); border-radius: 0;
+      padding: 8px 12px; cursor: pointer; position: relative;
+      transition: color 200ms var(--quart), border-color 200ms var(--quart);
+    }
+    .chip:hover { color: var(--bone); border-color: var(--ash-2); }
+    .chip:focus-visible { outline: 1px solid var(--bone); outline-offset: 2px; }
+    .chip[aria-checked="true"] { color: var(--bone); border-color: var(--bone); }
+    .chip[aria-checked="true"]::before {
+      content: ''; position: absolute; left: -1px; top: -1px; bottom: -1px; width: 2px; background: var(--blood);
+    }
+
+    /* Cinematic drawer */
+    .drawer {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+      background: var(--void); border-top: 1px solid var(--ash);
+      transform: translateY(100%);
+      transition: transform 500ms var(--quint), visibility 0s linear 500ms;
+      visibility: hidden;
+    }
+    .drawer[data-open="true"] { transform: translateY(0); visibility: visible; transition: transform 500ms var(--quint), visibility 0s; }
+    .drawer .reveal { opacity: 0; transform: translateY(8px); transition: opacity 500ms var(--quint), transform 500ms var(--quint); }
+    .drawer[data-open="true"] .reveal { opacity: 1; transform: none; }
+    .drawer[data-open="true"] .reveal:nth-child(1) { transition-delay: 120ms; }
+    .drawer[data-open="true"] .reveal:nth-child(2) { transition-delay: 180ms; }
+    .drawer[data-open="true"] .reveal:nth-child(3) { transition-delay: 240ms; }
+    .drawer[data-open="true"] .reveal:nth-child(4) { transition-delay: 300ms; }
+
+    /* Primary CTA: hard vertical slide-up, inverted colours */
+    button.cta {
+      position: relative; overflow: hidden; display: inline-block;
+      background: var(--bone); color: var(--void); border: 1px solid var(--bone); border-radius: 0;
+      font-family: var(--f-mono); font-weight: 700; font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+      height: 48px; padding: 0 28px; cursor: pointer;
+      transition: background-color 200ms var(--quart);
+    }
+    .cta-track { display: block; transition: transform 200ms var(--quart); }
+    .cta-line { display: flex; align-items: center; justify-content: center; height: 46px; white-space: nowrap; }
+    .cta-line + .cta-line { background: #000; color: #fff; }
+    .cta:hover .cta-track, .cta:focus-visible .cta-track { transform: translateY(-46px); }
+    .cta:focus-visible { outline: 1px solid var(--bone); outline-offset: 3px; }
+    .cta:disabled { opacity: .4; cursor: not-allowed; }
+    .cta:disabled .cta-track { transform: none; }
+
+    .ghost-btn {
+      font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--mute); background: transparent; border: 0; border-bottom: 1px solid var(--ash-2);
+      padding: 2px 0; cursor: pointer; transition: color 200ms var(--quart), border-color 200ms var(--quart);
+    }
+    .ghost-btn:hover { color: var(--bone); border-color: var(--bone); }
+
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    /* ---- Offline fallback: core layout when Tailwind CDN failed to load ---- */
+    html.no-tw .wrap { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+    html.no-tw .hero { display: grid; grid-template-columns: 1fr; gap: 40px; padding: 48px 0 160px; }
+    @media (min-width: 1024px) { html.no-tw .hero { grid-template-columns: 5fr 7fr; } }
+    html.no-tw .site-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--ash); font-size: 10px; letter-spacing: .15em; text-transform: uppercase; }
+    html.no-tw .title { font-family: var(--f-display); font-weight: 800; font-size: clamp(44px, 11vw, 104px); line-height: .85; letter-spacing: -.04em; text-transform: uppercase; margin: 0; }
+    html.no-tw .block { display: block; }
+    html.no-tw .hero dl { display: grid; grid-template-columns: auto 1fr; gap: 10px 24px; max-width: 24rem; margin: 32px 0 0; }
+    html.no-tw .hero dd { margin: 0; color: var(--bone); }
+    html.no-tw .hero p { font-size: 11px; line-height: 1.6; }
+    html.no-tw .panel h2, html.no-tw .panel .meta { font-weight: 400; margin: 0 0 12px; }
+    html.no-tw .screen-label { text-align: center; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--mute); margin: -12px 0 24px; }
+    html.no-tw .row-tag { width: 16px; text-align: center; font-size: 9px; color: #52525B; }
+    html.no-tw .legend { justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+    html.no-tw .panel { border: 1px solid var(--ash); padding: 20px; margin-bottom: 16px; }
+    html.no-tw .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    html.no-tw .meta { font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: var(--mute); }
+    html.no-tw .seat-map { display: flex; flex-direction: column; align-items: center; gap: 6px; overflow-x: auto; }
+    html.no-tw .drawer-inner { max-width: 1280px; margin: 0 auto; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between; }
+    html.no-tw .legend { display: flex; gap: 16px; font-size: 10px; color: var(--mute); }
+    html.no-tw .legend span { display: inline-flex; align-items: center; gap: 6px; }
+    html.no-tw footer { border-top: 1px solid var(--ash); padding: 24px 0 120px; font-size: 10px; color: var(--mute); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0.01ms !important; transition-delay: 0ms !important; animation: none !important; }
+    }
+  </style>
+  <noscript>
+    <style>.stage { opacity: 1 !important; transform: none !important; }</style>
+  </noscript>
+</head>
+
+<body class="min-h-screen bg-[#09090B] text-[#FAFAFA] font-mono antialiased selection:bg-[#FAFAFA] selection:text-[#09090B]">
+
+  <!-- Step 1: structural grid -->
+  <div id="grid-layer" aria-hidden="true"
+       class="stage pointer-events-none fixed inset-0 bg-grid opacity-0 transition-opacity duration-500 motion-reduce:transition-none"></div>
+
+  <div class="wrap relative mx-auto max-w-7xl px-5 sm:px-8">
+
+    <header class="site-header stage flex items-center justify-between border-b border-[#27272A] py-4 text-[10px] uppercase tracking-[0.2em] text-zinc-400 opacity-0 transition-opacity duration-500 motion-reduce:transition-none">
+      <span><span class="text-[#FAFAFA]">DP&amp;W</span> // terminal v1.0</span>
+      <nav aria-label="Status" class="hidden sm:flex items-center gap-6">
+        <span>Fan build</span>
+        <span id="clock" aria-live="off">--:--:--</span>
+      </nav>
+    </header>
+
+    <main id="main" class="hero grid grid-cols-1 gap-10 pb-48 pt-10 lg:grid-cols-12 lg:gap-12 lg:pt-16">
+
+      <!-- LEFT: editorial title block -->
+      <section aria-labelledby="title" class="lg:col-span-5 lg:sticky lg:top-10 lg:self-start">
+        <div id="hero-head" class="stage opacity-0 translate-y-4 transition-[opacity,transform] duration-[700ms] delay-150 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none motion-reduce:translate-y-0">
+          <p class="meta mb-6 text-[10px] uppercase tracking-[0.25em] text-zinc-500">Reel 01 &mdash; Admit one or several</p>
+          <h1 id="title" class="title font-display font-extrabold uppercase leading-[0.82] tracking-tighter text-[clamp(2.75rem,12vw,6rem)] lg:text-[clamp(3rem,5vw,5.5rem)]">
+            <span class="block">Dead&shy;pool</span>
+            <span class="block pl-[12%] text-zinc-500">&amp;</span>
+            <span class="block -mt-1">Wolve&shy;rine</span>
+          </h1>
+          <div class="mt-8 flex items-baseline gap-4 border-t border-[#27272A] pt-4">
+            <span class="font-display text-2xl font-extrabold lowercase tracking-tighter">// ticket terminal</span>
+          </div>
+          <dl class="meta mt-8 grid max-w-sm grid-cols-2 gap-x-6 gap-y-3 text-[10px] uppercase tracking-[0.15em] text-zinc-500">
+            <dt>Runtime</dt><dd class="text-[#FAFAFA]">127 min</dd>
+            <dt>Rating</dt><dd class="text-[#FAFAFA]">R</dd>
+            <dt>Format</dt><dd class="text-[#FAFAFA]">Laser / 2D</dd>
+            <dt>Hall</dt><dd class="text-[#FAFAFA]">Screen 04</dd>
+          </dl>
+          <p class="mt-8 max-w-xs text-[11px] leading-relaxed text-zinc-400">
+            Pick a date, pick a time, pick your seats. Maximum effort, minimum clicks.
+          </p>
+        </div>
+      </section>
+
+      <!-- RIGHT: interactive zone -->
+      <section id="panels" aria-label="Booking"
+               class="stage lg:col-span-7 flex flex-col gap-4 opacity-0 [clip-path:inset(0_100%_0_0)] transition-[all] duration-[500ms] delay-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:[clip-path:none]">
+
+        <!-- Date + time -->
+        <div class="panel border border-[#27272A] p-5 sm:p-6">
+          <div class="mb-4 flex items-center justify-between">
+            <h2 id="date-label" class="meta text-[10px] uppercase tracking-[0.2em] text-zinc-500">01 &mdash; Date</h2>
+            <span id="date-readout" class="meta text-[10px] uppercase tracking-[0.2em] text-zinc-500"></span>
+          </div>
+          <div id="date-chips" role="radiogroup" aria-labelledby="date-label" class="chip-row flex flex-wrap gap-2"></div>
+
+          <div class="mb-4 mt-6 flex items-center justify-between">
+            <h2 id="time-label" class="meta text-[10px] uppercase tracking-[0.2em] text-zinc-500">02 &mdash; Showtime</h2>
+            <span class="meta text-[10px] uppercase tracking-[0.2em] text-zinc-500">Local time</span>
+          </div>
+          <div id="time-chips" role="radiogroup" aria-labelledby="time-label" class="chip-row flex flex-wrap gap-2"></div>
+        </div>
+
+        <!-- Seat engine -->
+        <div class="panel border border-[#27272A] p-5 sm:p-6">
+          <div class="mb-6 flex items-center justify-between">
+            <h2 id="seat-label" class="meta text-[10px] uppercase tracking-[0.2em] text-zinc-500">03 &mdash; Seats</h2>
+            <span id="avail-readout" class="meta text-[10px] uppercase tracking-[0.2em] text-zinc-500"></span>
+          </div>
+
+          <figure class="m-0">
+            <div class="mx-auto w-full max-w-[460px]">
+              <div class="screen-arc" aria-hidden="true"></div>
+              <p class="screen-label -mt-3 text-center text-[10px] uppercase tracking-widest text-zinc-500">Screen</p>
+            </div>
+            <div class="overflow-x-auto pb-2">
+              <div id="seat-map" role="group" aria-labelledby="seat-label"
+                   class="seat-map mx-auto mt-8 flex w-max flex-col items-center gap-[6px]"></div>
+            </div>
+            <figcaption class="legend mt-6 flex flex-wrap items-center justify-center gap-5 text-[10px] uppercase tracking-[0.15em] text-zinc-500">
+              <span class="inline-flex items-center gap-2"><i class="seat inline-block rounded-none" style="cursor:default" aria-hidden="true"></i>Available</span>
+              <span class="inline-flex items-center gap-2"><i class="seat inline-block rounded-none" data-state="reserved" style="cursor:default" aria-hidden="true"></i>Reserved</span>
+              <span class="inline-flex items-center gap-2"><i class="seat inline-block rounded-none" aria-pressed="true" style="cursor:default" aria-hidden="true"></i>Selected</span>
+              <span class="text-zinc-600">Rows A&ndash;G $14 / H&ndash;J $18</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <p id="sr-status" class="sr-only" role="status" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <footer class="border-t border-[#27272A] pb-32 pt-6 text-[10px] uppercase leading-relaxed tracking-[0.15em] text-zinc-600">
+      <p>Fan-made demo. No real tickets are sold. Not affiliated with Marvel Studios, Disney or any cinema chain.</p>
+    </footer>
+  </div>
+
+  <!-- Cinematic checkout drawer -->
+  <aside id="drawer" class="drawer" data-open="false" aria-label="Checkout summary" aria-hidden="true">
+    <div class="drawer-inner mx-auto flex max-w-7xl flex-col gap-4 px-5 py-4 sm:px-8 md:flex-row md:items-center md:justify-between md:gap-8">
+      <div class="flex flex-wrap items-end gap-x-8 gap-y-3">
+        <div class="reveal">
+          <p class="text-[10px] uppercase tracking-[0.2em] text-zinc-500">Session</p>
+          <p id="d-session" class="mt-1 text-[12px] text-[#FAFAFA]">&mdash;</p>
+        </div>
+        <div class="reveal min-w-0 max-w-[60vw] md:max-w-[340px]">
+          <p class="text-[10px] uppercase tracking-[0.2em] text-zinc-500">Seats <span id="d-count" class="text-[#FAFAFA]">0</span></p>
+          <p id="d-seats" class="mt-1 truncate text-[12px] text-[#FAFAFA]">&mdash;</p>
+        </div>
+        <div class="reveal">
+          <p class="text-[10px] uppercase tracking-[0.2em] text-zinc-500">Total</p>
+          <p id="d-total" class="mt-1 font-display text-2xl font-extrabold leading-none tracking-tighter">$0</p>
+        </div>
+      </div>
+      <div class="reveal flex items-center gap-5">
+        <button id="clear-btn" type="button" class="ghost-btn">Clear</button>
+        <button id="cta" type="button" class="cta rounded-none">
+          <span class="cta-track" aria-hidden="true">
+            <span class="cta-line" data-cta-label>Confirm seats</span>
+            <span class="cta-line" data-cta-label>Confirm seats</span>
+          </span>
+          <span class="sr-only" id="cta-sr">Confirm seats</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <script>
+  (function () {
+    'use strict';
+
+    // Offline: if the Tailwind CDN never arrived, enable the hand-written fallback layout.
+    if (!window.tailwind) document.documentElement.classList.add('no-tw');
+
+    var ROWS = 'ABCDEFGHIJ'.split('');
+    var COLS = 14;
+    var AISLES = [3, 11];              // gap after these column numbers
+    var PREMIUM_ROWS = ['H', 'I', 'J'];
+    var PRICE = { std: 14, premium: 18 };
+    var MAX_SEATS = 10;
+    var TIMES = ['11:15', '14:40', '18:05', '21:30', '23:55'];
+
+    var state = { dateIdx: 0, timeIdx: 2, selected: [], reserved: {}, confirmed: false };
+
+    var $ = function (id) { return document.getElementById(id); };
+    var els = {
+      dates: $('date-chips'), times: $('time-chips'), map: $('seat-map'),
+      drawer: $('drawer'), session: $('d-session'), seats: $('d-seats'), count: $('d-count'),
+      total: $('d-total'), cta: $('cta'), clear: $('clear-btn'), sr: $('sr-status'),
+      avail: $('avail-readout'), dateOut: $('date-readout'), clock: $('clock')
+    };
+
+    // ---- Dates ----
+    var today = new Date();
+    var dates = [];
+    for (var d = 0; d < 6; d++) {
+      var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() + d);
+      dates.push(dt);
+    }
+    var fmtDay = function (dt) { return dt.toLocaleDateString('en-US', { weekday: 'short' }); };
+    var fmtNum = function (dt) { return dt.toLocaleDateString('en-US', { month: 'short', day: '2-digit' }); };
+
+    // ---- Seeded RNG so reservations are stable per session ----
+    function rng(seed) {
+      var s = seed >>> 0;
+      return function () {
+        s = (s + 0x6D2B79F5) >>> 0;
+        var t = s;
+        t = Math.imul(t ^ (t >>> 15), t | 1);
+        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    function buildReserved() {
+      var r = rng((dates[state.dateIdx].getDate() * 31 + state.timeIdx * 7 + 1) * 2654435761);
+      var density = 0.18 + (state.timeIdx / TIMES.length) * 0.35;  // later shows are busier
+      var out = {};
+      ROWS.forEach(function (row) {
+        for (var c = 1; c <= COLS; c++) if (r() < density) out[row + c] = true;
+      });
+      return out;
+    }
+
+    function priceOf(id) { return PREMIUM_ROWS.indexOf(id.charAt(0)) > -1 ? PRICE.premium : PRICE.std; }
+
+    // ---- Chips ----
+    function makeChip(label, sub, checked, onPick, ariaLabel) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'chip rounded-none';
+      b.setAttribute('role', 'radio');
+      b.setAttribute('aria-checked', checked ? 'true' : 'false');
+      b.setAttribute('tabindex', checked ? '0' : '-1');
+      if (ariaLabel) b.setAttribute('aria-label', ariaLabel);
+      b.innerHTML = sub ? '<span class="block text-[9px] opacity-70">' + sub + '</span><span class="block">' + label + '</span>' : label;
+      b.addEventListener('click', onPick);
+      return b;
+    }
+
+    function radioKeys(group) {
+      group.addEventListener('keydown', function (e) {
+        var keys = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
+        if (!(e.key in keys)) return;
+        var items = Array.prototype.slice.call(group.querySelectorAll('[role="radio"]'));
+        var i = items.indexOf(document.activeElement);
+        if (i < 0) return;
+        e.preventDefault();
+        var next = items[(i + keys[e.key] + items.length) % items.length];
+        next.click(); next.focus();
+      });
+    }
+
+    function renderChips() {
+      els.dates.textContent = '';
+      dates.forEach(function (dt, i) {
+        var day = i === 0 ? 'Today' : fmtDay(dt);
+        els.dates.appendChild(makeChip(fmtNum(dt), day, i === state.dateIdx, function () {
+          if (state.dateIdx === i) return;
+          state.dateIdx = i; resetSession();
+        }, day + ', ' + fmtNum(dt)));
+      });
+      els.times.textContent = '';
+      TIMES.forEach(function (t, i) {
+        els.times.appendChild(makeChip(t, '', i === state.timeIdx, function () {
+          if (state.timeIdx === i) return;
+          state.timeIdx = i; resetSession();
+        }, 'Showtime ' + t));
+      });
+      els.dateOut.textContent = dates[state.dateIdx].toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+    }
+
+    // ---- Seat map ----
+    function renderSeats() {
+      els.map.textContent = '';
+      var free = 0;
+      ROWS.forEach(function (row) {
+        var line = document.createElement('div');
+        line.className = 'seat-row flex items-center gap-[6px]' + (row === 'H' ? ' mt-3' : '');
+        line.setAttribute('role', 'group');
+        line.setAttribute('aria-label', 'Row ' + row);
+
+        var tag = document.createElement('span');
+        tag.className = 'row-tag w-4 text-center text-[9px] text-zinc-600';
+        tag.setAttribute('aria-hidden', 'true');
+        tag.textContent = row;
+        line.appendChild(tag);
+
+        for (var c = 1; c <= COLS; c++) {
+          var id = row + c;
+          var reserved = !!state.reserved[id];
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'seat rounded-none';
+          b.dataset.seat = id;
+          b.dataset.state = reserved ? 'reserved' : 'available';
+          b.setAttribute('aria-pressed', state.selected.indexOf(id) > -1 ? 'true' : 'false');
+          b.setAttribute('aria-label', 'Row ' + row + ', seat ' + c + ', $' + priceOf(id) + (reserved ? ', reserved' : ''));
+          if (reserved) { b.disabled = true; } else { free++; }
+          line.appendChild(b);
+          if (AISLES.indexOf(c) > -1) {
+            var gap = document.createElement('span');
+            gap.className = 'seat-gap'; gap.setAttribute('aria-hidden', 'true');
+            line.appendChild(gap);
+          }
+        }
+
+        var tag2 = tag.cloneNode(true);
+        line.appendChild(tag2);
+        els.map.appendChild(line);
+      });
+      els.avail.textContent = free + ' / ' + ROWS.length * COLS + ' open';
+    }
+
+    els.map.addEventListener('click', function (e) {
+      var b = e.target.closest('button.seat');
+      if (!b || b.disabled) return;
+      var id = b.dataset.seat;
+      var i = state.selected.indexOf(id);
+      if (i > -1) {
+        state.selected.splice(i, 1);
+        b.setAttribute('aria-pressed', 'false');
+        announce('Seat ' + id + ' released');
+      } else {
+        if (state.selected.length >= MAX_SEATS) { announce('Maximum of ' + MAX_SEATS + ' seats per booking'); return; }
+        state.selected.push(id);
+        b.setAttribute('aria-pressed', 'true');
+        announce('Seat ' + id + ' selected');
+      }
+      state.confirmed = false;
+      updateDrawer();
+    });
+
+    // ---- Drawer ----
+    function sortSeats(a, b) {
+      return a.charCodeAt(0) - b.charCodeAt(0) || parseInt(a.slice(1), 10) - parseInt(b.slice(1), 10);
+    }
+
+    function setCta(text, disabled) {
+      Array.prototype.forEach.call(document.querySelectorAll('[data-cta-label]'), function (n) { n.textContent = text; });
+      $('cta-sr').textContent = text;
+      els.cta.disabled = !!disabled;
+    }
+
+    function updateDrawer() {
+      var n = state.selected.length;
+      var open = n > 0;
+      els.drawer.dataset.open = open ? 'true' : 'false';
+      els.drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+      if ('inert' in els.drawer) els.drawer.inert = !open;
+      if (!open) return; // keep the last content while sliding out, so nothing blinks away
+
+      var seats = state.selected.slice().sort(sortSeats);
+      var total = seats.reduce(function (s, id) { return s + priceOf(id); }, 0);
+      els.session.textContent = fmtDay(dates[state.dateIdx]) + ' ' + fmtNum(dates[state.dateIdx]) + ' / ' + TIMES[state.timeIdx];
+      els.seats.textContent = seats.join(' · ');
+      els.seats.title = seats.join(', ');
+      els.count.textContent = String(n).padStart(2, '0');
+      els.total.textContent = '$' + total;
+      if (!state.confirmed) setCta('Confirm ' + n + ' seat' + (n === 1 ? '' : 's') + ' // $' + total, false);
+    }
+
+    els.cta.addEventListener('click', function () {
+      if (!state.selected.length || state.confirmed) return;
+      state.confirmed = true;
+      var code = 'DPW-' + Math.random().toString(36).slice(2, 8).toUpperCase();
+      setCta('Booked // ' + code, true);
+      announce('Booking confirmed. Reference ' + code + '. This is a fan demo, no real tickets were issued.');
+    });
+
+    els.clear.addEventListener('click', function () {
+      state.selected = [];
+      state.confirmed = false;
+      Array.prototype.forEach.call(els.map.querySelectorAll('[aria-pressed="true"]'), function (b) { b.setAttribute('aria-pressed', 'false'); });
+      announce('Selection cleared');
+      updateDrawer();
+    });
+
+    function resetSession() {
+      state.selected = [];
+      state.confirmed = false;
+      state.reserved = buildReserved();
+      renderChips();
+      renderSeats();
+      updateDrawer();
+      announce('Session ' + fmtNum(dates[state.dateIdx]) + ' ' + TIMES[state.timeIdx] + ' loaded');
+    }
+
+    function announce(msg) { els.sr.textContent = msg; }
+
+    // ---- Clock ----
+    function tick() { if (els.clock) els.clock.textContent = new Date().toLocaleTimeString('en-GB'); }
+
+    // ---- Boot + staggered load ----
+    radioKeys(els.dates); radioKeys(els.times);
+    state.reserved = buildReserved();
+    renderChips(); renderSeats(); updateDrawer(); tick();
+    setInterval(tick, 1000);
+
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        // Step 1: grid + header borders (duration-500)
+        Array.prototype.forEach.call(document.querySelectorAll('#grid-layer, .site-header'), function (n) { n.classList.remove('opacity-0'); });
+        // Step 2: heading glides up 16px (delay-150, quint)
+        $('hero-head').classList.remove('opacity-0', 'translate-y-4');
+        // Step 3: panels wipe in (delay-300)
+        var p = $('panels');
+        p.classList.remove('opacity-0', '[clip-path:inset(0_100%_0_0)]');
+        p.classList.add('[clip-path:inset(0_0_0_0)]');
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

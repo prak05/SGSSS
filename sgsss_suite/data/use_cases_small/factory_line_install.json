@@ -1,0 +1,253 @@
+{
+ "name": "factory_line_install",
+ "resources": {
+  "Millwrights": 4,
+  "Electricians": 3,
+  "Controls engineers": 2,
+  "Forklift": 1
+ },
+ "activities": [
+  {
+   "id": 1,
+   "name": "Start",
+   "duration": 0,
+   "predecessors": [],
+   "resource_requirements": {
+    "Millwrights": 0,
+    "Electricians": 0,
+    "Controls engineers": 0,
+    "Forklift": 0
+   }
+  },
+  {
+   "id": 2,
+   "name": "Floor marking",
+   "duration": 1,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Millwrights": 1,
+    "Electricians": 0,
+    "Controls engineers": 0,
+    "Forklift": 0
+   }
+  },
+  {
+   "id": 3,
+   "name": "Remove old line",
+   "duration": 4,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Millwrights": 3,
+    "Electricians": 1,
+    "Controls engineers": 0,
+    "Forklift": 1
+   }
+  },
+  {
+   "id": 4,
+   "name": "Anchor bolts",
+   "duration": 2,
+   "predecessors": [
+    2,
+    3
+   ],
+   "resource_requirements": {
+    "Millwrights": 2,
+    "Electricians": 0,
+    "Controls engineers": 0,
+    "Forklift": 0
+   }
+  },
+  {
+   "id": 5,
+   "name": "Conveyor sections",
+   "duration": 5,
+   "predecessors": [
+    4
+   ],
+   "resource_requirements": {
+    "Millwrights": 4,
+    "Electricians": 0,
+    "Controls engineers": 0,
+    "Forklift": 1
+   }
+  },
+  {
+   "id": 6,
+   "name": "Robot cells",
+   "duration": 6,
+   "predecessors": [
+    4
+   ],
+   "resource_requirements": {
+    "Millwrights": 3,
+    "Electricians": 0,
+    "Controls engineers": 0,
+    "Forklift": 1
+   }
+  },
+  {
+   "id": 7,
+   "name": "Packing machine",
+   "duration": 4,
+   "predecessors": [
+    4
+   ],
+   "resource_requirements": {
+    "Millwrights": 2,
+    "Electricians": 0,
+    "Controls engineers": 0,
+    "Forklift": 1
+   }
+  },
+  {
+   "id": 8,
+   "name": "Power distribution",
+   "duration": 4,
+   "predecessors": [
+    3
+   ],
+   "resource_requirements": {
+    "Millwrights": 0,
+    "Electricians": 3,
+    "Controls engineers": 0,
+    "Forklift": 0
+   }
+  },
+  {
+   "id": 9,
+   "name": "Cable trays",
+   "duration": 3,
+   "predecessors": [
+    5,
+    8
+   ],
+   "resource_requirements": {
+    "Millwrights": 1,
+    "Electricians": 2,
+    "Controls engineers": 0,
+    "Forklift": 0
+   }
+  },
+  {
+   "id": 10,
+   "name": "Safety fencing",
+   "duration": 3,
+   "predecessors": [
+    6
+   ],
+   "resource_requirements": {
+    "Millwrights": 2,
+    "Electricians": 0,
+    "Controls engineers": 0,
+    "Forklift": 0
+   }
+  },
+  {
+   "id": 11,
+   "name": "Wiring & terminations",
+   "duration": 5,
+   "predecessors": [
+    9,
+    6,
+    7
+   ],
+   "resource_requirements": {
+    "Millwrights": 0,
+    "Electricians": 3,
+    "Controls engineers": 0,
+    "Forklift": 0
+   }
+  },
+  {
+   "id": 12,
+   "name": "PLC programming",
+   "duration": 6,
+   "predecessors": [
+    8
+   ],
+   "resource_requirements": {
+    "Millwrights": 0,
+    "Electricians": 0,
+    "Controls engineers": 2,
+    "Forklift": 0
+   }
+  },
+  {
+   "id": 13,
+   "name": "Robot programming",
+   "duration": 5,
+   "predecessors": [
+    11,
+    12
+   ],
+   "resource_requirements": {
+    "Millwrights": 0,
+    "Electricians": 0,
+    "Controls engineers": 2,
+    "Forklift": 0
+   }
+  },
+  {
+   "id": 14,
+   "name": "Safety validation",
+   "duration": 2,
+   "predecessors": [
+    10,
+    13
+   ],
+   "resource_requirements": {
+    "Millwrights": 0,
+    "Electricians": 1,
+    "Controls engineers": 1,
+    "Forklift": 0
+   }
+  },
+  {
+   "id": 15,
+   "name": "Dry run",
+   "duration": 2,
+   "predecessors": [
+    14
+   ],
+   "resource_requirements": {
+    "Millwrights": 1,
+    "Electricians": 1,
+    "Controls engineers": 2,
+    "Forklift": 0
+   }
+  },
+  {
+   "id": 16,
+   "name": "Production trial",
+   "duration": 3,
+   "predecessors": [
+    15
+   ],
+   "resource_requirements": {
+    "Millwrights": 2,
+    "Electricians": 1,
+    "Controls engineers": 1,
+    "Forklift": 1
+   }
+  },
+  {
+   "id": 17,
+   "name": "Finish",
+   "duration": 0,
+   "predecessors": [
+    16
+   ],
+   "resource_requirements": {
+    "Millwrights": 0,
+    "Electricians": 0,
+    "Controls engineers": 0,
+    "Forklift": 0
+   }
+  }
+ ]
+}

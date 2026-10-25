@@ -1,0 +1,269 @@
+{
+ "name": "film_production",
+ "resources": {
+  "Camera crews": 2,
+  "Actors": 5,
+  "Editors": 2,
+  "Studio": 1
+ },
+ "activities": [
+  {
+   "id": 1,
+   "name": "Start",
+   "duration": 0,
+   "predecessors": [],
+   "resource_requirements": {
+    "Camera crews": 0,
+    "Actors": 0,
+    "Editors": 0,
+    "Studio": 0
+   }
+  },
+  {
+   "id": 2,
+   "name": "Script lock",
+   "duration": 4,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Camera crews": 0,
+    "Actors": 0,
+    "Editors": 0,
+    "Studio": 0
+   }
+  },
+  {
+   "id": 3,
+   "name": "Casting",
+   "duration": 5,
+   "predecessors": [
+    2
+   ],
+   "resource_requirements": {
+    "Camera crews": 0,
+    "Actors": 1,
+    "Editors": 0,
+    "Studio": 0
+   }
+  },
+  {
+   "id": 4,
+   "name": "Location scouting",
+   "duration": 3,
+   "predecessors": [
+    2
+   ],
+   "resource_requirements": {
+    "Camera crews": 1,
+    "Actors": 0,
+    "Editors": 0,
+    "Studio": 0
+   }
+  },
+  {
+   "id": 5,
+   "name": "Set building",
+   "duration": 6,
+   "predecessors": [
+    2
+   ],
+   "resource_requirements": {
+    "Camera crews": 0,
+    "Actors": 0,
+    "Editors": 0,
+    "Studio": 1
+   }
+  },
+  {
+   "id": 6,
+   "name": "Rehearsals",
+   "duration": 3,
+   "predecessors": [
+    3
+   ],
+   "resource_requirements": {
+    "Camera crews": 0,
+    "Actors": 4,
+    "Editors": 0,
+    "Studio": 0
+   }
+  },
+  {
+   "id": 7,
+   "name": "Studio scenes",
+   "duration": 8,
+   "predecessors": [
+    5,
+    6
+   ],
+   "resource_requirements": {
+    "Camera crews": 2,
+    "Actors": 5,
+    "Editors": 0,
+    "Studio": 1
+   }
+  },
+  {
+   "id": 8,
+   "name": "Location scenes",
+   "duration": 6,
+   "predecessors": [
+    4,
+    6
+   ],
+   "resource_requirements": {
+    "Camera crews": 1,
+    "Actors": 3,
+    "Editors": 0,
+    "Studio": 0
+   }
+  },
+  {
+   "id": 9,
+   "name": "Pickup shots",
+   "duration": 2,
+   "predecessors": [
+    7,
+    8
+   ],
+   "resource_requirements": {
+    "Camera crews": 1,
+    "Actors": 2,
+    "Editors": 0,
+    "Studio": 0
+   }
+  },
+  {
+   "id": 10,
+   "name": "Rough cut",
+   "duration": 6,
+   "predecessors": [
+    7,
+    8
+   ],
+   "resource_requirements": {
+    "Camera crews": 0,
+    "Actors": 0,
+    "Editors": 2,
+    "Studio": 0
+   }
+  },
+  {
+   "id": 11,
+   "name": "Visual effects",
+   "duration": 8,
+   "predecessors": [
+    10
+   ],
+   "resource_requirements": {
+    "Camera crews": 0,
+    "Actors": 0,
+    "Editors": 1,
+    "Studio": 0
+   }
+  },
+  {
+   "id": 12,
+   "name": "Score recording",
+   "duration": 4,
+   "predecessors": [
+    10
+   ],
+   "resource_requirements": {
+    "Camera crews": 0,
+    "Actors": 0,
+    "Editors": 0,
+    "Studio": 1
+   }
+  },
+  {
+   "id": 13,
+   "name": "Sound design",
+   "duration": 5,
+   "predecessors": [
+    10,
+    9
+   ],
+   "resource_requirements": {
+    "Camera crews": 0,
+    "Actors": 0,
+    "Editors": 1,
+    "Studio": 0
+   }
+  },
+  {
+   "id": 14,
+   "name": "ADR dialogue",
+   "duration": 2,
+   "predecessors": [
+    10
+   ],
+   "resource_requirements": {
+    "Camera crews": 0,
+    "Actors": 2,
+    "Editors": 0,
+    "Studio": 1
+   }
+  },
+  {
+   "id": 15,
+   "name": "Final mix",
+   "duration": 3,
+   "predecessors": [
+    12,
+    13,
+    14
+   ],
+   "resource_requirements": {
+    "Camera crews": 0,
+    "Actors": 0,
+    "Editors": 1,
+    "Studio": 1
+   }
+  },
+  {
+   "id": 16,
+   "name": "Colour grade",
+   "duration": 3,
+   "predecessors": [
+    11
+   ],
+   "resource_requirements": {
+    "Camera crews": 0,
+    "Actors": 0,
+    "Editors": 1,
+    "Studio": 0
+   }
+  },
+  {
+   "id": 17,
+   "name": "Delivery",
+   "duration": 1,
+   "predecessors": [
+    15,
+    16
+   ],
+   "resource_requirements": {
+    "Camera crews": 0,
+    "Actors": 0,
+    "Editors": 1,
+    "Studio": 0
+   }
+  },
+  {
+   "id": 18,
+   "name": "Finish",
+   "duration": 0,
+   "predecessors": [
+    17
+   ],
+   "resource_requirements": {
+    "Camera crews": 0,
+    "Actors": 0,
+    "Editors": 0,
+    "Studio": 0
+   }
+  }
+ ]
+}

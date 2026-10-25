@@ -1,0 +1,146 @@
+#!/usr/bin/env python3
+"""Benchmark all six solvers on the held-out test set and write docs/RESULTS.md + docs/results.csv.
+
+Every number quoted in the documentation comes from the files this script writes.
+Usage: python scripts/evaluate.py [--per-family 40] [--workers 8] [--seed N]
+  budget and seed are set automatically per project (auto_budget / auto_seed) unless --seed is given
+  --per-family N  use at most N instances of each family (J30, J60, J90, J120, RG30, JSON); 0 = all
+"""
+import argparse
+import csv
+import json
+import sys
+import time
+from collections import defaultdict
+from multiprocessing import Pool
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from src.algorithms import FULL_NAMES, PROPOSED, SOLVERS  # noqa: E402
+from src.benchmark import auto_budget, auto_seed, explain, run_all  # noqa: E402
+from src.evaluation import audit  # noqa: E402
+from src.parser import parse  # noqa: E402
+
+TEST = ROOT / "data" / "test"
+
+
+def family(f: Path) -> str:
+    if f.suffix == ".json":
+        return "J60 (.json)"
+    if f.suffix == ".rcp":
+        return "RG30 (.rcp)"
+    return next(f"J{n} (.sm)" for n in ("120", "90", "60", "30") if f.name.startswith(f"j{n}"))
+
+
+def one(args):
+    path, seed = args
+    p = parse(path)
+    results = run_all(p, seed=seed)
+    e = explain(p, results)
+    return {"file": path.name, "family": family(path), "lower_bound": p.lower_bound,
+            "budget": auto_budget(p), "seed": auto_seed(p) if seed is None else seed,
+            "winner": e["winner"], "decided_by": e["decided_by"],
+            "tied_with": e["tied_with"],
+            "feasible": all(audit(p, r.starts).feasible for r in results.values()),
+            **{f"{a}_makespan": r.makespan for a, r in results.items()},
+            **{f"{a}_best_eval": r.best_eval for a, r in results.items()}}
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--per-family", type=int, default=40)
+    ap.add_argument("--workers", type=int, default=8)
+    ap.add_argument("--seed", type=int, default=None)
+    args = ap.parse_args()
+    refs = {r["file"]: (int(r["makespan"]), r["type"]) for r in csv.DictReader(open(TEST / "reference.csv"))}
+    by_family = defaultdict(list)
+    for f in sorted(TEST.iterdir()):
+        if f.suffix in (".sm", ".rcp", ".json"):
+            by_family[family(f)].append(f)
+    files = [f for fs in by_family.values() for f in (fs[:args.per_family] if args.per_family else fs)]
+    t0 = time.time()
+    print(f"Evaluating {len(files)} test instances with {args.workers} workers ...", flush=True)
+    with Pool(args.workers) as pool:
+        rows = list(pool.imap_unordered(one, [(f, args.seed) for f in files]))
+    rows.sort(key=lambda r: (r["family"], r["file"]))
+    algos = list(SOLVERS)
+
+    docs = ROOT / "docs"
+    docs.mkdir(exist_ok=True)
+    with open(docs / "results.csv", "w", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=list(rows[0]))
+        w.writeheader()
+        w.writerows({**r, "tied_with": " ".join(r["tied_with"])} for r in rows)
+
+    def table(group, label):
+        out = [f"### {label} ({len(group)} instances)", "",
+               "| Algorithm | Wins | Best makespan (alone or tied) | Mean gap to lower bound | "
+               "Mean gap to optimum / best known* | Reached optimum / best known* |",
+               "|---|---|---|---|---|---|"]
+        with_ref = [r for r in group if r["file"] in refs]
+        for a in algos:
+            wins = sum(r["winner"] == a for r in group)
+            best = sum(r[f"{a}_makespan"] == min(r[f"{b}_makespan"] for b in algos) for r in group)
+            lb_gap = sum((r[f"{a}_makespan"] - r["lower_bound"]) / r["lower_bound"] for r in group) / len(group)
+            if with_ref:
+                ref_gap = sum((r[f"{a}_makespan"] - refs[r["file"]][0]) / refs[r["file"]][0] for r in with_ref) / len(with_ref)
+                hit = sum(r[f"{a}_makespan"] <= refs[r["file"]][0] for r in with_ref)
+                ref_txt, hit_txt = f"{100 * ref_gap:.2f}%", f"{hit}/{len(with_ref)}"
+            else:
+                ref_txt = hit_txt = "n/a"
+            mark = " **(proposed)**" if a in PROPOSED else ""
+            out.append(f"| {a} — {FULL_NAMES[a]}{mark} | {wins} | {best} | {100 * lb_gap:.2f}% | {ref_txt} | {hit_txt} |")
+        return out + [""]
+
+    proposed_wins = sum(r["winner"] in PROPOSED for r in rows)
+    strict = sum(r["winner"] in PROPOSED and r["decided_by"] == "makespan" for r in rows)
+    decided = defaultdict(int)
+    for r in rows:
+        if r["winner"] in PROPOSED:
+            decided[r["decided_by"]] += 1
+    baseline_better = [r["file"] for r in rows
+                       if min(r[f"{a}_makespan"] for a in ("GA", "SA", "BCO", "PRH")) < min(r[f"{a}_makespan"] for a in PROPOSED)]
+    md = ["# Measured results on the held-out test set", "",
+          f"Generated by `scripts/evaluate.py` ({'automatic per-project seed' if args.seed is None else f'seed {args.seed}'}, {len(rows)} instances, "
+          f"{time.time() - t0:.0f}s). Raw per-instance numbers: `docs/results.csv`.", "",
+          "Setup: all six solvers get the same budget of schedule evaluations (SSGS decodes): "
+          "set automatically from each project: 10 x activities x (1 + resource pressure, capped at 2), e.g. "
+          f"{min(r['budget'] for r in rows)}-{max(r['budget'] for r in rows)} here. Every decode is counted, "
+          "including both passes of justification. None of these instances was used for training "
+          "(training used `data/train`, a different set of PSPLIB parameter groups and RG30 files).", "",
+          "Winner rule (applied identically to every algorithm): makespan → total finish time → "
+          "resource levelling → reliability (mean evaluations over 5 seeds, only for algorithms still tied) → runtime.", "",
+          "## Summary", "",
+          f"- A proposed method (TS or PSS) won **{proposed_wins}/{len(rows)}** instances "
+          f"({100 * proposed_wins / len(rows):.1f}%).",
+          f"- Of those wins, {strict} were decided by strictly shorter makespan; the rest were makespan ties decided by: "
+          + ", ".join(f"{k} {v}" for k, v in decided.items() if k != "makespan") + ".",
+          f"- A baseline found a strictly shorter makespan than both TS and PSS on **{len(baseline_better)}** instances"
+          + (f": {', '.join(baseline_better)}." if baseline_better else "."),
+          f"- Feasibility audit (independent precedence + capacity check): "
+          f"**{sum(r['feasible'] for r in rows)}/{len(rows)}** instances fully feasible for all six solvers.", "",
+          "*Optimum = proven optimal makespan (J30, from PSPLIB); best known = best published upper bound "
+          "(J60/J90/J120, from PSPLIB). The lower bound is max(critical path, resource work bound).", ""]
+    md += table(rows, "All test instances")
+    for fam in sorted({r["family"] for r in rows}):
+        md += table([r for r in rows if r["family"] == fam], fam)
+    log = ROOT / "data" / "models" / "training_log.json"
+    if log.exists():
+        tl = json.loads(log.read_text())
+        md += ["## Learned start (GNN) vs. classic priority rules (one decode, no search)", "",
+               f"Trained on {tl['training_instances']} instances; mean gap to lower bound:", "",
+               "| Set | GNN | best single rule | GNN at least as good as every rule |", "|---|---|---|---|"]
+        for label, ev in tl["evaluation"].items():
+            g = ev["mean_gap_%"]
+            rule = min((v, k) for k, v in g.items() if k != "GNN (trained)")
+            md.append(f"| {label} ({ev['instances']}) | {g['GNN (trained)']:.2f}% | {rule[1]} {rule[0]:.2f}% | "
+                      f"{ev['gnn_at_least_as_good_as_every_rule']}/{ev['instances']} |")
+        md.append("")
+    (docs / "RESULTS.md").write_text("\n".join(md))
+    print("\n".join(md[:20]))
+    print("Wrote docs/RESULTS.md and docs/results.csv")
+
+
+if __name__ == "__main__":
+    main()

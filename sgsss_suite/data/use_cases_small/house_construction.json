@@ -1,0 +1,296 @@
+{
+ "name": "house_construction",
+ "resources": {
+  "Carpenters": 4,
+  "Electricians": 2,
+  "Plumbers": 2,
+  "Crane": 1
+ },
+ "activities": [
+  {
+   "id": 1,
+   "name": "Start",
+   "duration": 0,
+   "predecessors": [],
+   "resource_requirements": {
+    "Carpenters": 0,
+    "Electricians": 0,
+    "Plumbers": 0,
+    "Crane": 0
+   }
+  },
+  {
+   "id": 2,
+   "name": "Site survey",
+   "duration": 2,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Carpenters": 1,
+    "Electricians": 0,
+    "Plumbers": 0,
+    "Crane": 0
+   }
+  },
+  {
+   "id": 3,
+   "name": "Permits",
+   "duration": 5,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Carpenters": 0,
+    "Electricians": 0,
+    "Plumbers": 0,
+    "Crane": 0
+   }
+  },
+  {
+   "id": 4,
+   "name": "Excavation",
+   "duration": 3,
+   "predecessors": [
+    2,
+    3
+   ],
+   "resource_requirements": {
+    "Carpenters": 1,
+    "Electricians": 0,
+    "Plumbers": 0,
+    "Crane": 1
+   }
+  },
+  {
+   "id": 5,
+   "name": "Foundation",
+   "duration": 5,
+   "predecessors": [
+    4
+   ],
+   "resource_requirements": {
+    "Carpenters": 2,
+    "Electricians": 0,
+    "Plumbers": 1,
+    "Crane": 1
+   }
+  },
+  {
+   "id": 6,
+   "name": "Framing",
+   "duration": 8,
+   "predecessors": [
+    5
+   ],
+   "resource_requirements": {
+    "Carpenters": 4,
+    "Electricians": 0,
+    "Plumbers": 0,
+    "Crane": 1
+   }
+  },
+  {
+   "id": 7,
+   "name": "Roof",
+   "duration": 6,
+   "predecessors": [
+    6
+   ],
+   "resource_requirements": {
+    "Carpenters": 3,
+    "Electricians": 0,
+    "Plumbers": 0,
+    "Crane": 1
+   }
+  },
+  {
+   "id": 8,
+   "name": "Windows & doors",
+   "duration": 3,
+   "predecessors": [
+    6
+   ],
+   "resource_requirements": {
+    "Carpenters": 2,
+    "Electricians": 0,
+    "Plumbers": 0,
+    "Crane": 0
+   }
+  },
+  {
+   "id": 9,
+   "name": "Rough plumbing",
+   "duration": 4,
+   "predecessors": [
+    6
+   ],
+   "resource_requirements": {
+    "Carpenters": 0,
+    "Electricians": 0,
+    "Plumbers": 2,
+    "Crane": 0
+   }
+  },
+  {
+   "id": 10,
+   "name": "Rough wiring",
+   "duration": 4,
+   "predecessors": [
+    6
+   ],
+   "resource_requirements": {
+    "Carpenters": 0,
+    "Electricians": 2,
+    "Plumbers": 0,
+    "Crane": 0
+   }
+  },
+  {
+   "id": 11,
+   "name": "Insulation",
+   "duration": 3,
+   "predecessors": [
+    9,
+    10,
+    7
+   ],
+   "resource_requirements": {
+    "Carpenters": 2,
+    "Electricians": 0,
+    "Plumbers": 0,
+    "Crane": 0
+   }
+  },
+  {
+   "id": 12,
+   "name": "Drywall",
+   "duration": 5,
+   "predecessors": [
+    11
+   ],
+   "resource_requirements": {
+    "Carpenters": 3,
+    "Electricians": 0,
+    "Plumbers": 0,
+    "Crane": 0
+   }
+  },
+  {
+   "id": 13,
+   "name": "Kitchen fit-out",
+   "duration": 4,
+   "predecessors": [
+    12
+   ],
+   "resource_requirements": {
+    "Carpenters": 2,
+    "Electricians": 1,
+    "Plumbers": 1,
+    "Crane": 0
+   }
+  },
+  {
+   "id": 14,
+   "name": "Bathroom fit-out",
+   "duration": 4,
+   "predecessors": [
+    12
+   ],
+   "resource_requirements": {
+    "Carpenters": 1,
+    "Electricians": 0,
+    "Plumbers": 2,
+    "Crane": 0
+   }
+  },
+  {
+   "id": 15,
+   "name": "Final electrics",
+   "duration": 2,
+   "predecessors": [
+    12
+   ],
+   "resource_requirements": {
+    "Carpenters": 0,
+    "Electricians": 2,
+    "Plumbers": 0,
+    "Crane": 0
+   }
+  },
+  {
+   "id": 16,
+   "name": "Flooring",
+   "duration": 3,
+   "predecessors": [
+    13,
+    14
+   ],
+   "resource_requirements": {
+    "Carpenters": 3,
+    "Electricians": 0,
+    "Plumbers": 0,
+    "Crane": 0
+   }
+  },
+  {
+   "id": 17,
+   "name": "Painting",
+   "duration": 4,
+   "predecessors": [
+    16,
+    15
+   ],
+   "resource_requirements": {
+    "Carpenters": 2,
+    "Electricians": 0,
+    "Plumbers": 0,
+    "Crane": 0
+   }
+  },
+  {
+   "id": 18,
+   "name": "Landscaping",
+   "duration": 3,
+   "predecessors": [
+    7
+   ],
+   "resource_requirements": {
+    "Carpenters": 1,
+    "Electricians": 0,
+    "Plumbers": 0,
+    "Crane": 1
+   }
+  },
+  {
+   "id": 19,
+   "name": "Inspection",
+   "duration": 1,
+   "predecessors": [
+    17,
+    18,
+    8
+   ],
+   "resource_requirements": {
+    "Carpenters": 0,
+    "Electricians": 1,
+    "Plumbers": 1,
+    "Crane": 0
+   }
+  },
+  {
+   "id": 20,
+   "name": "Finish",
+   "duration": 0,
+   "predecessors": [
+    19
+   ],
+   "resource_requirements": {
+    "Carpenters": 0,
+    "Electricians": 0,
+    "Plumbers": 0,
+    "Crane": 0
+   }
+  }
+ ]
+}

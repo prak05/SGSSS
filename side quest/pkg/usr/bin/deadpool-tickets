@@ -1,0 +1,43 @@
+#!/bin/sh
+# deadpool-tickets: open the fan-made ticket terminal in a GUI window.
+set -u
+
+PAGE="${DEADPOOL_TICKETS_PAGE:-/usr/share/deadpool-tickets/index.html}"
+URL="file://$PAGE"
+TITLE="Deadpool & Wolverine Tickets"
+
+if [ ! -r "$PAGE" ]; then
+    echo "deadpool-tickets: page not found: $PAGE" >&2
+    exit 1
+fi
+
+# 1. pywebview (native window), if the module is importable.
+if command -v python3 >/dev/null 2>&1 && python3 -c 'import webview' >/dev/null 2>&1; then
+    exec python3 -c '
+import sys, webview
+webview.create_window(sys.argv[1], sys.argv[2], width=1280, height=860, background_color="#09090B")
+webview.start()
+' "$TITLE" "$URL"
+fi
+
+# 2. Chromium-family browser in app mode.
+for b in chromium chromium-browser google-chrome google-chrome-stable brave-browser brave; do
+    if command -v "$b" >/dev/null 2>&1; then
+        exec "$b" --app="$URL" --window-size=1280,860 >/dev/null 2>&1
+    fi
+done
+
+# 3. Firefox.
+for b in firefox firefox-esr; do
+    if command -v "$b" >/dev/null 2>&1; then
+        exec "$b" --new-window "$URL" >/dev/null 2>&1
+    fi
+done
+
+# 4. Whatever the desktop considers default.
+if command -v xdg-open >/dev/null 2>&1; then
+    exec xdg-open "$URL"
+fi
+
+echo "deadpool-tickets: no browser found; open $URL manually." >&2
+exit 1

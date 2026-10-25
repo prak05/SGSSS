@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Deadpool & Wolverine Tickets
+GenericName=Ticket Terminal
+Comment=Fan-made ticket booking terminal for Deadpool & Wolverine
+Exec=deadpool-tickets
+Icon=deadpool-tickets
+Terminal=false
+Categories=Entertainment;
+Keywords=movie;cinema;tickets;deadpool;wolverine;
+StartupNotify=true

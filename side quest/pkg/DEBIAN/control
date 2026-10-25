@@ -1,0 +1,14 @@
+Package: deadpool-tickets
+Version: 1.0.0
+Section: misc
+Priority: optional
+Architecture: all
+Maintainer: prak05 <prak05@localhost>
+Depends: xdg-utils
+Recommends: python3-webview | chromium | firefox-esr | firefox
+Description: Fan-made Deadpool & Wolverine ticket terminal
+ A single-page, offline-capable ticket booking demo for the movie
+ Deadpool & Wolverine. Opens in a standalone window via pywebview,
+ a Chromium-family --app window, Firefox, or the default browser.
+ .
+ Fan project; no real tickets are sold. Not affiliated with Marvel or Disney.

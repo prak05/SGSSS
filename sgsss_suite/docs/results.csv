@@ -1,0 +1,261 @@
+file,family,lower_bound,budget,seed,winner,decided_by,tied_with,feasible,TS_makespan,PSS_makespan,GA_makespan,SA_makespan,BCO_makespan,PRH_makespan,TS_best_eval,PSS_best_eval,GA_best_eval,SA_best_eval,BCO_best_eval,PRH_best_eval
+j1201_1.sm,J120 (.sm),99,2350,67177,PSS,makespan,,True,114,109,121,120,125,117,1355,2337,1047,2269,1741,1852
+j1201_2.sm,J120 (.sm),86,2300,74516,PSS,makespan,,True,118,114,124,129,133,119,1684,2192,1094,1868,1756,1044
+j1201_3.sm,J120 (.sm),110,2800,40834,PSS,makespan,,True,131,128,131,133,142,134,2589,2707,1112,2352,2210,964
+j1201_4.sm,J120 (.sm),79,2350,96282,PSS,makespan,,True,102,100,106,107,108,104,794,2257,816,1352,1996,1433
+j1201_5.sm,J120 (.sm),94,2250,15332,PSS,makespan,,True,118,113,125,121,137,120,2194,1820,1740,1973,134,361
+j1202_1.sm,J120 (.sm),70,2350,19559,PSS,makespan,,True,91,88,92,96,99,92,2324,2348,1339,976,12,434
+j1202_2.sm,J120 (.sm),73,2150,35864,PSS,makespan,,True,78,76,81,81,88,80,1309,2000,1520,1769,1542,1201
+j1202_3.sm,J120 (.sm),78,2200,32256,PSS,makespan,,True,96,93,102,102,112,101,1383,2124,1769,1566,1403,121
+j1202_4.sm,J120 (.sm),88,2150,35721,PSS,makespan,,True,100,95,100,102,107,99,2107,1461,1334,2034,1649,1340
+j1202_5.sm,J120 (.sm),91,2200,47193,PSS,makespan,,True,106,104,114,112,125,111,2100,2116,1234,2083,766,689
+j3010_1.sm,J30 (.sm),41,500,50782,TS,reliability (mean evaluations over 5 seeds),PSS PRH,True,42,42,44,43,45,42,178,484,79,308,500,82
+j3010_10.sm,J30 (.sm),37,550,31834,PSS,makespan,,True,42,41,43,43,45,43,475,542,343,448,4,65
+j3010_2.sm,J30 (.sm),52,550,21149,TS,total finish time,SA PSS PRH GA,True,57,57,57,57,61,57,112,3,319,89,125,17
+j3010_3.sm,J30 (.sm),61,500,24301,PSS,makespan,,True,64,63,68,68,64,67,494,278,148,495,157,4
+j3010_4.sm,J30 (.sm),53,550,54801,PSS,makespan,,True,59,58,59,64,62,59,138,522,418,221,61,156
+j3010_5.sm,J30 (.sm),41,550,66466,PSS,makespan,,True,42,41,42,43,46,43,156,56,96,285,534,12
+j3010_6.sm,J30 (.sm),40,550,62574,PSS,makespan,,True,45,44,45,45,51,46,240,525,329,489,172,338
+j3010_7.sm,J30 (.sm),47,500,36195,TS,total finish time,PSS GA PRH SA,True,49,49,49,49,52,49,226,156,155,269,134,20
+j3010_8.sm,J30 (.sm),50,500,79055,TS,resource levelling,SA GA,True,54,55,54,54,60,55,229,205,200,496,15,11
+j3010_9.sm,J30 (.sm),49,500,80223,TS,resource levelling,PSS PRH SA GA BCO,True,49,49,49,49,49,49,202,68,1,1,1,1
+j3011_1.sm,J30 (.sm),52,550,44583,PSS,makespan,,True,55,54,56,57,57,55,97,353,245,479,8,24
+j3011_10.sm,J30 (.sm),38,500,76975,PSS,total finish time,TS SA PRH BCO GA,True,38,38,38,38,38,38,93,43,11,359,11,2
+j3011_2.sm,J30 (.sm),56,500,4338,PSS,reliability (mean evaluations over 5 seeds),PRH TS GA,True,56,56,56,58,57,56,55,20,391,278,193,241
+j3011_3.sm,J30 (.sm),81,450,23010,TS,total finish time,PSS PRH BCO GA SA,True,81,81,81,81,81,81,69,8,2,11,2,1
+j3011_4.sm,J30 (.sm),60,500,30265,PSS,total finish time,TS PRH SA BCO GA,True,63,63,63,63,63,63,90,309,8,118,8,1
+j3011_5.sm,J30 (.sm),48,550,63311,PRH,makespan,,True,51,50,50,51,54,49,377,172,465,532,190,314
+j3011_6.sm,J30 (.sm),44,500,66719,TS,total finish time,PSS SA PRH,True,44,44,45,44,45,44,105,91,6,153,6,1
+j3011_7.sm,J30 (.sm),35,500,95278,TS,total finish time,PSS,True,36,36,37,39,38,37,20,133,199,12,211,60
+j3011_8.sm,J30 (.sm),62,500,21603,PSS,runtime,TS PRH SA GA BCO,True,62,62,62,62,62,62,3,3,81,200,230,44
+j3011_9.sm,J30 (.sm),67,450,99966,TS,total finish time,PSS PRH SA GA BCO,True,67,67,67,67,67,67,98,9,1,1,1,1
+j3012_1.sm,J30 (.sm),47,450,28970,PSS,runtime,TS SA BCO GA PRH,True,47,47,47,47,47,47,1,1,1,1,1,1
+j3012_10.sm,J30 (.sm),57,450,41436,TS,runtime,PSS PRH BCO GA SA,True,57,57,57,57,57,57,1,1,1,1,1,1
+j3012_2.sm,J30 (.sm),46,500,27759,PSS,runtime,TS SA BCO PRH GA,True,46,46,46,46,46,46,1,1,1,1,1,1
+j3012_3.sm,J30 (.sm),37,500,58478,PSS,runtime,TS PRH BCO SA GA,True,37,37,37,37,37,37,1,1,1,1,1,1
+j3012_4.sm,J30 (.sm),63,450,71736,TS,runtime,PSS SA PRH BCO GA,True,63,63,63,63,63,63,1,1,1,1,1,1
+j3012_5.sm,J30 (.sm),47,450,4859,TS,runtime,PSS SA BCO GA PRH,True,47,47,47,47,47,47,1,1,1,1,1,1
+j3012_6.sm,J30 (.sm),53,450,38271,PSS,runtime,TS PRH GA BCO SA,True,53,53,53,53,53,53,1,1,1,1,1,1
+j3012_7.sm,J30 (.sm),55,450,29737,PSS,runtime,TS BCO SA GA PRH,True,55,55,55,55,55,55,1,1,1,1,1,1
+j3012_8.sm,J30 (.sm),35,450,93854,TS,runtime,PSS BCO PRH SA GA,True,35,35,35,35,35,35,1,1,1,1,1,1
+j3012_9.sm,J30 (.sm),52,450,49616,TS,runtime,PSS PRH SA GA BCO,True,52,52,52,52,52,52,1,1,1,1,1,1
+j301_1.sm,J30 (.sm),38,500,3823,PSS,reliability (mean evaluations over 5 seeds),TS SA PRH GA,True,43,43,43,43,46,43,90,178,277,49,2,52
+j301_10.sm,J30 (.sm),37,500,67309,PSS,reliability (mean evaluations over 5 seeds),GA SA TS PRH,True,45,45,45,45,47,45,315,51,129,302,7,42
+j301_2.sm,J30 (.sm),42,500,25015,PSS,reliability (mean evaluations over 5 seeds),TS PRH GA SA,True,47,47,47,47,54,47,141,114,187,184,5,1
+j301_3.sm,J30 (.sm),43,450,34514,TS,total finish time,PSS GA BCO SA PRH,True,47,47,47,47,47,47,70,3,15,60,15,1
+j301_4.sm,J30 (.sm),55,500,7881,PSS,reliability (mean evaluations over 5 seeds),TS SA BCO GA PRH,True,62,62,62,62,62,62,314,161,1,1,1,152
+j301_5.sm,J30 (.sm),31,550,7509,PSS,reliability (mean evaluations over 5 seeds),TS GA PRH,True,39,39,39,40,41,39,349,86,248,456,21,504
+j301_6.sm,J30 (.sm),38,500,69795,PSS,reliability (mean evaluations over 5 seeds),GA SA PRH,True,49,48,48,48,49,48,177,164,33,105,1,345
+j301_7.sm,J30 (.sm),60,400,89474,TS,runtime,PSS PRH SA BCO GA,True,60,60,60,60,60,60,1,1,3,55,3,1
+j301_8.sm,J30 (.sm),53,450,32071,PSS,reliability (mean evaluations over 5 seeds),GA TS PRH,True,53,53,53,54,58,53,1,12,131,418,430,1
+j301_9.sm,J30 (.sm),42,500,92963,PSS,makespan,,True,50,49,50,50,50,50,241,425,3,82,3,29
+j302_1.sm,J30 (.sm),34,450,96168,PRH,reliability (mean evaluations over 5 seeds),PSS TS BCO GA SA,True,38,38,38,38,38,38,39,10,14,30,14,5
+j302_10.sm,J30 (.sm),41,450,20034,PSS,reliability (mean evaluations over 5 seeds),TS GA PRH,True,43,43,43,48,48,43,189,23,325,74,217,2
+j302_2.sm,J30 (.sm),46,500,36503,PSS,reliability (mean evaluations over 5 seeds),BCO GA SA PRH,True,53,51,51,51,51,51,60,80,16,102,491,17
+j302_3.sm,J30 (.sm),43,450,99628,BCO,runtime,GA SA PSS TS PRH,True,43,43,43,43,43,43,1,1,13,202,13,1
+j302_4.sm,J30 (.sm),42,400,82238,TS,runtime,PSS PRH GA SA BCO,True,43,43,43,43,43,43,1,1,1,1,1,2
+j302_5.sm,J30 (.sm),51,400,25570,PSS,reliability (mean evaluations over 5 seeds),TS BCO GA SA PRH,True,51,51,51,51,51,51,55,41,6,8,6,1
+j302_6.sm,J30 (.sm),47,450,59730,PSS,runtime,TS PRH BCO GA,True,47,47,47,48,47,47,10,10,2,8,2,1
+j302_7.sm,J30 (.sm),47,450,41944,PSS,reliability (mean evaluations over 5 seeds),TS PRH GA BCO SA,True,47,47,47,47,47,47,13,8,2,42,2,1
+j302_8.sm,J30 (.sm),50,450,44912,PSS,reliability (mean evaluations over 5 seeds),TS PRH GA BCO SA,True,54,54,54,54,54,54,51,77,2,91,2,4
+j302_9.sm,J30 (.sm),51,450,2087,TS,reliability (mean evaluations over 5 seeds),PSS SA PRH BCO GA,True,54,54,54,54,54,54,32,169,4,12,4,1
+j303_1.sm,J30 (.sm),72,400,47733,TS,total finish time,PSS PRH BCO GA SA,True,72,72,72,72,72,72,52,8,2,34,2,1
+j303_10.sm,J30 (.sm),57,400,82898,PRH,reliability (mean evaluations over 5 seeds),TS PSS GA BCO SA,True,59,59,59,59,59,59,60,71,9,240,9,6
+j303_2.sm,J30 (.sm),39,450,30928,PSS,reliability (mean evaluations over 5 seeds),TS SA PRH BCO GA,True,40,40,40,40,40,40,13,8,11,7,11,1
+j303_3.sm,J30 (.sm),57,400,75325,PSS,reliability (mean evaluations over 5 seeds),TS PRH BCO GA SA,True,57,57,57,57,57,57,24,6,2,7,2,1
+j303_4.sm,J30 (.sm),98,400,35458,TS,runtime,PSS PRH BCO GA SA,True,98,98,98,98,98,98,1,1,8,9,8,1
+j303_5.sm,J30 (.sm),46,450,94861,PSS,reliability (mean evaluations over 5 seeds),TS PRH SA BCO GA,True,53,53,53,53,53,53,161,74,1,1,1,1
+j303_6.sm,J30 (.sm),53,400,46140,PRH,reliability (mean evaluations over 5 seeds),PSS TS BCO SA GA,True,54,54,54,54,54,54,288,5,1,1,1,1
+j303_7.sm,J30 (.sm),48,400,37699,PSS,runtime,TS PRH GA BCO SA,True,48,48,48,48,48,48,1,1,2,182,2,1
+j303_8.sm,J30 (.sm),54,400,50947,TS,total finish time,PSS PRH GA SA BCO,True,54,54,54,54,54,54,25,41,1,1,1,1
+j303_9.sm,J30 (.sm),60,400,64851,PSS,reliability (mean evaluations over 5 seeds),TS SA BCO GA PRH,True,65,65,65,65,65,65,144,299,3,43,3,3
+j304_1.sm,J30 (.sm),49,400,29537,PSS,runtime,TS SA GA BCO PRH,True,49,49,49,49,49,49,1,1,1,1,1,1
+j304_10.sm,J30 (.sm),48,450,10975,PSS,runtime,TS PRH SA BCO GA,True,48,48,48,48,48,48,1,1,1,1,1,1
+j304_2.sm,J30 (.sm),60,400,29485,TS,runtime,PSS BCO SA GA PRH,True,60,60,60,60,60,60,1,1,1,1,1,1
+j304_3.sm,J30 (.sm),47,400,96672,TS,runtime,PSS PRH BCO GA SA,True,47,47,47,47,47,47,1,1,1,1,1,1
+j304_4.sm,J30 (.sm),57,400,68118,TS,runtime,PSS SA BCO GA PRH,True,57,57,57,57,57,57,1,1,1,1,1,1
+j304_5.sm,J30 (.sm),59,400,88696,PSS,runtime,TS SA BCO GA PRH,True,59,59,59,59,59,59,1,1,1,1,1,1
+j304_6.sm,J30 (.sm),45,400,79023,TS,runtime,PSS BCO SA PRH GA,True,45,45,45,45,45,45,1,1,1,1,1,1
+j304_7.sm,J30 (.sm),56,400,22274,TS,runtime,PSS SA GA BCO PRH,True,56,56,56,56,56,56,1,1,1,1,1,1
+j304_8.sm,J30 (.sm),55,400,9077,PSS,runtime,TS PRH SA BCO GA,True,55,55,55,55,55,55,1,1,1,1,1,1
+j304_9.sm,J30 (.sm),38,450,12404,TS,runtime,PSS BCO PRH SA GA,True,38,38,38,38,38,38,1,1,1,1,1,1
+j305_1.sm,J30 (.sm),41,550,48175,PSS,makespan,,True,54,53,54,54,57,54,42,401,255,315,357,129
+j305_10.sm,J30 (.sm),56,550,19678,SA,reliability (mean evaluations over 5 seeds),GA PSS,True,73,70,70,70,75,73,163,233,213,400,240,10
+j305_2.sm,J30 (.sm),56,550,9984,GA,reliability (mean evaluations over 5 seeds),BCO,True,83,83,82,85,82,83,72,192,29,137,44,6
+j305_3.sm,J30 (.sm),54,550,29593,SA,makespan,,True,82,81,82,80,87,82,250,214,153,450,281,273
+j305_4.sm,J30 (.sm),47,650,7891,TS,total finish time,PSS,True,63,63,65,67,68,65,571,419,213,330,5,474
+j305_5.sm,J30 (.sm),58,550,50703,SA,makespan,,True,78,78,79,76,86,79,392,100,153,227,15,36
+j305_6.sm,J30 (.sm),47,550,28912,TS,makespan,,True,66,67,69,69,73,67,291,82,282,331,447,326
+j305_7.sm,J30 (.sm),59,700,57342,PSS,total finish time,GA,True,85,78,78,81,84,80,552,662,324,324,117,26
+j305_8.sm,J30 (.sm),53,550,50063,PSS,makespan,,True,71,67,73,74,75,69,165,370,191,4,316,206
+j305_9.sm,J30 (.sm),38,550,12188,TS,total finish time,PRH PSS SA GA,True,50,50,50,50,54,50,123,189,151,248,305,97
+j306_1.sm,J30 (.sm),54,500,36622,PSS,reliability (mean evaluations over 5 seeds),TS GA,True,59,59,59,60,63,60,183,440,249,51,11,27
+j306_10.sm,J30 (.sm),58,500,80024,TS,total finish time,PSS,True,61,61,65,64,68,63,379,115,340,126,15,89
+j306_2.sm,J30 (.sm),50,500,53729,PSS,total finish time,TS PRH,True,51,51,52,55,56,51,492,83,71,403,297,121
+j306_3.sm,J30 (.sm),45,500,25074,PSS,reliability (mean evaluations over 5 seeds),TS PRH,True,48,48,50,50,50,48,75,219,77,101,76,50
+j306_4.sm,J30 (.sm),36,550,27471,TS,total finish time,PRH PSS,True,42,42,43,45,46,42,162,209,286,46,342,461
+j306_5.sm,J30 (.sm),57,550,38422,TS,reliability (mean evaluations over 5 seeds),PSS PRH SA GA,True,67,67,67,67,70,67,338,370,240,110,10,28
+j306_6.sm,J30 (.sm),35,500,11526,PSS,reliability (mean evaluations over 5 seeds),TS SA PRH GA,True,37,37,37,37,40,37,314,35,22,43,12,2
+j306_7.sm,J30 (.sm),43,500,80558,PSS,reliability (mean evaluations over 5 seeds),TS GA PRH BCO SA,True,46,46,46,46,46,46,392,406,204,306,250,27
+j306_8.sm,J30 (.sm),39,500,10608,PSS,reliability (mean evaluations over 5 seeds),PRH,True,41,39,41,40,43,39,165,16,149,356,15,42
+j306_9.sm,J30 (.sm),48,500,13846,TS,total finish time,PSS SA PRH BCO GA,True,51,51,51,51,51,51,162,214,40,148,454,1
+j307_1.sm,J30 (.sm),55,400,39198,TS,reliability (mean evaluations over 5 seeds),PSS BCO GA PRH SA,True,55,55,55,55,55,55,18,32,4,5,4,1
+j307_10.sm,J30 (.sm),43,500,47803,TS,total finish time,SA BCO PSS GA PRH,True,49,49,49,49,49,49,422,433,19,159,353,5
+j307_2.sm,J30 (.sm),42,500,56017,TS,resource levelling,PSS PRH GA,True,42,42,42,43,43,42,42,1,43,47,4,2
+j307_3.sm,J30 (.sm),39,500,82411,TS,reliability (mean evaluations over 5 seeds),PSS SA PRH BCO GA,True,42,42,42,42,42,42,39,91,11,63,11,1
+j307_4.sm,J30 (.sm),44,450,14281,PSS,runtime,TS SA PRH GA BCO,True,44,44,44,44,44,44,1,1,4,195,4,3
+j307_5.sm,J30 (.sm),41,500,17222,TS,resource levelling,PRH SA,True,44,45,45,44,45,44,407,163,22,407,48,310
+j307_6.sm,J30 (.sm),35,450,44076,TS,total finish time,SA BCO GA PSS PRH,True,35,35,35,35,35,35,70,19,1,1,1,1
+j307_7.sm,J30 (.sm),50,450,23871,PRH,reliability (mean evaluations over 5 seeds),PSS GA SA TS BCO,True,50,50,50,50,50,50,66,13,2,28,2,5
+j307_8.sm,J30 (.sm),43,550,20486,PSS,runtime,TS GA SA BCO PRH,True,44,44,44,44,44,44,1,1,1,1,1,6
+j307_9.sm,J30 (.sm),56,450,1804,BCO,runtime,GA PSS TS SA PRH,True,60,60,60,60,60,60,32,34,11,154,11,5
+j308_1.sm,J30 (.sm),44,450,72144,TS,runtime,PSS SA PRH GA BCO,True,44,44,44,44,44,44,1,1,1,1,1,1
+j308_10.sm,J30 (.sm),67,400,48291,PSS,runtime,TS SA BCO PRH GA,True,67,67,67,67,67,67,1,1,1,1,1,1
+j308_2.sm,J30 (.sm),51,400,75547,TS,runtime,PSS SA PRH BCO GA,True,51,51,51,51,51,51,1,1,1,1,1,1
+j308_3.sm,J30 (.sm),53,450,86437,TS,runtime,PSS SA GA BCO PRH,True,53,53,53,53,53,53,1,1,1,1,1,1
+j308_4.sm,J30 (.sm),48,450,64915,TS,runtime,PSS PRH GA SA BCO,True,48,48,48,48,48,48,1,1,1,1,1,1
+j308_5.sm,J30 (.sm),58,450,3946,PSS,runtime,TS SA BCO GA PRH,True,58,58,58,58,58,58,1,1,1,1,1,1
+j308_6.sm,J30 (.sm),47,450,93175,PSS,runtime,TS BCO SA GA PRH,True,47,47,47,47,47,47,1,1,1,1,1,1
+j308_7.sm,J30 (.sm),41,450,91099,TS,runtime,PSS BCO PRH GA SA,True,41,41,41,41,41,41,1,1,1,1,1,1
+j308_8.sm,J30 (.sm),51,450,64152,TS,runtime,PSS SA GA PRH BCO,True,51,51,51,51,51,51,1,1,1,1,1,1
+j308_9.sm,J30 (.sm),39,450,515,PSS,runtime,TS BCO GA SA PRH,True,39,39,39,39,39,39,1,1,1,1,1,1
+j309_1.sm,J30 (.sm),58,600,81388,TS,total finish time,PSS,True,83,83,84,84,87,84,480,279,272,420,95,91
+j309_10.sm,J30 (.sm),68,600,89844,PSS,makespan,,True,89,88,90,94,97,89,519,471,527,23,68,441
+j309_2.sm,J30 (.sm),63,700,50225,GA,makespan,,True,97,97,92,94,97,94,668,611,326,267,216,223
+j309_3.sm,J30 (.sm),48,600,54712,PSS,makespan,,True,72,70,74,75,80,74,458,221,553,395,70,4
+j309_4.sm,J30 (.sm),56,600,19991,GA,total finish time,TS,True,72,73,72,76,78,73,411,519,301,316,478,186
+j309_5.sm,J30 (.sm),53,550,70545,PSS,total finish time,SA,True,75,70,74,70,80,72,88,366,244,413,291,114
+j309_6.sm,J30 (.sm),47,550,79708,PSS,total finish time,PRH,True,61,59,62,66,66,59,373,430,541,357,437,246
+j309_7.sm,J30 (.sm),48,650,56725,PSS,makespan,,True,68,64,69,68,72,67,160,231,283,593,162,285
+j309_8.sm,J30 (.sm),67,650,32332,TS,total finish time,PRH PSS,True,92,92,95,95,98,92,98,6,572,336,595,2
+j309_9.sm,J30 (.sm),42,650,86597,PSS,makespan,,True,65,64,68,66,72,68,538,634,325,519,192,636
+j605_1.json,J60 (.json),59,1200,15650,PSS,makespan,,True,80,78,86,85,90,84,707,1020,798,925,471,988
+j605_10.json,J60 (.json),76,1250,7011,TS,makespan,,True,85,86,86,92,96,90,1126,854,850,1155,615,689
+j605_2.json,J60 (.json),78,1200,44056,TS,total finish time,PSS,True,111,111,112,119,122,118,843,962,494,1193,1089,28
+j605_3.json,J60 (.json),59,1200,63048,PSS,makespan,,True,87,81,90,90,94,89,1176,1107,663,1137,518,929
+j605_4.json,J60 (.json),57,1250,73680,PSS,makespan,,True,77,75,79,81,84,83,671,1200,1030,536,958,178
+j605_5.json,J60 (.json),83,1250,7020,PSS,makespan,,True,114,110,122,122,124,120,988,952,505,500,935,625
+j605_6.json,J60 (.json),64,1100,35350,PSS,makespan,,True,77,76,81,93,80,82,434,665,1083,59,809,121
+j605_7.json,J60 (.json),60,1300,38864,PSS,makespan,,True,81,80,86,88,92,83,1298,1017,623,948,373,468
+j605_8.json,J60 (.json),65,1150,54435,PSS,makespan,,True,83,80,85,86,93,87,635,1112,1078,832,1053,378
+j605_9.json,J60 (.json),82,1050,40491,PSS,makespan,,True,86,84,90,92,93,87,831,963,761,445,948,2
+j606_1.json,J60 (.json),60,1000,66447,PSS,total finish time,TS,True,60,60,62,63,65,62,77,142,652,342,144,377
+j606_10.json,J60 (.json),74,950,21349,TS,total finish time,PSS SA PRH GA BCO,True,74,74,74,74,74,74,288,172,12,51,12,1
+j606_2.json,J60 (.json),66,950,34055,PSS,makespan,,True,68,67,72,70,72,68,692,326,20,440,930,129
+j606_3.json,J60 (.json),72,950,68393,PSS,total finish time,TS GA PRH,True,72,72,72,73,75,72,268,74,240,74,796,25
+j606_4.json,J60 (.json),67,1000,91191,PSS,total finish time,TS,True,67,67,68,72,69,68,154,363,509,254,34,490
+j606_5.json,J60 (.json),78,900,12866,TS,total finish time,PSS GA SA BCO PRH,True,78,78,78,78,78,78,253,81,17,30,64,1
+j606_6.json,J60 (.json),53,1100,22335,TS,total finish time,PSS,True,56,56,59,64,65,59,863,822,571,445,972,130
+j606_7.json,J60 (.json),60,1000,53363,PSS,makespan,,True,63,61,63,64,66,62,779,635,674,665,889,330
+j606_8.json,J60 (.json),72,1000,20664,PSS,total finish time,TS PRH GA,True,72,72,72,75,80,72,93,51,485,443,367,1
+j606_9.json,J60 (.json),64,950,49020,TS,total finish time,PSS PRH,True,64,64,71,66,70,64,380,56,66,425,479,1
+j601_1.sm,J60 (.sm),77,900,66881,TS,total finish time,PSS PRH GA BCO SA,True,77,77,77,77,77,77,330,339,64,128,758,1
+j601_10.sm,J60 (.sm),76,950,50523,TS,total finish time,PSS PRH GA BCO SA,True,80,80,80,80,80,80,243,463,4,49,4,1
+j601_2.sm,J60 (.sm),65,1050,47085,TS,reliability (mean evaluations over 5 seeds),PSS,True,68,68,70,69,82,69,126,918,772,794,750,2
+j601_3.sm,J60 (.sm),67,950,72344,PSS,makespan,,True,70,68,71,69,72,69,902,652,132,202,516,74
+j601_4.sm,J60 (.sm),79,900,22766,PSS,total finish time,TS PRH GA,True,91,91,91,93,92,91,839,506,21,311,182,49
+j601_5.sm,J60 (.sm),68,950,4639,PRH,makespan,,True,75,75,75,75,77,73,402,660,357,171,327,418
+j601_6.sm,J60 (.sm),52,1100,83428,TS,total finish time,PSS PRH GA BCO SA,True,66,66,66,66,66,66,421,872,73,301,670,1
+j601_7.sm,J60 (.sm),60,1050,77870,PSS,makespan,,True,75,74,76,76,79,76,625,794,313,1022,1000,106
+j601_8.sm,J60 (.sm),71,1050,92417,BCO,total finish time,PSS TS,True,76,76,78,78,76,78,224,731,66,282,818,193
+j601_9.sm,J60 (.sm),75,950,84245,TS,total finish time,PSS SA GA PRH,True,85,85,85,85,92,85,564,262,186,793,432,1
+j602_1.sm,J60 (.sm),65,900,77048,PSS,total finish time,TS PRH GA BCO SA,True,65,65,65,65,65,65,160,24,14,420,14,1
+j602_10.sm,J60 (.sm),64,900,21490,TS,total finish time,PSS PRH SA BCO GA,True,69,69,69,69,69,69,181,287,93,71,96,1
+j602_2.sm,J60 (.sm),82,850,93357,TS,total finish time,PSS SA PRH GA BCO,True,82,82,82,82,82,82,78,125,2,107,2,1
+j602_3.sm,J60 (.sm),77,950,9799,PSS,total finish time,TS SA PRH BCO GA,True,78,78,78,78,78,78,144,315,7,20,7,1
+j602_4.sm,J60 (.sm),78,850,99843,TS,reliability (mean evaluations over 5 seeds),PSS PRH SA BCO GA,True,78,78,78,78,78,78,9,30,8,304,8,1
+j602_5.sm,J60 (.sm),53,900,25456,TS,reliability (mean evaluations over 5 seeds),PSS BCO SA PRH GA,True,54,54,54,54,54,54,501,774,97,54,487,3
+j602_6.sm,J60 (.sm),61,950,24282,PSS,total finish time,TS PRH GA,True,64,64,64,67,67,64,575,466,529,467,14,1
+j602_7.sm,J60 (.sm),49,950,84330,PSS,total finish time,TS BCO GA SA PRH,True,53,53,53,53,53,53,73,864,7,105,7,1
+j602_8.sm,J60 (.sm),66,950,32786,TS,total finish time,PSS SA PRH BCO GA,True,66,66,66,66,66,66,194,90,4,136,4,1
+j602_9.sm,J60 (.sm),65,850,50300,TS,total finish time,PSS PRH GA SA BCO,True,65,65,65,65,65,65,237,46,32,131,417,1
+j603_1.sm,J60 (.sm),60,850,57150,PSS,total finish time,TS PRH GA BCO SA,True,60,60,60,60,60,60,62,50,9,99,9,1
+j603_10.sm,J60 (.sm),67,900,74764,PSS,reliability (mean evaluations over 5 seeds),TS BCO GA SA PRH,True,69,69,69,69,69,69,94,125,9,14,9,3
+j603_2.sm,J60 (.sm),69,800,32278,TS,total finish time,PSS PRH BCO GA SA,True,69,69,69,69,69,69,115,78,2,20,2,1
+j603_3.sm,J60 (.sm),102,800,45981,TS,reliability (mean evaluations over 5 seeds),PSS PRH BCO GA SA,True,105,105,105,105,105,105,57,151,6,2,6,1
+j603_4.sm,J60 (.sm),81,800,66848,PSS,runtime,TS PRH GA BCO SA,True,81,81,81,81,81,81,1,1,14,64,14,1
+j603_5.sm,J60 (.sm),83,750,54266,TS,total finish time,PSS PRH SA BCO GA,True,83,83,83,83,83,83,45,15,1,1,1,1
+j603_6.sm,J60 (.sm),57,900,84797,TS,total finish time,GA SA PSS BCO PRH,True,57,57,57,57,57,57,276,119,56,188,541,1
+j603_7.sm,J60 (.sm),58,850,9579,PSS,reliability (mean evaluations over 5 seeds),TS PRH BCO GA SA,True,59,59,59,59,59,59,148,13,3,3,3,3
+j603_8.sm,J60 (.sm),52,900,67428,PSS,total finish time,PRH GA,True,56,55,55,57,56,55,610,571,235,69,277,140
+j603_9.sm,J60 (.sm),63,900,15358,BCO,reliability (mean evaluations over 5 seeds),TS PSS PRH SA GA,True,67,67,67,67,67,67,305,339,23,54,69,8
+j604_1.sm,J60 (.sm),84,800,73201,PSS,runtime,TS SA BCO PRH GA,True,84,84,84,84,84,84,1,1,1,1,1,1
+j604_10.sm,J60 (.sm),77,800,17540,PSS,runtime,TS BCO GA SA PRH,True,77,77,77,77,77,77,1,1,1,1,1,1
+j604_2.sm,J60 (.sm),60,750,57669,TS,runtime,PSS SA BCO GA PRH,True,60,60,60,60,60,60,1,1,1,1,1,1
+j604_3.sm,J60 (.sm),58,750,7238,PSS,runtime,TS SA BCO PRH GA,True,58,58,58,58,58,58,1,1,1,1,1,1
+j604_4.sm,J60 (.sm),65,850,62852,PSS,runtime,TS BCO SA PRH GA,True,65,65,65,65,65,65,1,1,1,1,1,1
+j604_5.sm,J60 (.sm),75,800,78308,TS,runtime,PSS BCO SA GA PRH,True,75,75,75,75,75,75,1,1,1,1,1,1
+j604_6.sm,J60 (.sm),71,750,3872,PSS,runtime,TS BCO PRH SA GA,True,71,71,71,71,71,71,1,1,1,1,1,1
+j604_7.sm,J60 (.sm),67,800,223,PSS,runtime,TS SA BCO GA PRH,True,67,67,67,67,67,67,1,1,1,1,1,1
+j604_8.sm,J60 (.sm),65,800,90823,PSS,runtime,TS GA SA BCO PRH,True,65,65,65,65,65,65,1,1,1,1,1,1
+j604_9.sm,J60 (.sm),75,850,33840,PSS,runtime,TS PRH BCO GA SA,True,75,75,75,75,75,75,1,1,1,1,1,1
+j901_1.sm,J90 (.sm),67,1650,57811,TS,total finish time,PRH,True,78,79,82,83,91,78,677,1160,553,1283,1403,345
+j901_2.sm,J90 (.sm),88,1400,24448,PSS,total finish time,TS PRH GA SA,True,92,92,92,92,96,92,1286,1204,259,386,1283,1
+j901_3.sm,J90 (.sm),59,1650,88089,PSS,makespan,,True,69,67,72,70,76,72,1622,1413,1162,1164,797,801
+j901_4.sm,J90 (.sm),76,1650,84545,TS,total finish time,PSS,True,86,86,88,93,95,89,1543,1007,890,1399,21,772
+j901_5.sm,J90 (.sm),84,1450,65241,PSS,total finish time,PRH,True,89,87,90,89,99,87,1049,1359,513,1133,569,850
+j902_1.sm,J90 (.sm),96,1200,73914,TS,resource levelling,PSS PRH GA BCO SA,True,96,96,96,96,96,96,201,154,2,142,2,1
+j902_2.sm,J90 (.sm),114,1250,27297,TS,total finish time,PSS PRH GA SA,True,114,114,114,114,117,114,191,196,62,307,1133,1
+j902_3.sm,J90 (.sm),75,1350,99181,TS,total finish time,PSS PRH SA BCO GA,True,75,75,75,75,75,75,363,226,1,1,1,1
+j902_4.sm,J90 (.sm),70,1350,43924,PSS,total finish time,TS BCO GA PRH SA,True,70,70,70,70,70,70,120,136,6,93,6,1
+j902_5.sm,J90 (.sm),100,1250,37739,PSS,total finish time,TS BCO GA PRH SA,True,100,100,100,100,100,100,384,284,5,296,5,1
+Pat1.rcp,RG30 (.rcp),58,900,73292,PSS,makespan,,True,67,66,67,68,71,69,879,841,572,641,452,501
+Pat10.rcp,RG30 (.rcp),57,900,56128,TS,makespan,,True,67,69,70,73,74,71,277,857,798,202,285,69
+Pat11.rcp,RG30 (.rcp),53,900,36496,TS,total finish time,PSS,True,67,67,68,68,72,70,765,768,831,845,165,386
+Pat12.rcp,RG30 (.rcp),67,900,64464,PSS,makespan,,True,77,74,79,75,84,79,802,899,457,565,672,45
+Pat13.rcp,RG30 (.rcp),56,900,59580,TS,total finish time,PSS,True,70,70,71,71,73,71,307,859,682,494,813,838
+Pat14.rcp,RG30 (.rcp),57,900,61681,PSS,makespan,,True,67,66,68,67,71,70,485,695,468,671,447,433
+Pat15.rcp,RG30 (.rcp),48,900,67578,SA,makespan,,True,56,56,57,55,59,57,779,817,381,390,695,685
+Pat16.rcp,RG30 (.rcp),53,900,69659,PSS,makespan,,True,65,64,65,65,67,66,505,819,805,438,317,194
+Pat17.rcp,RG30 (.rcp),53,900,99521,GA,makespan,,True,65,65,64,65,66,67,614,678,851,376,718,132
+Pat18.rcp,RG30 (.rcp),59,900,36704,TS,total finish time,SA,True,64,65,65,64,69,67,850,795,497,789,614,196
+Pat19.rcp,RG30 (.rcp),57,900,79473,PSS,total finish time,TS,True,71,71,74,73,76,73,498,786,427,735,609,101
+Pat2.rcp,RG30 (.rcp),58,900,72452,TS,total finish time,GA,True,79,80,79,82,80,82,838,817,530,714,638,302
+Pat20.rcp,RG30 (.rcp),52,900,7683,PSS,makespan,,True,62,60,62,64,64,64,304,897,526,112,702,30
+Pat21.rcp,RG30 (.rcp),53,900,21476,PSS,total finish time,TS,True,68,68,70,70,70,72,861,864,569,563,552,230
+Pat22.rcp,RG30 (.rcp),61,900,92449,PSS,makespan,,True,77,74,75,76,77,76,705,633,791,869,546,188
+Pat23.rcp,RG30 (.rcp),52,900,90066,SA,total finish time,PSS,True,64,63,65,63,71,67,624,866,427,644,167,626
+Pat24.rcp,RG30 (.rcp),51,900,29328,SA,makespan,,True,64,64,66,61,69,64,791,545,704,714,48,382
+Pat25.rcp,RG30 (.rcp),49,850,28403,PSS,makespan,,True,61,60,61,63,63,61,300,433,620,273,623,171
+Pat26.rcp,RG30 (.rcp),62,900,35764,TS,total finish time,SA PSS,True,73,73,75,73,75,75,420,880,626,565,536,246
+Pat27.rcp,RG30 (.rcp),55,900,14457,PSS,makespan,,True,68,66,68,68,71,67,366,254,648,769,110,418
+Pat28.rcp,RG30 (.rcp),57,900,89957,TS,makespan,,True,68,70,70,71,73,71,520,751,382,40,30,889
+Pat29.rcp,RG30 (.rcp),57,900,72448,PSS,total finish time,TS GA,True,59,59,59,63,64,63,533,770,836,289,285,444
+Pat3.rcp,RG30 (.rcp),51,900,51783,TS,makespan,,True,56,58,61,57,62,61,898,782,212,582,438,53
+Pat30.rcp,RG30 (.rcp),50,900,72505,PSS,makespan,,True,58,57,60,59,64,60,701,537,190,727,94,292
+Pat31.rcp,RG30 (.rcp),52,900,33209,TS,makespan,,True,64,65,67,67,69,67,293,793,564,187,427,641
+Pat32.rcp,RG30 (.rcp),48,900,15123,PSS,makespan,,True,59,57,59,59,64,62,875,781,385,481,384,357
+Pat33.rcp,RG30 (.rcp),57,900,58130,PSS,makespan,,True,71,66,69,69,70,69,406,876,351,752,305,753
+Pat34.rcp,RG30 (.rcp),69,900,33651,TS,makespan,,True,80,85,85,81,90,81,817,795,250,680,561,314
+Pat35.rcp,RG30 (.rcp),56,900,16984,TS,makespan,,True,64,66,68,67,69,68,311,815,455,342,231,298
+Pat36.rcp,RG30 (.rcp),52,900,68199,TS,makespan,,True,63,64,66,67,68,68,521,884,444,386,830,402
+Pat37.rcp,RG30 (.rcp),53,900,73025,SA,makespan,,True,70,70,71,67,73,70,307,516,598,510,666,522
+Pat38.rcp,RG30 (.rcp),59,900,56478,PSS,makespan,,True,75,71,74,75,79,73,770,511,108,852,424,603
+Pat39.rcp,RG30 (.rcp),48,900,6877,PSS,makespan,,True,60,58,61,61,62,61,464,760,184,882,532,269
+Pat4.rcp,RG30 (.rcp),57,850,89619,PSS,makespan,,True,76,74,76,78,76,76,510,675,806,287,185,142
+Pat40.rcp,RG30 (.rcp),75,900,23068,TS,makespan,,True,82,84,86,84,87,86,385,856,652,258,307,13
+Pat41.rcp,RG30 (.rcp),56,900,64384,GA,total finish time,PSS,True,71,70,70,73,78,73,833,669,456,507,527,166
+Pat42.rcp,RG30 (.rcp),60,900,85003,TS,makespan,,True,74,75,76,76,75,78,666,775,890,513,466,309
+Pat43.rcp,RG30 (.rcp),62,900,39170,GA,makespan,,True,76,73,70,74,77,76,420,834,872,617,532,394
+Pat44.rcp,RG30 (.rcp),50,900,57728,SA,makespan,,True,63,63,63,61,65,65,392,678,614,857,487,136
+Pat45.rcp,RG30 (.rcp),62,900,40510,TS,makespan,,True,73,74,77,75,78,76,90,820,568,264,742,866
+Pat46.rcp,RG30 (.rcp),50,900,15920,PSS,makespan,,True,67,66,67,69,67,68,701,813,634,371,395,765
+Pat47.rcp,RG30 (.rcp),59,900,24442,TS,makespan,,True,73,74,76,75,78,75,707,537,863,746,860,549
+Pat48.rcp,RG30 (.rcp),56,900,85168,TS,total finish time,PSS,True,68,68,73,72,75,71,563,899,432,543,644,227
+Pat49.rcp,RG30 (.rcp),59,900,79351,PSS,total finish time,SA,True,71,70,71,70,74,74,392,526,319,873,6,341
+Pat5.rcp,RG30 (.rcp),60,900,13009,GA,makespan,,True,77,75,74,76,80,77,181,824,336,531,741,710
+Pat50.rcp,RG30 (.rcp),66,900,11378,PSS,makespan,,True,78,76,77,78,79,79,532,834,738,474,178,886
+Pat51.rcp,RG30 (.rcp),53,900,26404,PSS,makespan,,True,64,63,64,65,68,65,719,688,853,204,230,370
+Pat52.rcp,RG30 (.rcp),58,900,9520,PSS,makespan,,True,71,67,70,69,71,72,388,758,355,818,863,2
+Pat53.rcp,RG30 (.rcp),57,900,64177,GA,makespan,,True,66,65,62,65,66,65,308,816,880,563,465,566
+Pat54.rcp,RG30 (.rcp),60,900,30067,PSS,makespan,,True,73,72,76,76,80,78,404,675,848,174,663,221
+Pat55.rcp,RG30 (.rcp),69,900,30245,SA,total finish time,TS,True,79,80,83,79,86,83,274,741,75,432,583,485
+Pat56.rcp,RG30 (.rcp),50,900,18972,TS,makespan,,True,60,61,64,63,67,66,629,736,492,157,391,481
+Pat57.rcp,RG30 (.rcp),69,900,97548,PSS,makespan,,True,81,76,77,77,84,79,894,760,895,696,47,38
+Pat58.rcp,RG30 (.rcp),49,900,79985,PSS,makespan,,True,57,56,57,58,57,57,538,650,323,661,337,787
+Pat59.rcp,RG30 (.rcp),52,900,8190,PSS,makespan,,True,69,66,69,69,73,67,452,801,418,784,224,445
+Pat6.rcp,RG30 (.rcp),50,900,95765,PSS,makespan,,True,60,59,62,60,64,63,409,718,339,685,794,488
+Pat60.rcp,RG30 (.rcp),55,900,16502,SA,makespan,,True,63,63,63,62,65,65,845,787,592,373,43,461
+Pat7.rcp,RG30 (.rcp),57,900,58768,TS,total finish time,PSS,True,67,67,71,69,72,70,790,886,48,614,554,553
+Pat8.rcp,RG30 (.rcp),52,900,40582,TS,makespan,,True,62,64,68,69,71,65,449,676,377,201,445,21
+Pat9.rcp,RG30 (.rcp),67,900,77383,PSS,makespan,,True,78,76,78,77,83,80,752,894,635,743,543,20

@@ -1,0 +1,297 @@
+{
+ "name": "software_release",
+ "resources": {
+  "Backend devs": 4,
+  "Frontend devs": 3,
+  "QA engineers": 2,
+  "DevOps": 1
+ },
+ "activities": [
+  {
+   "id": 1,
+   "name": "Start",
+   "duration": 0,
+   "predecessors": [],
+   "resource_requirements": {
+    "Backend devs": 0,
+    "Frontend devs": 0,
+    "QA engineers": 0,
+    "DevOps": 0
+   }
+  },
+  {
+   "id": 2,
+   "name": "Requirements",
+   "duration": 3,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Backend devs": 1,
+    "Frontend devs": 1,
+    "QA engineers": 0,
+    "DevOps": 0
+   }
+  },
+  {
+   "id": 3,
+   "name": "Architecture",
+   "duration": 4,
+   "predecessors": [
+    2
+   ],
+   "resource_requirements": {
+    "Backend devs": 2,
+    "Frontend devs": 1,
+    "QA engineers": 0,
+    "DevOps": 1
+   }
+  },
+  {
+   "id": 4,
+   "name": "Database schema",
+   "duration": 3,
+   "predecessors": [
+    3
+   ],
+   "resource_requirements": {
+    "Backend devs": 2,
+    "Frontend devs": 0,
+    "QA engineers": 0,
+    "DevOps": 0
+   }
+  },
+  {
+   "id": 5,
+   "name": "Auth service",
+   "duration": 5,
+   "predecessors": [
+    3
+   ],
+   "resource_requirements": {
+    "Backend devs": 2,
+    "Frontend devs": 0,
+    "QA engineers": 0,
+    "DevOps": 0
+   }
+  },
+  {
+   "id": 6,
+   "name": "Payments API",
+   "duration": 7,
+   "predecessors": [
+    4
+   ],
+   "resource_requirements": {
+    "Backend devs": 3,
+    "Frontend devs": 0,
+    "QA engineers": 0,
+    "DevOps": 0
+   }
+  },
+  {
+   "id": 7,
+   "name": "Search API",
+   "duration": 6,
+   "predecessors": [
+    4
+   ],
+   "resource_requirements": {
+    "Backend devs": 2,
+    "Frontend devs": 0,
+    "QA engineers": 0,
+    "DevOps": 0
+   }
+  },
+  {
+   "id": 8,
+   "name": "UI design system",
+   "duration": 4,
+   "predecessors": [
+    2
+   ],
+   "resource_requirements": {
+    "Backend devs": 0,
+    "Frontend devs": 2,
+    "QA engineers": 0,
+    "DevOps": 0
+   }
+  },
+  {
+   "id": 9,
+   "name": "Checkout pages",
+   "duration": 6,
+   "predecessors": [
+    8,
+    6
+   ],
+   "resource_requirements": {
+    "Backend devs": 0,
+    "Frontend devs": 3,
+    "QA engineers": 0,
+    "DevOps": 0
+   }
+  },
+  {
+   "id": 10,
+   "name": "Search pages",
+   "duration": 4,
+   "predecessors": [
+    8,
+    7
+   ],
+   "resource_requirements": {
+    "Backend devs": 0,
+    "Frontend devs": 2,
+    "QA engineers": 0,
+    "DevOps": 0
+   }
+  },
+  {
+   "id": 11,
+   "name": "Account pages",
+   "duration": 4,
+   "predecessors": [
+    8,
+    5
+   ],
+   "resource_requirements": {
+    "Backend devs": 0,
+    "Frontend devs": 2,
+    "QA engineers": 0,
+    "DevOps": 0
+   }
+  },
+  {
+   "id": 12,
+   "name": "CI pipeline",
+   "duration": 3,
+   "predecessors": [
+    3
+   ],
+   "resource_requirements": {
+    "Backend devs": 0,
+    "Frontend devs": 0,
+    "QA engineers": 0,
+    "DevOps": 1
+   }
+  },
+  {
+   "id": 13,
+   "name": "Staging environment",
+   "duration": 2,
+   "predecessors": [
+    12
+   ],
+   "resource_requirements": {
+    "Backend devs": 0,
+    "Frontend devs": 0,
+    "QA engineers": 0,
+    "DevOps": 1
+   }
+  },
+  {
+   "id": 14,
+   "name": "Integration tests",
+   "duration": 5,
+   "predecessors": [
+    9,
+    10,
+    11,
+    13
+   ],
+   "resource_requirements": {
+    "Backend devs": 1,
+    "Frontend devs": 1,
+    "QA engineers": 2,
+    "DevOps": 0
+   }
+  },
+  {
+   "id": 15,
+   "name": "Load testing",
+   "duration": 3,
+   "predecessors": [
+    14
+   ],
+   "resource_requirements": {
+    "Backend devs": 1,
+    "Frontend devs": 0,
+    "QA engineers": 1,
+    "DevOps": 1
+   }
+  },
+  {
+   "id": 16,
+   "name": "Security review",
+   "duration": 3,
+   "predecessors": [
+    14
+   ],
+   "resource_requirements": {
+    "Backend devs": 1,
+    "Frontend devs": 0,
+    "QA engineers": 1,
+    "DevOps": 0
+   }
+  },
+  {
+   "id": 17,
+   "name": "Bug fixing",
+   "duration": 4,
+   "predecessors": [
+    15,
+    16
+   ],
+   "resource_requirements": {
+    "Backend devs": 3,
+    "Frontend devs": 2,
+    "QA engineers": 1,
+    "DevOps": 0
+   }
+  },
+  {
+   "id": 18,
+   "name": "Documentation",
+   "duration": 3,
+   "predecessors": [
+    14
+   ],
+   "resource_requirements": {
+    "Backend devs": 1,
+    "Frontend devs": 1,
+    "QA engineers": 0,
+    "DevOps": 0
+   }
+  },
+  {
+   "id": 19,
+   "name": "Release",
+   "duration": 1,
+   "predecessors": [
+    17,
+    18
+   ],
+   "resource_requirements": {
+    "Backend devs": 1,
+    "Frontend devs": 1,
+    "QA engineers": 1,
+    "DevOps": 1
+   }
+  },
+  {
+   "id": 20,
+   "name": "Finish",
+   "duration": 0,
+   "predecessors": [
+    19
+   ],
+   "resource_requirements": {
+    "Backend devs": 0,
+    "Frontend devs": 0,
+    "QA engineers": 0,
+    "DevOps": 0
+   }
+  }
+ ]
+}

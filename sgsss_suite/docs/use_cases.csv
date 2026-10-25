@@ -1,0 +1,67 @@
+file,tasks,lower_bound,winner,decided_by,proposed_won,proposed_advantage,all_feasible,TS_makespan,PSS_makespan,GA_makespan,SA_makespan,BCO_makespan,PRH_makespan
+aerospace_07.json,56,56,TS,makespan,True,5,True,64,65,70,76,74,69
+aerospace_19.json,59,51,TS,makespan,True,3,True,56,57,59,60,64,59
+aerospace_31.json,58,46,PSS,makespan,True,1,True,50,49,50,50,52,52
+aerospace_43.json,54,51,PSS,total finish time,True,3,True,60,60,65,63,67,64
+aerospace_55.json,31,40,PSS,reliability (mean evaluations over 5 seeds),True,0,True,50,50,50,50,52,50
+construction_01.json,33,58,PSS,reliability (mean evaluations over 5 seeds),True,0,True,89,89,89,89,90,89
+construction_13.json,32,49,TS,total finish time,True,0,True,66,66,66,67,72,66
+construction_25.json,48,56,PSS,makespan,True,5,True,75,72,77,78,81,80
+construction_37.json,58,57,PSS,makespan,True,1,True,79,77,78,79,85,78
+construction_49.json,50,56,PSS,makespan,True,2,True,74,73,80,75,81,75
+construction_61.json,50,56,PSS,makespan,True,2,True,72,70,72,72,77,72
+data_centre_05.sm,39,45,PSS,makespan,True,1,True,55,53,56,54,60,56
+data_centre_17.sm,54,52,PSS,makespan,True,3,True,61,60,64,64,66,63
+data_centre_29.sm,36,43,PSS,makespan,True,1,True,61,57,59,61,63,58
+data_centre_41.sm,52,48,PSS,makespan,True,3,True,53,52,55,55,58,55
+data_centre_53.sm,31,39,TS,total finish time,True,0,True,50,50,50,50,52,51
+data_centre_65.sm,37,37,TS,total finish time,True,1,True,48,48,49,49,50,50
+event_11.sm,58,44,PSS,makespan,True,4,True,53,52,56,56,59,56
+event_23.sm,39,41,TS,total finish time,True,3,True,53,53,56,57,58,56
+event_35.sm,48,41,PSS,makespan,True,3,True,56,53,56,58,62,57
+event_47.sm,41,44,PSS,total finish time,True,0,True,62,62,62,64,70,63
+event_59.sm,43,48,PSS,total finish time,True,2,True,59,59,62,63,67,61
+film_09.rcp,32,43,TS,total finish time,True,1,True,59,59,60,60,60,60
+film_21.rcp,47,45,PSS,makespan,True,3,True,53,52,58,58,58,55
+film_33.rcp,34,46,PSS,makespan,True,1,True,59,58,59,59,64,59
+film_45.rcp,42,38,PSS,makespan,True,1,True,46,45,47,46,48,47
+film_57.rcp,53,44,PSS,makespan,True,2,True,58,56,60,58,63,60
+hospital_06.rcp,51,51,PSS,makespan,True,4,True,60,58,62,63,68,64
+hospital_18.rcp,45,43,PSS,makespan,True,4,True,52,50,56,56,58,54
+hospital_30.rcp,35,34,PSS,makespan,True,2,True,45,44,47,46,49,47
+hospital_42.rcp,32,48,PSS,makespan,True,1,True,64,61,62,66,64,63
+hospital_54.rcp,44,36,PSS,makespan,True,2,True,46,45,48,47,50,49
+hospital_66.rcp,39,37,PSS,reliability (mean evaluations over 5 seeds),True,0,True,43,43,43,46,47,43
+manufacturing_03.rcp,41,41,PSS,makespan,True,3,True,54,51,56,55,58,54
+manufacturing_15.rcp,42,46,PSS,makespan,True,3,True,60,57,61,61,65,60
+manufacturing_27.rcp,60,57,PSS,makespan,True,4,True,64,62,68,68,71,66
+manufacturing_39.rcp,52,44,PSS,makespan,True,1,True,53,51,52,54,55,53
+manufacturing_51.rcp,36,38,TS,reliability (mean evaluations over 5 seeds),True,1,True,49,49,50,50,55,50
+manufacturing_63.rcp,48,44,PSS,makespan,True,2,True,57,55,57,57,60,58
+oil_gas_10.json,56,52,PSS,makespan,True,4,True,60,58,64,64,65,62
+oil_gas_22.json,50,42,PSS,total finish time,True,0,True,56,54,56,57,58,54
+oil_gas_34.json,43,49,PSS,total finish time,True,2,True,57,57,61,59,64,61
+oil_gas_46.json,30,33,PSS,total finish time,True,0,True,44,43,43,44,45,43
+oil_gas_58.json,30,42,PSS,reliability (mean evaluations over 5 seeds),True,0,True,50,50,50,52,53,50
+pharma_12.rcp,38,45,PSS,makespan,True,1,True,64,60,61,61,63,61
+pharma_24.rcp,46,55,PSS,reliability (mean evaluations over 5 seeds),True,4,True,63,63,68,67,69,68
+pharma_36.rcp,41,43,TS,total finish time,True,0,True,61,61,64,65,61,62
+pharma_48.rcp,58,41,PSS,makespan,True,3,True,49,47,50,53,54,52
+pharma_60.rcp,32,40,PSS,reliability (mean evaluations over 5 seeds),True,0,True,49,49,49,49,49,49
+rail_08.sm,43,42,TS,total finish time,True,1,True,49,49,50,54,54,50
+rail_20.sm,58,48,PSS,makespan,True,3,True,56,55,59,60,63,58
+rail_32.sm,60,56,PSS,makespan,True,3,True,62,61,67,67,73,64
+rail_44.sm,41,44,PSS,makespan,True,1,True,52,50,51,53,54,51
+rail_56.sm,45,43,PSS,makespan,True,1,True,51,50,54,51,57,54
+shipbuilding_04.json,53,46,PSS,makespan,True,2,True,59,58,61,60,67,61
+shipbuilding_16.json,31,42,GA,total finish time,False,0,True,48,48,48,48,50,48
+shipbuilding_28.json,39,54,TS,total finish time,True,0,True,64,64,66,64,68,68
+shipbuilding_40.json,50,41,PSS,makespan,True,4,True,47,46,50,50,55,50
+shipbuilding_52.json,41,40,PSS,total finish time,True,0,True,52,49,49,50,54,51
+shipbuilding_64.json,59,46,PSS,makespan,True,2,True,49,48,52,52,55,50
+software_02.sm,33,41,SA,makespan,False,-1,True,63,63,63,62,63,63
+software_14.sm,60,45,TS,makespan,True,3,True,51,52,56,55,60,54
+software_26.sm,36,50,PSS,total finish time,True,0,True,59,57,60,59,64,57
+software_38.sm,56,51,PSS,makespan,True,3,True,67,65,68,70,71,69
+software_50.sm,59,54,PSS,makespan,True,3,True,63,62,65,65,68,66
+software_62.sm,34,50,PSS,reliability (mean evaluations over 5 seeds),True,0,True,65,65,69,69,70,65

@@ -1,0 +1,791 @@
+{
+ "name": "shipbuilding_40",
+ "resources": {
+  "Welders": 16,
+  "Fitters": 14,
+  "Painters": 13,
+  "Dock crane": 14
+ },
+ "activities": [
+  {
+   "id": 1,
+   "name": "Start",
+   "duration": 0,
+   "predecessors": [],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 0,
+    "Painters": 0,
+    "Dock crane": 0
+   }
+  },
+  {
+   "id": 2,
+   "name": "Blocks: keel block",
+   "duration": 2,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Welders": 6,
+    "Fitters": 0,
+    "Painters": 0,
+    "Dock crane": 2
+   }
+  },
+  {
+   "id": 3,
+   "name": "Blocks: bow block",
+   "duration": 5,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 0,
+    "Painters": 0,
+    "Dock crane": 2
+   }
+  },
+  {
+   "id": 4,
+   "name": "Blocks: stern block",
+   "duration": 1,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Welders": 4,
+    "Fitters": 0,
+    "Painters": 5,
+    "Dock crane": 5
+   }
+  },
+  {
+   "id": 5,
+   "name": "Blocks: mid block",
+   "duration": 4,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Welders": 5,
+    "Fitters": 5,
+    "Painters": 0,
+    "Dock crane": 0
+   }
+  },
+  {
+   "id": 6,
+   "name": "Blocks: keel block 2",
+   "duration": 5,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Welders": 6,
+    "Fitters": 0,
+    "Painters": 4,
+    "Dock crane": 0
+   }
+  },
+  {
+   "id": 7,
+   "name": "Blocks: bow block 2",
+   "duration": 8,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Welders": 1,
+    "Fitters": 0,
+    "Painters": 5,
+    "Dock crane": 3
+   }
+  },
+  {
+   "id": 8,
+   "name": "Blocks: stern block 2",
+   "duration": 1,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Welders": 5,
+    "Fitters": 0,
+    "Painters": 2,
+    "Dock crane": 6
+   }
+  },
+  {
+   "id": 9,
+   "name": "Blocks: mid block 2",
+   "duration": 6,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Welders": 5,
+    "Fitters": 4,
+    "Painters": 0,
+    "Dock crane": 2
+   }
+  },
+  {
+   "id": 10,
+   "name": "Blocks: keel block 3",
+   "duration": 5,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 0,
+    "Painters": 2,
+    "Dock crane": 3
+   }
+  },
+  {
+   "id": 11,
+   "name": "Blocks: bow block 3",
+   "duration": 2,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 0,
+    "Painters": 6,
+    "Dock crane": 5
+   }
+  },
+  {
+   "id": 12,
+   "name": "Erection: block joining",
+   "duration": 9,
+   "predecessors": [
+    5
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 6,
+    "Painters": 6,
+    "Dock crane": 0
+   }
+  },
+  {
+   "id": 13,
+   "name": "Erection: deck plating",
+   "duration": 4,
+   "predecessors": [
+    3,
+    6
+   ],
+   "resource_requirements": {
+    "Welders": 1,
+    "Fitters": 0,
+    "Painters": 4,
+    "Dock crane": 1
+   }
+  },
+  {
+   "id": 14,
+   "name": "Erection: bulkheads",
+   "duration": 7,
+   "predecessors": [
+    7,
+    5
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 0,
+    "Painters": 0,
+    "Dock crane": 5
+   }
+  },
+  {
+   "id": 15,
+   "name": "Erection: superstructure",
+   "duration": 4,
+   "predecessors": [
+    2,
+    8,
+    7
+   ],
+   "resource_requirements": {
+    "Welders": 3,
+    "Fitters": 0,
+    "Painters": 0,
+    "Dock crane": 0
+   }
+  },
+  {
+   "id": 16,
+   "name": "Erection: block joining 2",
+   "duration": 2,
+   "predecessors": [
+    11
+   ],
+   "resource_requirements": {
+    "Welders": 2,
+    "Fitters": 0,
+    "Painters": 3,
+    "Dock crane": 5
+   }
+  },
+  {
+   "id": 17,
+   "name": "Erection: deck plating 2",
+   "duration": 9,
+   "predecessors": [
+    4
+   ],
+   "resource_requirements": {
+    "Welders": 1,
+    "Fitters": 0,
+    "Painters": 0,
+    "Dock crane": 5
+   }
+  },
+  {
+   "id": 18,
+   "name": "Erection: bulkheads 2",
+   "duration": 2,
+   "predecessors": [
+    5
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 0,
+    "Painters": 3,
+    "Dock crane": 0
+   }
+  },
+  {
+   "id": 19,
+   "name": "Erection: superstructure 2",
+   "duration": 6,
+   "predecessors": [
+    10,
+    5,
+    7
+   ],
+   "resource_requirements": {
+    "Welders": 6,
+    "Fitters": 0,
+    "Painters": 0,
+    "Dock crane": 2
+   }
+  },
+  {
+   "id": 20,
+   "name": "Erection: block joining 3",
+   "duration": 4,
+   "predecessors": [
+    2,
+    7
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 4,
+    "Painters": 0,
+    "Dock crane": 0
+   }
+  },
+  {
+   "id": 21,
+   "name": "Erection: deck plating 3",
+   "duration": 10,
+   "predecessors": [
+    5,
+    6,
+    3
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 1,
+    "Painters": 4,
+    "Dock crane": 3
+   }
+  },
+  {
+   "id": 22,
+   "name": "Outfitting: engine install",
+   "duration": 5,
+   "predecessors": [
+    15,
+    13,
+    20
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 0,
+    "Painters": 0,
+    "Dock crane": 4
+   }
+  },
+  {
+   "id": 23,
+   "name": "Outfitting: piping",
+   "duration": 10,
+   "predecessors": [
+    12,
+    15,
+    17
+   ],
+   "resource_requirements": {
+    "Welders": 1,
+    "Fitters": 1,
+    "Painters": 0,
+    "Dock crane": 3
+   }
+  },
+  {
+   "id": 24,
+   "name": "Outfitting: cabling",
+   "duration": 3,
+   "predecessors": [
+    15,
+    13,
+    16
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 2,
+    "Painters": 0,
+    "Dock crane": 0
+   }
+  },
+  {
+   "id": 25,
+   "name": "Outfitting: accommodation",
+   "duration": 8,
+   "predecessors": [
+    20
+   ],
+   "resource_requirements": {
+    "Welders": 5,
+    "Fitters": 3,
+    "Painters": 0,
+    "Dock crane": 0
+   }
+  },
+  {
+   "id": 26,
+   "name": "Outfitting: engine install 2",
+   "duration": 6,
+   "predecessors": [
+    19,
+    20
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 6,
+    "Painters": 0,
+    "Dock crane": 1
+   }
+  },
+  {
+   "id": 27,
+   "name": "Outfitting: piping 2",
+   "duration": 3,
+   "predecessors": [
+    17,
+    18
+   ],
+   "resource_requirements": {
+    "Welders": 4,
+    "Fitters": 5,
+    "Painters": 0,
+    "Dock crane": 0
+   }
+  },
+  {
+   "id": 28,
+   "name": "Outfitting: cabling 2",
+   "duration": 9,
+   "predecessors": [
+    15,
+    13
+   ],
+   "resource_requirements": {
+    "Welders": 4,
+    "Fitters": 0,
+    "Painters": 3,
+    "Dock crane": 2
+   }
+  },
+  {
+   "id": 29,
+   "name": "Outfitting: accommodation 2",
+   "duration": 9,
+   "predecessors": [
+    16,
+    14
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 6,
+    "Painters": 1,
+    "Dock crane": 1
+   }
+  },
+  {
+   "id": 30,
+   "name": "Outfitting: engine install 3",
+   "duration": 2,
+   "predecessors": [
+    18,
+    20,
+    16
+   ],
+   "resource_requirements": {
+    "Welders": 2,
+    "Fitters": 0,
+    "Painters": 4,
+    "Dock crane": 4
+   }
+  },
+  {
+   "id": 31,
+   "name": "Outfitting: piping 3",
+   "duration": 1,
+   "predecessors": [
+    17
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 3,
+    "Painters": 3,
+    "Dock crane": 0
+   }
+  },
+  {
+   "id": 32,
+   "name": "Coating: blasting",
+   "duration": 1,
+   "predecessors": [
+    26
+   ],
+   "resource_requirements": {
+    "Welders": 6,
+    "Fitters": 6,
+    "Painters": 0,
+    "Dock crane": 1
+   }
+  },
+  {
+   "id": 33,
+   "name": "Coating: primer",
+   "duration": 9,
+   "predecessors": [
+    22,
+    28
+   ],
+   "resource_requirements": {
+    "Welders": 1,
+    "Fitters": 2,
+    "Painters": 0,
+    "Dock crane": 0
+   }
+  },
+  {
+   "id": 34,
+   "name": "Coating: hull paint",
+   "duration": 9,
+   "predecessors": [
+    26
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 3,
+    "Painters": 6,
+    "Dock crane": 1
+   }
+  },
+  {
+   "id": 35,
+   "name": "Coating: deck paint",
+   "duration": 8,
+   "predecessors": [
+    29,
+    26,
+    27
+   ],
+   "resource_requirements": {
+    "Welders": 2,
+    "Fitters": 3,
+    "Painters": 0,
+    "Dock crane": 1
+   }
+  },
+  {
+   "id": 36,
+   "name": "Coating: blasting 2",
+   "duration": 1,
+   "predecessors": [
+    23,
+    26
+   ],
+   "resource_requirements": {
+    "Welders": 4,
+    "Fitters": 1,
+    "Painters": 6,
+    "Dock crane": 0
+   }
+  },
+  {
+   "id": 37,
+   "name": "Coating: primer 2",
+   "duration": 7,
+   "predecessors": [
+    29,
+    28
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 0,
+    "Painters": 0,
+    "Dock crane": 5
+   }
+  },
+  {
+   "id": 38,
+   "name": "Coating: hull paint 2",
+   "duration": 7,
+   "predecessors": [
+    27,
+    26,
+    22
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 1,
+    "Painters": 3,
+    "Dock crane": 0
+   }
+  },
+  {
+   "id": 39,
+   "name": "Coating: deck paint 2",
+   "duration": 2,
+   "predecessors": [
+    28,
+    26,
+    30
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 6,
+    "Painters": 0,
+    "Dock crane": 1
+   }
+  },
+  {
+   "id": 40,
+   "name": "Coating: blasting 3",
+   "duration": 8,
+   "predecessors": [
+    26
+   ],
+   "resource_requirements": {
+    "Welders": 3,
+    "Fitters": 6,
+    "Painters": 0,
+    "Dock crane": 5
+   }
+  },
+  {
+   "id": 41,
+   "name": "Coating: primer 3",
+   "duration": 10,
+   "predecessors": [
+    26
+   ],
+   "resource_requirements": {
+    "Welders": 2,
+    "Fitters": 2,
+    "Painters": 0,
+    "Dock crane": 6
+   }
+  },
+  {
+   "id": 42,
+   "name": "Trials: harbour trial",
+   "duration": 3,
+   "predecessors": [
+    35,
+    39,
+    37
+   ],
+   "resource_requirements": {
+    "Welders": 6,
+    "Fitters": 0,
+    "Painters": 3,
+    "Dock crane": 1
+   }
+  },
+  {
+   "id": 43,
+   "name": "Trials: sea trial",
+   "duration": 4,
+   "predecessors": [
+    32
+   ],
+   "resource_requirements": {
+    "Welders": 1,
+    "Fitters": 0,
+    "Painters": 0,
+    "Dock crane": 0
+   }
+  },
+  {
+   "id": 44,
+   "name": "Trials: class survey",
+   "duration": 8,
+   "predecessors": [
+    35
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 0,
+    "Painters": 2,
+    "Dock crane": 4
+   }
+  },
+  {
+   "id": 45,
+   "name": "Trials: delivery",
+   "duration": 2,
+   "predecessors": [
+    37,
+    39
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 6,
+    "Painters": 6,
+    "Dock crane": 2
+   }
+  },
+  {
+   "id": 46,
+   "name": "Trials: harbour trial 2",
+   "duration": 1,
+   "predecessors": [
+    34,
+    38
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 3,
+    "Painters": 0,
+    "Dock crane": 0
+   }
+  },
+  {
+   "id": 47,
+   "name": "Trials: sea trial 2",
+   "duration": 3,
+   "predecessors": [
+    32,
+    40,
+    38
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 1,
+    "Painters": 0,
+    "Dock crane": 0
+   }
+  },
+  {
+   "id": 48,
+   "name": "Trials: class survey 2",
+   "duration": 8,
+   "predecessors": [
+    40,
+    33,
+    35
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 1,
+    "Painters": 4,
+    "Dock crane": 6
+   }
+  },
+  {
+   "id": 49,
+   "name": "Trials: delivery 2",
+   "duration": 2,
+   "predecessors": [
+    41
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 3,
+    "Painters": 5,
+    "Dock crane": 4
+   }
+  },
+  {
+   "id": 50,
+   "name": "Trials: harbour trial 3",
+   "duration": 10,
+   "predecessors": [
+    36,
+    33
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 0,
+    "Painters": 6,
+    "Dock crane": 0
+   }
+  },
+  {
+   "id": 51,
+   "name": "Trials: sea trial 3",
+   "duration": 2,
+   "predecessors": [
+    39,
+    35
+   ],
+   "resource_requirements": {
+    "Welders": 6,
+    "Fitters": 1,
+    "Painters": 3,
+    "Dock crane": 0
+   }
+  },
+  {
+   "id": 52,
+   "name": "Finish",
+   "duration": 0,
+   "predecessors": [
+    9,
+    21,
+    24,
+    25,
+    31,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51
+   ],
+   "resource_requirements": {
+    "Welders": 0,
+    "Fitters": 0,
+    "Painters": 0,
+    "Dock crane": 0
+   }
+  }
+ ]
+}

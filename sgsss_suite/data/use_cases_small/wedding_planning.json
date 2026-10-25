@@ -1,0 +1,221 @@
+{
+ "name": "wedding_planning",
+ "resources": {
+  "Planners": 2,
+  "Decorators": 3,
+  "Caterers": 4
+ },
+ "activities": [
+  {
+   "id": 1,
+   "name": "Start",
+   "duration": 0,
+   "predecessors": [],
+   "resource_requirements": {
+    "Planners": 0,
+    "Decorators": 0,
+    "Caterers": 0
+   }
+  },
+  {
+   "id": 2,
+   "name": "Book venue",
+   "duration": 2,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Planners": 1,
+    "Decorators": 0,
+    "Caterers": 0
+   }
+  },
+  {
+   "id": 3,
+   "name": "Guest list",
+   "duration": 2,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Planners": 1,
+    "Decorators": 0,
+    "Caterers": 0
+   }
+  },
+  {
+   "id": 4,
+   "name": "Invitations",
+   "duration": 3,
+   "predecessors": [
+    3
+   ],
+   "resource_requirements": {
+    "Planners": 1,
+    "Decorators": 1,
+    "Caterers": 0
+   }
+  },
+  {
+   "id": 5,
+   "name": "Menu tasting",
+   "duration": 2,
+   "predecessors": [
+    2
+   ],
+   "resource_requirements": {
+    "Planners": 1,
+    "Decorators": 0,
+    "Caterers": 2
+   }
+  },
+  {
+   "id": 6,
+   "name": "Theme & decor plan",
+   "duration": 3,
+   "predecessors": [
+    2
+   ],
+   "resource_requirements": {
+    "Planners": 1,
+    "Decorators": 2,
+    "Caterers": 0
+   }
+  },
+  {
+   "id": 7,
+   "name": "Order flowers",
+   "duration": 1,
+   "predecessors": [
+    6
+   ],
+   "resource_requirements": {
+    "Planners": 1,
+    "Decorators": 1,
+    "Caterers": 0
+   }
+  },
+  {
+   "id": 8,
+   "name": "Seating plan",
+   "duration": 2,
+   "predecessors": [
+    4
+   ],
+   "resource_requirements": {
+    "Planners": 1,
+    "Decorators": 0,
+    "Caterers": 0
+   }
+  },
+  {
+   "id": 9,
+   "name": "Build stage",
+   "duration": 3,
+   "predecessors": [
+    6
+   ],
+   "resource_requirements": {
+    "Planners": 0,
+    "Decorators": 3,
+    "Caterers": 0
+   }
+  },
+  {
+   "id": 10,
+   "name": "Lighting & sound",
+   "duration": 2,
+   "predecessors": [
+    9
+   ],
+   "resource_requirements": {
+    "Planners": 0,
+    "Decorators": 2,
+    "Caterers": 0
+   }
+  },
+  {
+   "id": 11,
+   "name": "Prep food",
+   "duration": 3,
+   "predecessors": [
+    5
+   ],
+   "resource_requirements": {
+    "Planners": 0,
+    "Decorators": 0,
+    "Caterers": 4
+   }
+  },
+  {
+   "id": 12,
+   "name": "Decorate hall",
+   "duration": 2,
+   "predecessors": [
+    9,
+    7,
+    8
+   ],
+   "resource_requirements": {
+    "Planners": 1,
+    "Decorators": 3,
+    "Caterers": 0
+   }
+  },
+  {
+   "id": 13,
+   "name": "Set tables",
+   "duration": 1,
+   "predecessors": [
+    12
+   ],
+   "resource_requirements": {
+    "Planners": 0,
+    "Decorators": 1,
+    "Caterers": 2
+   }
+  },
+  {
+   "id": 14,
+   "name": "Rehearsal",
+   "duration": 1,
+   "predecessors": [
+    10,
+    12
+   ],
+   "resource_requirements": {
+    "Planners": 2,
+    "Decorators": 0,
+    "Caterers": 0
+   }
+  },
+  {
+   "id": 15,
+   "name": "Serve dinner",
+   "duration": 1,
+   "predecessors": [
+    11,
+    13
+   ],
+   "resource_requirements": {
+    "Planners": 1,
+    "Decorators": 0,
+    "Caterers": 4
+   }
+  },
+  {
+   "id": 16,
+   "name": "Finish",
+   "duration": 0,
+   "predecessors": [
+    14,
+    15
+   ],
+   "resource_requirements": {
+    "Planners": 0,
+    "Decorators": 0,
+    "Caterers": 0
+   }
+  }
+ ]
+}

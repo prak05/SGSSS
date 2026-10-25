@@ -1,0 +1,684 @@
+{
+ "name": "oil_gas_34",
+ "resources": {
+  "Pipefitters": 11,
+  "Welders": 13,
+  "Instrument techs": 10,
+  "Heavy lift": 11
+ },
+ "activities": [
+  {
+   "id": 1,
+   "name": "Start",
+   "duration": 0,
+   "predecessors": [],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 0,
+    "Instrument techs": 0,
+    "Heavy lift": 0
+   }
+  },
+  {
+   "id": 2,
+   "name": "Shutdown: isolation",
+   "duration": 4,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 5,
+    "Instrument techs": 0,
+    "Heavy lift": 4
+   }
+  },
+  {
+   "id": 3,
+   "name": "Shutdown: purging",
+   "duration": 2,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 0,
+    "Instrument techs": 6,
+    "Heavy lift": 6
+   }
+  },
+  {
+   "id": 4,
+   "name": "Shutdown: scaffolding",
+   "duration": 3,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 6,
+    "Instrument techs": 0,
+    "Heavy lift": 0
+   }
+  },
+  {
+   "id": 5,
+   "name": "Shutdown: permits",
+   "duration": 4,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Pipefitters": 2,
+    "Welders": 0,
+    "Instrument techs": 1,
+    "Heavy lift": 0
+   }
+  },
+  {
+   "id": 6,
+   "name": "Shutdown: isolation 2",
+   "duration": 2,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 0,
+    "Instrument techs": 0,
+    "Heavy lift": 4
+   }
+  },
+  {
+   "id": 7,
+   "name": "Shutdown: purging 2",
+   "duration": 9,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Pipefitters": 5,
+    "Welders": 0,
+    "Instrument techs": 0,
+    "Heavy lift": 0
+   }
+  },
+  {
+   "id": 8,
+   "name": "Shutdown: scaffolding 2",
+   "duration": 3,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 2,
+    "Instrument techs": 0,
+    "Heavy lift": 4
+   }
+  },
+  {
+   "id": 9,
+   "name": "Shutdown: permits 2",
+   "duration": 6,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Pipefitters": 6,
+    "Welders": 4,
+    "Instrument techs": 0,
+    "Heavy lift": 2
+   }
+  },
+  {
+   "id": 10,
+   "name": "Shutdown: isolation 3",
+   "duration": 4,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 1,
+    "Instrument techs": 0,
+    "Heavy lift": 0
+   }
+  },
+  {
+   "id": 11,
+   "name": "Inspection: vessels",
+   "duration": 2,
+   "predecessors": [
+    8,
+    9
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 2,
+    "Instrument techs": 5,
+    "Heavy lift": 2
+   }
+  },
+  {
+   "id": 12,
+   "name": "Inspection: exchangers",
+   "duration": 4,
+   "predecessors": [
+    2,
+    7
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 6,
+    "Instrument techs": 0,
+    "Heavy lift": 1
+   }
+  },
+  {
+   "id": 13,
+   "name": "Inspection: piping",
+   "duration": 4,
+   "predecessors": [
+    6,
+    5,
+    4
+   ],
+   "resource_requirements": {
+    "Pipefitters": 4,
+    "Welders": 0,
+    "Instrument techs": 0,
+    "Heavy lift": 0
+   }
+  },
+  {
+   "id": 14,
+   "name": "Inspection: valves",
+   "duration": 10,
+   "predecessors": [
+    6,
+    5,
+    10
+   ],
+   "resource_requirements": {
+    "Pipefitters": 1,
+    "Welders": 0,
+    "Instrument techs": 0,
+    "Heavy lift": 2
+   }
+  },
+  {
+   "id": 15,
+   "name": "Inspection: vessels 2",
+   "duration": 7,
+   "predecessors": [
+    10
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 6,
+    "Instrument techs": 3,
+    "Heavy lift": 0
+   }
+  },
+  {
+   "id": 16,
+   "name": "Inspection: exchangers 2",
+   "duration": 10,
+   "predecessors": [
+    5
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 5,
+    "Instrument techs": 0,
+    "Heavy lift": 6
+   }
+  },
+  {
+   "id": 17,
+   "name": "Inspection: piping 2",
+   "duration": 8,
+   "predecessors": [
+    3
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 0,
+    "Instrument techs": 0,
+    "Heavy lift": 2
+   }
+  },
+  {
+   "id": 18,
+   "name": "Inspection: valves 2",
+   "duration": 3,
+   "predecessors": [
+    6,
+    2,
+    3
+   ],
+   "resource_requirements": {
+    "Pipefitters": 1,
+    "Welders": 5,
+    "Instrument techs": 0,
+    "Heavy lift": 4
+   }
+  },
+  {
+   "id": 19,
+   "name": "Inspection: vessels 3",
+   "duration": 5,
+   "predecessors": [
+    10
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 0,
+    "Instrument techs": 5,
+    "Heavy lift": 0
+   }
+  },
+  {
+   "id": 20,
+   "name": "Repair: vessel repair",
+   "duration": 9,
+   "predecessors": [
+    17,
+    13
+   ],
+   "resource_requirements": {
+    "Pipefitters": 1,
+    "Welders": 2,
+    "Instrument techs": 0,
+    "Heavy lift": 2
+   }
+  },
+  {
+   "id": 21,
+   "name": "Repair: pipe spools",
+   "duration": 9,
+   "predecessors": [
+    13
+   ],
+   "resource_requirements": {
+    "Pipefitters": 2,
+    "Welders": 2,
+    "Instrument techs": 0,
+    "Heavy lift": 2
+   }
+  },
+  {
+   "id": 22,
+   "name": "Repair: valve overhaul",
+   "duration": 9,
+   "predecessors": [
+    16
+   ],
+   "resource_requirements": {
+    "Pipefitters": 1,
+    "Welders": 0,
+    "Instrument techs": 0,
+    "Heavy lift": 0
+   }
+  },
+  {
+   "id": 23,
+   "name": "Repair: pump overhaul",
+   "duration": 2,
+   "predecessors": [
+    18,
+    16,
+    15
+   ],
+   "resource_requirements": {
+    "Pipefitters": 4,
+    "Welders": 0,
+    "Instrument techs": 0,
+    "Heavy lift": 0
+   }
+  },
+  {
+   "id": 24,
+   "name": "Repair: vessel repair 2",
+   "duration": 8,
+   "predecessors": [
+    18,
+    19,
+    15
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 5,
+    "Instrument techs": 6,
+    "Heavy lift": 0
+   }
+  },
+  {
+   "id": 25,
+   "name": "Repair: pipe spools 2",
+   "duration": 5,
+   "predecessors": [
+    19,
+    12,
+    15
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 0,
+    "Instrument techs": 5,
+    "Heavy lift": 4
+   }
+  },
+  {
+   "id": 26,
+   "name": "Repair: valve overhaul 2",
+   "duration": 10,
+   "predecessors": [
+    15,
+    14,
+    12
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 4,
+    "Instrument techs": 0,
+    "Heavy lift": 0
+   }
+  },
+  {
+   "id": 27,
+   "name": "Repair: pump overhaul 2",
+   "duration": 9,
+   "predecessors": [
+    18,
+    16,
+    14
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 6,
+    "Instrument techs": 0,
+    "Heavy lift": 0
+   }
+  },
+  {
+   "id": 28,
+   "name": "Repair: vessel repair 3",
+   "duration": 10,
+   "predecessors": [
+    15,
+    19
+   ],
+   "resource_requirements": {
+    "Pipefitters": 6,
+    "Welders": 3,
+    "Instrument techs": 0,
+    "Heavy lift": 2
+   }
+  },
+  {
+   "id": 29,
+   "name": "Reinstate: hydrotest",
+   "duration": 6,
+   "predecessors": [
+    20,
+    21,
+    28
+   ],
+   "resource_requirements": {
+    "Pipefitters": 5,
+    "Welders": 6,
+    "Instrument techs": 5,
+    "Heavy lift": 0
+   }
+  },
+  {
+   "id": 30,
+   "name": "Reinstate: insulation",
+   "duration": 10,
+   "predecessors": [
+    21,
+    24,
+    22
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 3,
+    "Instrument techs": 0,
+    "Heavy lift": 0
+   }
+  },
+  {
+   "id": 31,
+   "name": "Reinstate: instruments",
+   "duration": 6,
+   "predecessors": [
+    26
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 1,
+    "Instrument techs": 2,
+    "Heavy lift": 6
+   }
+  },
+  {
+   "id": 32,
+   "name": "Reinstate: boxing up",
+   "duration": 2,
+   "predecessors": [
+    28,
+    26
+   ],
+   "resource_requirements": {
+    "Pipefitters": 3,
+    "Welders": 2,
+    "Instrument techs": 0,
+    "Heavy lift": 5
+   }
+  },
+  {
+   "id": 33,
+   "name": "Reinstate: hydrotest 2",
+   "duration": 8,
+   "predecessors": [
+    20,
+    23,
+    26
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 4,
+    "Instrument techs": 0,
+    "Heavy lift": 0
+   }
+  },
+  {
+   "id": 34,
+   "name": "Reinstate: insulation 2",
+   "duration": 9,
+   "predecessors": [
+    23
+   ],
+   "resource_requirements": {
+    "Pipefitters": 4,
+    "Welders": 3,
+    "Instrument techs": 6,
+    "Heavy lift": 0
+   }
+  },
+  {
+   "id": 35,
+   "name": "Reinstate: instruments 2",
+   "duration": 5,
+   "predecessors": [
+    22
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 0,
+    "Instrument techs": 0,
+    "Heavy lift": 2
+   }
+  },
+  {
+   "id": 36,
+   "name": "Reinstate: boxing up 2",
+   "duration": 8,
+   "predecessors": [
+    20,
+    22
+   ],
+   "resource_requirements": {
+    "Pipefitters": 1,
+    "Welders": 0,
+    "Instrument techs": 0,
+    "Heavy lift": 0
+   }
+  },
+  {
+   "id": 37,
+   "name": "Start-up: leak test",
+   "duration": 10,
+   "predecessors": [
+    36,
+    33,
+    35
+   ],
+   "resource_requirements": {
+    "Pipefitters": 6,
+    "Welders": 0,
+    "Instrument techs": 0,
+    "Heavy lift": 0
+   }
+  },
+  {
+   "id": 38,
+   "name": "Start-up: purge",
+   "duration": 6,
+   "predecessors": [
+    32,
+    30,
+    36
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 4,
+    "Instrument techs": 0,
+    "Heavy lift": 6
+   }
+  },
+  {
+   "id": 39,
+   "name": "Start-up: start-up",
+   "duration": 5,
+   "predecessors": [
+    31
+   ],
+   "resource_requirements": {
+    "Pipefitters": 6,
+    "Welders": 4,
+    "Instrument techs": 0,
+    "Heavy lift": 5
+   }
+  },
+  {
+   "id": 40,
+   "name": "Start-up: monitoring",
+   "duration": 6,
+   "predecessors": [
+    29
+   ],
+   "resource_requirements": {
+    "Pipefitters": 3,
+    "Welders": 0,
+    "Instrument techs": 0,
+    "Heavy lift": 6
+   }
+  },
+  {
+   "id": 41,
+   "name": "Start-up: leak test 2",
+   "duration": 3,
+   "predecessors": [
+    29,
+    32
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 6,
+    "Instrument techs": 3,
+    "Heavy lift": 0
+   }
+  },
+  {
+   "id": 42,
+   "name": "Start-up: purge 2",
+   "duration": 5,
+   "predecessors": [
+    30
+   ],
+   "resource_requirements": {
+    "Pipefitters": 6,
+    "Welders": 1,
+    "Instrument techs": 0,
+    "Heavy lift": 4
+   }
+  },
+  {
+   "id": 43,
+   "name": "Start-up: start-up 2",
+   "duration": 8,
+   "predecessors": [
+    32,
+    36
+   ],
+   "resource_requirements": {
+    "Pipefitters": 3,
+    "Welders": 2,
+    "Instrument techs": 0,
+    "Heavy lift": 5
+   }
+  },
+  {
+   "id": 44,
+   "name": "Start-up: monitoring 2",
+   "duration": 3,
+   "predecessors": [
+    34,
+    31
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 3,
+    "Instrument techs": 0,
+    "Heavy lift": 0
+   }
+  },
+  {
+   "id": 45,
+   "name": "Finish",
+   "duration": 0,
+   "predecessors": [
+    11,
+    25,
+    27,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44
+   ],
+   "resource_requirements": {
+    "Pipefitters": 0,
+    "Welders": 0,
+    "Instrument techs": 0,
+    "Heavy lift": 0
+   }
+  }
+ ]
+}

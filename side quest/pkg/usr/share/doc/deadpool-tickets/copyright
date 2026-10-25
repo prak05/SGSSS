@@ -1,0 +1,13 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: deadpool-tickets
+Source: local
+
+Files: *
+Copyright: 2026 prak05 <prak05@localhost>
+License: MIT
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software to deal in the Software without restriction. THE SOFTWARE IS
+ PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
+ .
+ Fan project. "Deadpool" and "Wolverine" are trademarks of Marvel; this package
+ is not affiliated with or endorsed by Marvel Studios or Disney.

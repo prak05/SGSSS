@@ -1,0 +1,911 @@
+{
+ "name": "construction_37",
+ "resources": {
+  "Crews": 13,
+  "Cranes": 12,
+  "Electricians": 14,
+  "Plumbers": 12
+ },
+ "activities": [
+  {
+   "id": 1,
+   "name": "Start",
+   "duration": 0,
+   "predecessors": [],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 0,
+    "Electricians": 0,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 2,
+   "name": "Site: survey",
+   "duration": 9,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Crews": 5,
+    "Cranes": 0,
+    "Electricians": 4,
+    "Plumbers": 1
+   }
+  },
+  {
+   "id": 3,
+   "name": "Site: clearance",
+   "duration": 1,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Crews": 4,
+    "Cranes": 5,
+    "Electricians": 1,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 4,
+   "name": "Site: fencing",
+   "duration": 4,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 5,
+    "Electricians": 2,
+    "Plumbers": 5
+   }
+  },
+  {
+   "id": 5,
+   "name": "Site: utilities",
+   "duration": 2,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Crews": 2,
+    "Cranes": 0,
+    "Electricians": 3,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 6,
+   "name": "Site: survey 2",
+   "duration": 3,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 0,
+    "Electricians": 0,
+    "Plumbers": 2
+   }
+  },
+  {
+   "id": 7,
+   "name": "Site: clearance 2",
+   "duration": 10,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Crews": 6,
+    "Cranes": 0,
+    "Electricians": 0,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 8,
+   "name": "Site: fencing 2",
+   "duration": 6,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Crews": 5,
+    "Cranes": 4,
+    "Electricians": 5,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 9,
+   "name": "Site: utilities 2",
+   "duration": 5,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 0,
+    "Electricians": 0,
+    "Plumbers": 6
+   }
+  },
+  {
+   "id": 10,
+   "name": "Site: survey 3",
+   "duration": 7,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Crews": 1,
+    "Cranes": 5,
+    "Electricians": 0,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 11,
+   "name": "Groundworks: excavation",
+   "duration": 2,
+   "predecessors": [
+    7,
+    8,
+    10
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 5,
+    "Electricians": 1,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 12,
+   "name": "Groundworks: piling",
+   "duration": 2,
+   "predecessors": [
+    4
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 0,
+    "Electricians": 4,
+    "Plumbers": 5
+   }
+  },
+  {
+   "id": 13,
+   "name": "Groundworks: drainage",
+   "duration": 3,
+   "predecessors": [
+    2
+   ],
+   "resource_requirements": {
+    "Crews": 4,
+    "Cranes": 0,
+    "Electricians": 0,
+    "Plumbers": 2
+   }
+  },
+  {
+   "id": 14,
+   "name": "Groundworks: foundations",
+   "duration": 9,
+   "predecessors": [
+    10
+   ],
+   "resource_requirements": {
+    "Crews": 6,
+    "Cranes": 1,
+    "Electricians": 0,
+    "Plumbers": 1
+   }
+  },
+  {
+   "id": 15,
+   "name": "Groundworks: excavation 2",
+   "duration": 7,
+   "predecessors": [
+    6
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 3,
+    "Electricians": 5,
+    "Plumbers": 3
+   }
+  },
+  {
+   "id": 16,
+   "name": "Groundworks: piling 2",
+   "duration": 10,
+   "predecessors": [
+    10
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 5,
+    "Electricians": 0,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 17,
+   "name": "Groundworks: drainage 2",
+   "duration": 9,
+   "predecessors": [
+    3,
+    2
+   ],
+   "resource_requirements": {
+    "Crews": 6,
+    "Cranes": 0,
+    "Electricians": 6,
+    "Plumbers": 5
+   }
+  },
+  {
+   "id": 18,
+   "name": "Groundworks: foundations 2",
+   "duration": 7,
+   "predecessors": [
+    2
+   ],
+   "resource_requirements": {
+    "Crews": 3,
+    "Cranes": 0,
+    "Electricians": 1,
+    "Plumbers": 4
+   }
+  },
+  {
+   "id": 19,
+   "name": "Groundworks: excavation 3",
+   "duration": 8,
+   "predecessors": [
+    9,
+    3
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 0,
+    "Electricians": 1,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 20,
+   "name": "Structure: steel frame",
+   "duration": 10,
+   "predecessors": [
+    17
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 1,
+    "Electricians": 0,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 21,
+   "name": "Structure: concrete slab",
+   "duration": 9,
+   "predecessors": [
+    14,
+    12,
+    18
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 6,
+    "Electricians": 6,
+    "Plumbers": 5
+   }
+  },
+  {
+   "id": 22,
+   "name": "Structure: columns",
+   "duration": 6,
+   "predecessors": [
+    14,
+    11
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 0,
+    "Electricians": 5,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 23,
+   "name": "Structure: roof deck",
+   "duration": 10,
+   "predecessors": [
+    15,
+    18,
+    12
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 3,
+    "Electricians": 0,
+    "Plumbers": 2
+   }
+  },
+  {
+   "id": 24,
+   "name": "Structure: steel frame 2",
+   "duration": 2,
+   "predecessors": [
+    11,
+    19,
+    17
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 0,
+    "Electricians": 3,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 25,
+   "name": "Structure: concrete slab 2",
+   "duration": 4,
+   "predecessors": [
+    14,
+    19,
+    15
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 0,
+    "Electricians": 4,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 26,
+   "name": "Structure: columns 2",
+   "duration": 2,
+   "predecessors": [
+    19,
+    12
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 0,
+    "Electricians": 0,
+    "Plumbers": 3
+   }
+  },
+  {
+   "id": 27,
+   "name": "Structure: roof deck 2",
+   "duration": 6,
+   "predecessors": [
+    15
+   ],
+   "resource_requirements": {
+    "Crews": 2,
+    "Cranes": 0,
+    "Electricians": 0,
+    "Plumbers": 6
+   }
+  },
+  {
+   "id": 28,
+   "name": "Envelope: cladding",
+   "duration": 8,
+   "predecessors": [
+    22
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 0,
+    "Electricians": 6,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 29,
+   "name": "Envelope: glazing",
+   "duration": 4,
+   "predecessors": [
+    20,
+    27,
+    26
+   ],
+   "resource_requirements": {
+    "Crews": 2,
+    "Cranes": 4,
+    "Electricians": 6,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 30,
+   "name": "Envelope: roofing",
+   "duration": 2,
+   "predecessors": [
+    23,
+    27
+   ],
+   "resource_requirements": {
+    "Crews": 3,
+    "Cranes": 0,
+    "Electricians": 0,
+    "Plumbers": 5
+   }
+  },
+  {
+   "id": 31,
+   "name": "Envelope: insulation",
+   "duration": 4,
+   "predecessors": [
+    23,
+    21
+   ],
+   "resource_requirements": {
+    "Crews": 3,
+    "Cranes": 0,
+    "Electricians": 0,
+    "Plumbers": 1
+   }
+  },
+  {
+   "id": 32,
+   "name": "Envelope: cladding 2",
+   "duration": 10,
+   "predecessors": [
+    24
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 0,
+    "Electricians": 5,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 33,
+   "name": "Envelope: glazing 2",
+   "duration": 5,
+   "predecessors": [
+    21,
+    24,
+    22
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 0,
+    "Electricians": 0,
+    "Plumbers": 1
+   }
+  },
+  {
+   "id": 34,
+   "name": "Envelope: roofing 2",
+   "duration": 7,
+   "predecessors": [
+    23,
+    20,
+    24
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 1,
+    "Electricians": 5,
+    "Plumbers": 5
+   }
+  },
+  {
+   "id": 35,
+   "name": "Envelope: insulation 2",
+   "duration": 4,
+   "predecessors": [
+    24,
+    21
+   ],
+   "resource_requirements": {
+    "Crews": 2,
+    "Cranes": 0,
+    "Electricians": 6,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 36,
+   "name": "Services: wiring",
+   "duration": 8,
+   "predecessors": [
+    30
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 2,
+    "Electricians": 0,
+    "Plumbers": 3
+   }
+  },
+  {
+   "id": 37,
+   "name": "Services: plumbing",
+   "duration": 4,
+   "predecessors": [
+    34,
+    29,
+    28
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 5,
+    "Electricians": 2,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 38,
+   "name": "Services: HVAC ducts",
+   "duration": 10,
+   "predecessors": [
+    28,
+    33,
+    35
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 0,
+    "Electricians": 2,
+    "Plumbers": 5
+   }
+  },
+  {
+   "id": 39,
+   "name": "Services: fire system",
+   "duration": 2,
+   "predecessors": [
+    33,
+    30
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 0,
+    "Electricians": 0,
+    "Plumbers": 5
+   }
+  },
+  {
+   "id": 40,
+   "name": "Services: wiring 2",
+   "duration": 4,
+   "predecessors": [
+    35,
+    30,
+    28
+   ],
+   "resource_requirements": {
+    "Crews": 5,
+    "Cranes": 0,
+    "Electricians": 0,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 41,
+   "name": "Services: plumbing 2",
+   "duration": 4,
+   "predecessors": [
+    28,
+    30,
+    32
+   ],
+   "resource_requirements": {
+    "Crews": 6,
+    "Cranes": 0,
+    "Electricians": 0,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 42,
+   "name": "Services: HVAC ducts 2",
+   "duration": 8,
+   "predecessors": [
+    29,
+    34
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 0,
+    "Electricians": 6,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 43,
+   "name": "Services: fire system 2",
+   "duration": 10,
+   "predecessors": [
+    31
+   ],
+   "resource_requirements": {
+    "Crews": 1,
+    "Cranes": 2,
+    "Electricians": 0,
+    "Plumbers": 3
+   }
+  },
+  {
+   "id": 44,
+   "name": "Fit-out: partitions",
+   "duration": 1,
+   "predecessors": [
+    43
+   ],
+   "resource_requirements": {
+    "Crews": 3,
+    "Cranes": 0,
+    "Electricians": 0,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 45,
+   "name": "Fit-out: ceilings",
+   "duration": 7,
+   "predecessors": [
+    43,
+    42
+   ],
+   "resource_requirements": {
+    "Crews": 4,
+    "Cranes": 0,
+    "Electricians": 0,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 46,
+   "name": "Fit-out: flooring",
+   "duration": 5,
+   "predecessors": [
+    38,
+    37
+   ],
+   "resource_requirements": {
+    "Crews": 1,
+    "Cranes": 0,
+    "Electricians": 0,
+    "Plumbers": 6
+   }
+  },
+  {
+   "id": 47,
+   "name": "Fit-out: painting",
+   "duration": 5,
+   "predecessors": [
+    37,
+    40
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 4,
+    "Electricians": 1,
+    "Plumbers": 3
+   }
+  },
+  {
+   "id": 48,
+   "name": "Fit-out: partitions 2",
+   "duration": 9,
+   "predecessors": [
+    39,
+    38,
+    43
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 0,
+    "Electricians": 6,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 49,
+   "name": "Fit-out: ceilings 2",
+   "duration": 2,
+   "predecessors": [
+    40,
+    37,
+    43
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 0,
+    "Electricians": 1,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 50,
+   "name": "Fit-out: flooring 2",
+   "duration": 9,
+   "predecessors": [
+    38,
+    39
+   ],
+   "resource_requirements": {
+    "Crews": 1,
+    "Cranes": 4,
+    "Electricians": 3,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 51,
+   "name": "Fit-out: painting 2",
+   "duration": 6,
+   "predecessors": [
+    41,
+    38
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 3,
+    "Electricians": 1,
+    "Plumbers": 2
+   }
+  },
+  {
+   "id": 52,
+   "name": "Handover: snagging",
+   "duration": 7,
+   "predecessors": [
+    47,
+    51
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 4,
+    "Electricians": 0,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 53,
+   "name": "Handover: testing",
+   "duration": 8,
+   "predecessors": [
+    46,
+    48,
+    50
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 2,
+    "Electricians": 3,
+    "Plumbers": 4
+   }
+  },
+  {
+   "id": 54,
+   "name": "Handover: inspection",
+   "duration": 4,
+   "predecessors": [
+    50,
+    47
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 0,
+    "Electricians": 0,
+    "Plumbers": 6
+   }
+  },
+  {
+   "id": 55,
+   "name": "Handover: cleaning",
+   "duration": 4,
+   "predecessors": [
+    48
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 4,
+    "Electricians": 0,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 56,
+   "name": "Handover: snagging 2",
+   "duration": 7,
+   "predecessors": [
+    48,
+    46
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 1,
+    "Electricians": 1,
+    "Plumbers": 6
+   }
+  },
+  {
+   "id": 57,
+   "name": "Handover: testing 2",
+   "duration": 7,
+   "predecessors": [
+    44
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 5,
+    "Electricians": 6,
+    "Plumbers": 4
+   }
+  },
+  {
+   "id": 58,
+   "name": "Handover: inspection 2",
+   "duration": 3,
+   "predecessors": [
+    47,
+    51,
+    49
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 2,
+    "Electricians": 1,
+    "Plumbers": 1
+   }
+  },
+  {
+   "id": 59,
+   "name": "Handover: cleaning 2",
+   "duration": 10,
+   "predecessors": [
+    47
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 6,
+    "Electricians": 6,
+    "Plumbers": 0
+   }
+  },
+  {
+   "id": 60,
+   "name": "Finish",
+   "duration": 0,
+   "predecessors": [
+    5,
+    13,
+    16,
+    25,
+    36,
+    45,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59
+   ],
+   "resource_requirements": {
+    "Crews": 0,
+    "Cranes": 0,
+    "Electricians": 0,
+    "Plumbers": 0
+   }
+  }
+ ]
+}

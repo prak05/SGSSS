@@ -1,0 +1,907 @@
+{
+ "name": "aerospace_31",
+ "resources": {
+  "Assembly crews": 15,
+  "Avionics engineers": 19,
+  "Tooling rigs": 17,
+  "Inspectors": 18
+ },
+ "activities": [
+  {
+   "id": 1,
+   "name": "Start",
+   "duration": 0,
+   "predecessors": [],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 0,
+    "Tooling rigs": 0,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 2,
+   "name": "Structure: fuselage join",
+   "duration": 2,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 2,
+    "Tooling rigs": 2,
+    "Inspectors": 6
+   }
+  },
+  {
+   "id": 3,
+   "name": "Structure: wing mate",
+   "duration": 8,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Assembly crews": 6,
+    "Avionics engineers": 1,
+    "Tooling rigs": 0,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 4,
+   "name": "Structure: empennage",
+   "duration": 6,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Assembly crews": 6,
+    "Avionics engineers": 0,
+    "Tooling rigs": 0,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 5,
+   "name": "Structure: landing gear",
+   "duration": 3,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 4,
+    "Tooling rigs": 4,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 6,
+   "name": "Structure: fuselage join 2",
+   "duration": 1,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Assembly crews": 3,
+    "Avionics engineers": 1,
+    "Tooling rigs": 6,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 7,
+   "name": "Structure: wing mate 2",
+   "duration": 2,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 0,
+    "Tooling rigs": 0,
+    "Inspectors": 3
+   }
+  },
+  {
+   "id": 8,
+   "name": "Structure: empennage 2",
+   "duration": 3,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Assembly crews": 5,
+    "Avionics engineers": 0,
+    "Tooling rigs": 6,
+    "Inspectors": 1
+   }
+  },
+  {
+   "id": 9,
+   "name": "Structure: landing gear 2",
+   "duration": 7,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 6,
+    "Tooling rigs": 0,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 10,
+   "name": "Structure: fuselage join 3",
+   "duration": 6,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Assembly crews": 1,
+    "Avionics engineers": 0,
+    "Tooling rigs": 6,
+    "Inspectors": 6
+   }
+  },
+  {
+   "id": 11,
+   "name": "Structure: wing mate 3",
+   "duration": 10,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Assembly crews": 4,
+    "Avionics engineers": 0,
+    "Tooling rigs": 0,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 12,
+   "name": "Structure: empennage 3",
+   "duration": 5,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 0,
+    "Tooling rigs": 5,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 13,
+   "name": "Structure: landing gear 3",
+   "duration": 1,
+   "predecessors": [
+    1
+   ],
+   "resource_requirements": {
+    "Assembly crews": 3,
+    "Avionics engineers": 0,
+    "Tooling rigs": 6,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 14,
+   "name": "Systems: hydraulics",
+   "duration": 3,
+   "predecessors": [
+    12
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 1,
+    "Tooling rigs": 3,
+    "Inspectors": 2
+   }
+  },
+  {
+   "id": 15,
+   "name": "Systems: fuel system",
+   "duration": 8,
+   "predecessors": [
+    12,
+    5
+   ],
+   "resource_requirements": {
+    "Assembly crews": 4,
+    "Avionics engineers": 3,
+    "Tooling rigs": 2,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 16,
+   "name": "Systems: flight controls",
+   "duration": 4,
+   "predecessors": [
+    9,
+    10
+   ],
+   "resource_requirements": {
+    "Assembly crews": 6,
+    "Avionics engineers": 3,
+    "Tooling rigs": 0,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 17,
+   "name": "Systems: wiring looms",
+   "duration": 3,
+   "predecessors": [
+    8
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 6,
+    "Tooling rigs": 0,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 18,
+   "name": "Systems: hydraulics 2",
+   "duration": 6,
+   "predecessors": [
+    5
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 0,
+    "Tooling rigs": 6,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 19,
+   "name": "Systems: fuel system 2",
+   "duration": 9,
+   "predecessors": [
+    2
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 1,
+    "Tooling rigs": 3,
+    "Inspectors": 6
+   }
+  },
+  {
+   "id": 20,
+   "name": "Systems: flight controls 2",
+   "duration": 4,
+   "predecessors": [
+    7,
+    2
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 4,
+    "Tooling rigs": 0,
+    "Inspectors": 3
+   }
+  },
+  {
+   "id": 21,
+   "name": "Systems: wiring looms 2",
+   "duration": 1,
+   "predecessors": [
+    10,
+    11,
+    13
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 0,
+    "Tooling rigs": 5,
+    "Inspectors": 1
+   }
+  },
+  {
+   "id": 22,
+   "name": "Systems: hydraulics 3",
+   "duration": 9,
+   "predecessors": [
+    2
+   ],
+   "resource_requirements": {
+    "Assembly crews": 2,
+    "Avionics engineers": 0,
+    "Tooling rigs": 2,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 23,
+   "name": "Systems: fuel system 3",
+   "duration": 10,
+   "predecessors": [
+    13
+   ],
+   "resource_requirements": {
+    "Assembly crews": 2,
+    "Avionics engineers": 0,
+    "Tooling rigs": 0,
+    "Inspectors": 4
+   }
+  },
+  {
+   "id": 24,
+   "name": "Systems: flight controls 3",
+   "duration": 7,
+   "predecessors": [
+    10,
+    7
+   ],
+   "resource_requirements": {
+    "Assembly crews": 3,
+    "Avionics engineers": 0,
+    "Tooling rigs": 0,
+    "Inspectors": 3
+   }
+  },
+  {
+   "id": 25,
+   "name": "Systems: wiring looms 3",
+   "duration": 8,
+   "predecessors": [
+    9
+   ],
+   "resource_requirements": {
+    "Assembly crews": 3,
+    "Avionics engineers": 5,
+    "Tooling rigs": 0,
+    "Inspectors": 6
+   }
+  },
+  {
+   "id": 26,
+   "name": "Avionics: cockpit",
+   "duration": 2,
+   "predecessors": [
+    25,
+    19
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 3,
+    "Tooling rigs": 1,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 27,
+   "name": "Avionics: radios",
+   "duration": 2,
+   "predecessors": [
+    19
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 0,
+    "Tooling rigs": 0,
+    "Inspectors": 6
+   }
+  },
+  {
+   "id": 28,
+   "name": "Avionics: navigation",
+   "duration": 9,
+   "predecessors": [
+    17,
+    16,
+    19
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 6,
+    "Tooling rigs": 5,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 29,
+   "name": "Avionics: software load",
+   "duration": 1,
+   "predecessors": [
+    23
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 3,
+    "Tooling rigs": 0,
+    "Inspectors": 6
+   }
+  },
+  {
+   "id": 30,
+   "name": "Avionics: cockpit 2",
+   "duration": 3,
+   "predecessors": [
+    22
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 4,
+    "Tooling rigs": 2,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 31,
+   "name": "Avionics: radios 2",
+   "duration": 3,
+   "predecessors": [
+    16,
+    15,
+    24
+   ],
+   "resource_requirements": {
+    "Assembly crews": 2,
+    "Avionics engineers": 0,
+    "Tooling rigs": 4,
+    "Inspectors": 5
+   }
+  },
+  {
+   "id": 32,
+   "name": "Avionics: navigation 2",
+   "duration": 1,
+   "predecessors": [
+    22,
+    19
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 0,
+    "Tooling rigs": 4,
+    "Inspectors": 3
+   }
+  },
+  {
+   "id": 33,
+   "name": "Avionics: software load 2",
+   "duration": 10,
+   "predecessors": [
+    22,
+    16,
+    14
+   ],
+   "resource_requirements": {
+    "Assembly crews": 2,
+    "Avionics engineers": 0,
+    "Tooling rigs": 5,
+    "Inspectors": 4
+   }
+  },
+  {
+   "id": 34,
+   "name": "Avionics: cockpit 3",
+   "duration": 8,
+   "predecessors": [
+    16
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 0,
+    "Tooling rigs": 1,
+    "Inspectors": 6
+   }
+  },
+  {
+   "id": 35,
+   "name": "Avionics: radios 3",
+   "duration": 5,
+   "predecessors": [
+    15
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 1,
+    "Tooling rigs": 0,
+    "Inspectors": 1
+   }
+  },
+  {
+   "id": 36,
+   "name": "Avionics: navigation 3",
+   "duration": 7,
+   "predecessors": [
+    25,
+    24
+   ],
+   "resource_requirements": {
+    "Assembly crews": 5,
+    "Avionics engineers": 4,
+    "Tooling rigs": 2,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 37,
+   "name": "Avionics: software load 3",
+   "duration": 9,
+   "predecessors": [
+    22
+   ],
+   "resource_requirements": {
+    "Assembly crews": 6,
+    "Avionics engineers": 0,
+    "Tooling rigs": 0,
+    "Inspectors": 3
+   }
+  },
+  {
+   "id": 38,
+   "name": "Interior: insulation",
+   "duration": 6,
+   "predecessors": [
+    33,
+    36
+   ],
+   "resource_requirements": {
+    "Assembly crews": 5,
+    "Avionics engineers": 2,
+    "Tooling rigs": 0,
+    "Inspectors": 2
+   }
+  },
+  {
+   "id": 39,
+   "name": "Interior: panels",
+   "duration": 10,
+   "predecessors": [
+    32
+   ],
+   "resource_requirements": {
+    "Assembly crews": 2,
+    "Avionics engineers": 0,
+    "Tooling rigs": 0,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 40,
+   "name": "Interior: seats",
+   "duration": 6,
+   "predecessors": [
+    33,
+    27,
+    30
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 5,
+    "Tooling rigs": 6,
+    "Inspectors": 4
+   }
+  },
+  {
+   "id": 41,
+   "name": "Interior: galleys",
+   "duration": 5,
+   "predecessors": [
+    33,
+    31,
+    34
+   ],
+   "resource_requirements": {
+    "Assembly crews": 1,
+    "Avionics engineers": 0,
+    "Tooling rigs": 0,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 42,
+   "name": "Interior: insulation 2",
+   "duration": 7,
+   "predecessors": [
+    32,
+    26
+   ],
+   "resource_requirements": {
+    "Assembly crews": 3,
+    "Avionics engineers": 0,
+    "Tooling rigs": 5,
+    "Inspectors": 1
+   }
+  },
+  {
+   "id": 43,
+   "name": "Interior: panels 2",
+   "duration": 9,
+   "predecessors": [
+    31,
+    30,
+    35
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 0,
+    "Tooling rigs": 0,
+    "Inspectors": 1
+   }
+  },
+  {
+   "id": 44,
+   "name": "Interior: seats 2",
+   "duration": 3,
+   "predecessors": [
+    28
+   ],
+   "resource_requirements": {
+    "Assembly crews": 4,
+    "Avionics engineers": 4,
+    "Tooling rigs": 3,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 45,
+   "name": "Interior: galleys 2",
+   "duration": 7,
+   "predecessors": [
+    36,
+    34,
+    30
+   ],
+   "resource_requirements": {
+    "Assembly crews": 5,
+    "Avionics engineers": 3,
+    "Tooling rigs": 0,
+    "Inspectors": 4
+   }
+  },
+  {
+   "id": 46,
+   "name": "Interior: insulation 3",
+   "duration": 10,
+   "predecessors": [
+    31
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 0,
+    "Tooling rigs": 0,
+    "Inspectors": 1
+   }
+  },
+  {
+   "id": 47,
+   "name": "Interior: panels 3",
+   "duration": 6,
+   "predecessors": [
+    35,
+    29,
+    33
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 3,
+    "Tooling rigs": 2,
+    "Inspectors": 6
+   }
+  },
+  {
+   "id": 48,
+   "name": "Interior: seats 3",
+   "duration": 7,
+   "predecessors": [
+    36
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 0,
+    "Tooling rigs": 4,
+    "Inspectors": 5
+   }
+  },
+  {
+   "id": 49,
+   "name": "Certification: ground tests",
+   "duration": 2,
+   "predecessors": [
+    40,
+    45
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 0,
+    "Tooling rigs": 0,
+    "Inspectors": 6
+   }
+  },
+  {
+   "id": 50,
+   "name": "Certification: engine runs",
+   "duration": 3,
+   "predecessors": [
+    42,
+    48,
+    47
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 4,
+    "Tooling rigs": 5,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 51,
+   "name": "Certification: flight test",
+   "duration": 6,
+   "predecessors": [
+    42
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 0,
+    "Tooling rigs": 4,
+    "Inspectors": 1
+   }
+  },
+  {
+   "id": 52,
+   "name": "Certification: paperwork",
+   "duration": 5,
+   "predecessors": [
+    47,
+    39,
+    46
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 6,
+    "Tooling rigs": 1,
+    "Inspectors": 1
+   }
+  },
+  {
+   "id": 53,
+   "name": "Certification: ground tests 2",
+   "duration": 2,
+   "predecessors": [
+    43,
+    45,
+    46
+   ],
+   "resource_requirements": {
+    "Assembly crews": 3,
+    "Avionics engineers": 6,
+    "Tooling rigs": 0,
+    "Inspectors": 6
+   }
+  },
+  {
+   "id": 54,
+   "name": "Certification: engine runs 2",
+   "duration": 9,
+   "predecessors": [
+    38,
+    43,
+    46
+   ],
+   "resource_requirements": {
+    "Assembly crews": 6,
+    "Avionics engineers": 6,
+    "Tooling rigs": 4,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 55,
+   "name": "Certification: flight test 2",
+   "duration": 8,
+   "predecessors": [
+    47,
+    45,
+    39
+   ],
+   "resource_requirements": {
+    "Assembly crews": 5,
+    "Avionics engineers": 4,
+    "Tooling rigs": 0,
+    "Inspectors": 4
+   }
+  },
+  {
+   "id": 56,
+   "name": "Certification: paperwork 2",
+   "duration": 3,
+   "predecessors": [
+    48
+   ],
+   "resource_requirements": {
+    "Assembly crews": 1,
+    "Avionics engineers": 6,
+    "Tooling rigs": 0,
+    "Inspectors": 0
+   }
+  },
+  {
+   "id": 57,
+   "name": "Certification: ground tests 3",
+   "duration": 4,
+   "predecessors": [
+    48
+   ],
+   "resource_requirements": {
+    "Assembly crews": 5,
+    "Avionics engineers": 3,
+    "Tooling rigs": 0,
+    "Inspectors": 3
+   }
+  },
+  {
+   "id": 58,
+   "name": "Certification: engine runs 3",
+   "duration": 9,
+   "predecessors": [
+    43,
+    42
+   ],
+   "resource_requirements": {
+    "Assembly crews": 3,
+    "Avionics engineers": 0,
+    "Tooling rigs": 0,
+    "Inspectors": 5
+   }
+  },
+  {
+   "id": 59,
+   "name": "Certification: flight test 3",
+   "duration": 3,
+   "predecessors": [
+    43
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 5,
+    "Tooling rigs": 2,
+    "Inspectors": 1
+   }
+  },
+  {
+   "id": 60,
+   "name": "Finish",
+   "duration": 0,
+   "predecessors": [
+    3,
+    4,
+    6,
+    18,
+    20,
+    21,
+    37,
+    41,
+    44,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59
+   ],
+   "resource_requirements": {
+    "Assembly crews": 0,
+    "Avionics engineers": 0,
+    "Tooling rigs": 0,
+    "Inspectors": 0
+   }
+  }
+ ]
+}

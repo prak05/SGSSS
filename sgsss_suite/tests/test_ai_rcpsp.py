@@ -1,211 +1,129 @@
-"""
-================================================================================
-tests/test_ai_rcpsp.py — Comprehensive Test Suite for AI-RCPSP
-================================================================================
-Validates:
-  1. Multi-format parsing (.sm, .rcp, .json) & project model properties
-  2. Auto-adaptive SSGS budget & random seed calculation
-  3. Shared SSGS decoding & dual-layer feasibility audit (Precedence + Resource)
-  4. Algorithm suite (GA, SA, BCO, PRH, PSO, TBGAT) registry & execution
-  5. Dedicated Particle Swarm Optimization (MSP_PSO integration) validation
-  6. Dedicated TBGAT (Topology-Aware Bidirectional GAT integration) validation
-  7. Plotly interactive visualization generation (Gantt, Resource Profiles, Convergence)
-  8. Executive PDF reference report creation without 30-feature dependencies
-  9. Topological sort and DAG cycle detection
-================================================================================
-"""
-
-from __future__ import annotations
-
-import unittest
-from pathlib import Path
+"""Tests: parsing, feasibility, budgets, fair winner selection, GNN, report.  Run: pytest tests -q"""
+import random
 import sys
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from pathlib import Path
 
-from src import (
-    Parser,
-    Evaluator,
-    ScheduleAudit,
-    SSGS,
-    run_algorithm,
-    run_all_algorithms,
-    SOLVERS,
-    ALGORITHM_NAMES,
-    solve_pso,
-    solve_tbgat,
-    create_gantt_chart,
-    create_resource_timeline_charts,
-    create_convergence_chart,
-    generate_pdf_report,
-    validate_dag,
-    compute_cpm_lower_bound,
-    compute_adaptive_budget,
-    compute_adaptive_seed,
-)
-from src.model import Activity, Resource, Project
+import pytest
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from src import ssgs  # noqa: E402
+from src.algorithms import SOLVERS, gnn  # noqa: E402
+from src.algorithms.rules import rules  # noqa: E402
+from src.benchmark import explain, ranking, run_all  # noqa: E402
+from src.evaluation import audit  # noqa: E402
+from src.model import Project  # noqa: E402
+from src.parser import parse, write  # noqa: E402
+from src.report import pdf_report  # noqa: E402
+
+J30 = ROOT / "data" / "test" / "j301_1.sm"            # proven optimum 43 (PSPLIB)
+USE = ROOT / "data" / "use_cases_small"
 
 
-class TestAiRcpspCore(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.instance_path = Path(__file__).resolve().parent.parent / "data" / "instances" / "j301_1.sm"
-        assert cls.instance_path.exists(), f"Benchmark instance {cls.instance_path} not found"
-        cls.project = Parser.parse(cls.instance_path)
-
-        cls.toy_path = Path(__file__).resolve().parent.parent / "data" / "j10_sample.sm"
-        if cls.toy_path.exists():
-            cls.toy_project = Parser.parse(cls.toy_path)
-        else:
-            cls.toy_project = None
-
-    def test_01_parser_and_model(self):
-        """Verify project parsing and structural properties."""
-        self.assertGreater(self.project.num_activities, 0)
-        self.assertGreater(self.project.num_resources, 0)
-        self.assertEqual(len(self.project.activities), self.project.num_activities)
-        self.assertEqual(len(self.project.resources), self.project.num_resources)
-        self.assertGreater(len(self.project.real_activities), 0)
-        self.assertGreater(self.project.cpm_lower_bound, 0)
-        self.assertGreater(self.project.total_work_content, 0)
-
-    def test_02_adaptive_budget_and_seed(self):
-        """Verify that evaluation budget and random seed automatically adapt to instance scale."""
-        # j301_1 has 30 real activities -> budget should scale to 500
-        budget_30 = compute_adaptive_budget(self.project)
-        self.assertEqual(budget_30, 500)
-
-        # toy instance (10 activities) -> budget should scale to 200
-        if self.toy_project is not None:
-            budget_10 = compute_adaptive_budget(self.toy_project)
-            self.assertEqual(budget_10, 200)
-
-        # Verify seed derivation is deterministic and reproducible
-        seed_1 = compute_adaptive_seed(self.instance_path)
-        seed_2 = compute_adaptive_seed(self.instance_path)
-        self.assertEqual(seed_1, seed_2)
-        self.assertIsInstance(seed_1, int)
-
-    def test_03_ssgs_and_dual_layer_audit(self):
-        """Verify SSGS schedule decoding and comprehensive dual-layer audit."""
-        n = len(self.project.activities)
-        priority_vec = [float(i) / n for i in range(n)]
-
-        schedule, makespan = Evaluator.evaluate(self.project, priority_vec)
-        self.assertGreater(makespan, 0)
-        self.assertEqual(len(schedule), n)
-
-        # Exhaustive dual-layer audit
-        audit: ScheduleAudit = Evaluator.audit_schedule(self.project, schedule)
-        self.assertTrue(audit.is_feasible, f"SSGS generated schedule failed audit: {audit.summary}")
-        self.assertTrue(audit.precedence_passed)
-        self.assertEqual(audit.precedence_violations, 0)
-        self.assertTrue(audit.resource_passed)
-        self.assertEqual(audit.resource_violations, 0)
-        self.assertIn("100% FEASIBLE", audit.summary)
-
-    def test_04_algorithm_registry(self):
-        """Verify the 6 solvers (GA, SA, BCO, PRH, PSO, TBGAT) are registered and TS is scratched."""
-        expected = ["BCO", "GA", "PRH", "PSO", "SA", "TBGAT"]
-        self.assertEqual(sorted(ALGORITHM_NAMES), expected)
-        self.assertNotIn("TS", ALGORITHM_NAMES)
-
-        with self.assertRaises(ValueError):
-            run_algorithm("NON_EXISTENT", self.project, evaluation_budget=50)
-
-    def test_05_solver_execution_and_feasibility(self):
-        """Run all solvers under budget and verify feasibility, runtime, and makespan."""
-        budget = 50
-        results = run_all_algorithms(self.project, evaluation_budget=budget, seed=42)
-
-        self.assertEqual(len(results), 6)
-        for name in ALGORITHM_NAMES:
-            res = results[name]
-            self.assertGreater(res.makespan, 0)
-            self.assertGreater(res.runtime, 0)
-            self.assertGreater(len(res.schedule), 0)
-            self.assertGreater(len(res.convergence_history), 0)
-
-            # Feasibility audit
-            audit = Evaluator.audit_schedule(self.project, res.schedule)
-            self.assertTrue(audit.is_feasible, f"Algorithm {name} produced infeasible schedule: {audit.summary}")
-            self.assertEqual(audit.precedence_violations, 0)
-            self.assertEqual(audit.resource_violations, 0)
-
-    def test_06_pso_msp_integration(self):
-        """Verify dedicated Particle Swarm Optimization (MSP_PSO) execution and swarm dynamics."""
-        res = solve_pso(self.project, evaluation_budget=60, seed=42)
-        self.assertIn("PSO", res.algorithm)
-        self.assertGreater(res.makespan, 0)
-        self.assertLessEqual(res.makespan, 100)
-        self.assertGreater(len(res.history), 0)
-
-        # Audit feasibility
-        audit = Evaluator.audit_schedule(self.project, res.schedule)
-        self.assertTrue(audit.is_feasible)
-        self.assertEqual(audit.precedence_violations, 0)
-        self.assertEqual(audit.resource_violations, 0)
-
-    def test_07_tbgat_integration(self):
-        """Verify dedicated TBGAT bidirectional graph attention neural scheduling."""
-        res = solve_tbgat(self.project, evaluation_budget=40, seed=42)
-        self.assertIn("TBGAT", res.algorithm)
-        self.assertGreater(res.makespan, 0)
-        self.assertLessEqual(res.makespan, 100)
-        self.assertGreater(len(res.history), 0)
-
-        # Audit feasibility
-        audit = Evaluator.audit_schedule(self.project, res.schedule)
-        self.assertTrue(audit.is_feasible)
-        self.assertEqual(audit.precedence_violations, 0)
-        self.assertEqual(audit.resource_violations, 0)
-
-    def test_08_visualizations(self):
-        """Verify Plotly charts generation."""
-        budget = 30
-        results = run_all_algorithms(self.project, evaluation_budget=budget, seed=42)
-        best_res = min(results.values(), key=lambda r: r.makespan)
-
-        # Gantt chart
-        gantt_fig = create_gantt_chart(best_res.schedule, self.project)
-        self.assertIsNotNone(gantt_fig)
-        self.assertGreater(len(gantt_fig.data), 0)
-
-        # Resource charts
-        res_figs = create_resource_timeline_charts(self.project, best_res.schedule)
-        self.assertEqual(len(res_figs), self.project.num_resources)
-
-        # Convergence chart
-        conv_fig = create_convergence_chart(results)
-        self.assertIsNotNone(conv_fig)
-        self.assertEqual(len(conv_fig.data), 6)
-
-    def test_09_pdf_report(self):
-        """Verify PDF generation produces valid binary byte stream without features dictionary."""
-        res = run_algorithm("GA", self.project, evaluation_budget=30, seed=42)
-        pdf_bytes = generate_pdf_report(
-            project=self.project,
-            best_res=res,
-            proj_name="j301_1.sm",
-        )
-        self.assertIsInstance(pdf_bytes, bytes)
-        self.assertGreater(len(pdf_bytes), 1000)
-        self.assertTrue(pdf_bytes.startswith(b"%PDF"))
-
-    def test_10_dag_acyclicity_validation(self):
-        """Verify Kahn's topological sort detects cycles and returns valid orderings."""
-        topo = validate_dag(self.project)
-        self.assertEqual(len(topo), self.project.num_activities)
-
-        # Create a cyclic project copy
-        cyclic_proj = Project()
-        cyclic_proj.activities = {
-            1: Activity(id=1, duration=1, predecessors=[2], successors=[2]),
-            2: Activity(id=2, duration=1, predecessors=[1], successors=[1]),
-        }
-        with self.assertRaises(ValueError) as ctx:
-            validate_dag(cyclic_proj)
-        self.assertIn("Cycle detected", str(ctx.exception))
+@pytest.fixture(scope="module")
+def j30():
+    return parse(J30)
 
 
-if __name__ == "__main__":
-    unittest.main()
+def test_parse_all_formats():
+    for ext in (".sm", ".rcp", ".json"):
+        p = parse(USE / f"house_construction{ext}")
+        assert p.real_tasks == 18 and p.cpm_bound == 47
+    assert parse(J30).n == 32 and parse(J30).capacities == [12, 13, 4, 12]
+    assert parse(ROOT / "data" / "test" / "Pat1.rcp").n > 0
+
+
+def test_round_trip(tmp_path, j30):
+    for ext in (".sm", ".rcp", ".json"):
+        write(j30, tmp_path / f"x{ext}")
+        q = parse(tmp_path / f"x{ext}")
+        assert (q.durations, q.demands, q.capacities) == (j30.durations, j30.demands, j30.capacities)
+        assert [sorted(x) for x in q.preds] == [sorted(x) for x in j30.preds]
+
+
+def test_cycle_and_capacity_rejected():
+    with pytest.raises(ValueError, match="cycle"):
+        Project("c", [1, 1], [[0], [0]], [1], [[1], [0]])
+    with pytest.raises(ValueError, match="needs"):
+        Project("c", [1], [[5]], [1], [[]])
+
+
+def test_random_priorities_always_feasible(j30):
+    rng = random.Random(0)
+    for _ in range(50):
+        starts, ms = ssgs.decode(j30, [rng.random() for _ in range(j30.n)])
+        a = audit(j30, starts)
+        assert a.feasible and a.makespan == ms >= j30.lower_bound
+
+
+def test_justification_never_worse(j30):
+    rng = random.Random(1)
+    for _ in range(30):
+        starts, ms = ssgs.decode(j30, [rng.random() for _ in range(j30.n)])
+        new_starts, new_ms = ssgs.justify(j30, starts)
+        assert new_ms <= ms and audit(j30, new_starts).feasible
+
+
+@pytest.mark.parametrize("name", list(SOLVERS))
+def test_solver_respects_budget_and_is_feasible(name, j30):
+    r = SOLVERS[name](j30, budget=200, seed=3)
+    assert r.evaluations <= 200 and len(r.trace) == len(r.best_trace) == r.evaluations
+    assert r.best_trace == sorted(r.best_trace, reverse=True)          # best-so-far never gets worse
+    assert r.best_trace[-1] == r.makespan and audit(j30, r.starts).makespan == r.makespan
+    assert audit(j30, r.starts).feasible and 43 <= r.makespan       # 43 = proven optimum
+
+
+def test_winner_depends_only_on_results(j30):
+    results = run_all(j30, budget=150, seed=5)
+    order = ranking(results)
+    renamed = {f"X{i}": results[a] for i, a in enumerate(reversed(list(results)))}
+    back = {f"X{i}": a for i, a in enumerate(reversed(list(results)))}
+    assert [back[x] for x in ranking(renamed)] == order                # names don't matter
+    e = explain(j30, results)
+    assert e["winner"] == order[0] and e["how"] and all(row["feasible"] for row in e["table"])
+
+
+def test_gnn_trained_and_better_than_lft_on_average():
+    assert gnn.load_model() is not None, "run scripts/train.py first"
+    files = sorted((ROOT / "data" / "test").glob("j30*.sm"))[:40]
+    gap_gnn = gap_lft = 0
+    for f in files:
+        p = parse(f)
+        gap_gnn += ssgs.decode(p, gnn.predict(p))[1]
+        gap_lft += ssgs.decode(p, rules(p)["LFT (latest finish time)"])[1]
+    assert gap_gnn <= gap_lft
+
+
+def test_pdf_report(j30):
+    pdf = pdf_report(j30, run_all(j30, budget=60, seed=1))
+    assert pdf[:4] == b"%PDF" and len(pdf) > 5000
+
+
+def test_gnn_inspect_attention_follows_graph(j30):
+    g = gnn.inspect(j30)
+    assert g["rank"] and len(g["score"]) == j30.n
+    for name, w in g["attention"].items():
+        neighbours = j30.preds if "upstream" in name else j30.succs
+        for i in range(j30.n):
+            assert abs(w[i].sum() - 1) < 1e-5                         # each row is a probability distribution
+            assert all(w[i][j] == 0 for j in range(j30.n) if j != i and j not in neighbours[i])
+
+
+def test_use_cases_parse():
+    files = sorted((ROOT / "data" / "use_cases").iterdir())
+    assert len(files) >= 50
+    for f in files[:6]:
+        p = parse(f)
+        assert 30 <= p.real_tasks <= 60
+
+
+def test_auto_budget_and_seed_depend_on_content_not_file_type(tmp_path, j30):
+    from src.benchmark import auto_budget, auto_seed
+    settings = set()
+    for ext in (".sm", ".rcp", ".json"):
+        write(j30, tmp_path / f"same{ext}")
+        q = parse(tmp_path / f"same{ext}")
+        settings.add((auto_budget(q), auto_seed(q)))
+    assert len(settings) == 1                                    # same project -> same budget and seed
+    tight = parse(ROOT / "data" / "test" / "Pat1.rcp")           # 30 activities, resource-bound
+    assert auto_budget(tight) > auto_budget(j30) == 500          # tighter resources -> more evaluations
