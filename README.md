@@ -98,3 +98,20 @@ Kolisch & Sprecher (1996) PSPLIB · Kolisch (1996) serial SGS · Valls, Ballest�
 Hartmann (1998) GA for RCPSP · Karaboga (2005) ABC · Glover (1989) tabu search · Kennedy & Eberhart (1995) PSO ·
 Veličković et al. (2018) graph attention networks · Williams (1992) REINFORCE ·
 Zhang, Cao, Wu, Song & Sun (UAI 2024) TBGAT — bidirectional graph attention for job-shop scheduling.
+
+## Portfolio brief
+
+An explainable RCPSP optimization suite comparing graph-guided search with classical scheduling baselines.
+
+### Visual system
+
+Balenciaga-inspired brutalist presentation: oversized typography, monochrome surfaces, restrained signal colors, and data-dense schedule evidence.
+
+### Architecture
+
+The `sgsss_suite` package separates parsing, scheduling, optimization algorithms, evaluation, visualization, and report generation so each result can be independently audited.
+
+### Run and output
+
+Run from `sgsss_suite/`; benchmark outputs include feasible schedules, makespan comparisons, resource profiles, and explanation artifacts.
+
