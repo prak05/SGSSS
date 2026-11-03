@@ -6,6 +6,7 @@ lives in explanation.py.
 """
 import csv
 import tempfile
+import time
 from collections import Counter
 from pathlib import Path
 
@@ -417,10 +418,24 @@ with tabs[3]:
         st.download_button("📄  Download PDF report", pdf_report(p, results), f"{p.name}_report.pdf",
                            "application/pdf", type="primary")
 
-# ── 5 GNN inside (plain language) ────────────────────────────────────────────────
+# ── 5 GNN inside (colourful views + plain-language explanation) ──────────────────
+def explain_view(key: str):
+    """Three short boxes under a chart: what it shows, how to read it, why it matters."""
+    what, how, why = ex.GNN_VIEWS[key]
+    c1, c2, c3 = st.columns(3)
+    c1.markdown(f'<div class="fx-what"><span class="fx-k">What you see</span><br>{what}</div>', unsafe_allow_html=True)
+    c2.markdown('<div class="fx-what" style="border-color:#1baf7a"><span class="fx-k" style="color:#138a60">How to '
+                f'read it</span><br>{how}</div>', unsafe_allow_html=True)
+    c3.markdown(f'<div class="fx-why"><span class="fx-k" style="color:#c2501f">Why it matters</span><br>{why}</div>',
+                unsafe_allow_html=True)
+    st.write("")
+
+
 with tabs[4]:
     guide("gnn")
+    t0 = time.perf_counter()
     g = gnn.inspect(p)
+    infer_ms = (time.perf_counter() - t0) * 1000
     if g is None:
         st.warning("No trained model yet — run `python scripts/train.py`.")
     else:
@@ -433,85 +448,139 @@ with tabs[4]:
                          unsafe_allow_html=True)
         st.write("")
 
-        def step(i):
-            icon, title, short, why, how = ex.GNN_STEPS[i]
-            st.markdown(f"#### {icon} Step {i + 1} — {title}")
-            c1, c2 = st.columns(2)
-            c1.markdown(f"**Why this step?**  \n{why}")
-            c2.markdown(f"**How does it do it?**  \n{how}")
-
-        # Step 1 — the facts about each task
-        step(0)
-        facts = pd.DataFrame(g["features"], columns=[ex.FEATURE_PLAIN[f] for f in g["feature_names"]]).round(2)
-        facts.insert(0, "Task", p.task_names)
-        busiest = facts.iloc[1:-1].sort_values("All tasks depending on it", ascending=False).iloc[0]
-        st.markdown(f"**Example from your project:** *{busiest['Task']}* has many tasks depending on it "
-                    f"({busiest['All tasks depending on it']:.0%} of the project) — a fact the network will use "
-                    "to push it forward.")
-        with st.expander("Show the 10 facts for every task"):
-            table(facts, height=300)
-
-        # Step 2 — asking the connected tasks
-        step(1)
-        pick = st.selectbox("Pick a task to see whom it listens to", range(1, p.n - 1),
-                            format_func=lambda i: p.task_names[i])
-        for label, view, empty in (("Looking back (tasks before it)", "layer 1 upstream (predecessors)",
-                                    "It has no tasks before it — it can start right away."),
-                                   ("Looking ahead (tasks after it)", "layer 1 downstream (successors)",
-                                    "No tasks are waiting for it.")):
-            weights = {p.task_names[j]: float(g["attention"][view][pick][j]) for j in range(p.n)
-                       if j != pick and g["attention"][view][pick][j] > 0}
-            st.markdown(f"**{label}:**")
-            if not weights:
-                st.caption(empty)
-            for name, wgt in sorted(weights.items(), key=lambda kv: -kv[1]):
-                st.progress(min(1.0, wgt), text=f"{name} — {wgt:.0%} of its attention")
-        st.caption("The rest of its attention goes to its own facts. A task never looks at tasks it is not connected "
-                   "to — the network follows the project's arrows.")
-        with st.expander("Show the full attention maps (all tasks, both rounds)"):
-            st.caption("Each row is a task, each column a task it may listen to; darker = more attention. "
-                       "Empty squares = not connected, so attention is exactly zero.")
-            views = list(g["attention"])
-            for left, right in zip(views[0::2], views[1::2]):
-                c1, c2 = st.columns(2)
-                c1.plotly_chart(charts.attention_heatmap(p, g["attention"][left], left), width="stretch")
-                c2.plotly_chart(charts.attention_heatmap(p, g["attention"][right], right), width="stretch")
-
-        # Step 3 — the priority list
-        step(2)
-        queue = pd.DataFrame({"Task": p.task_names, "Classic rule score": g["lst_term"].round(1),
-                              "Network's adjustment": g["correction"].round(1), "Final priority": g["score"].round(1),
-                              "Queue position (network)": g["rank"], "Queue position (classic rule)": g["lst_rank"]})
-        queue = queue[[d > 0 for d in p.durations]].copy()             # real tasks only (no Start/Finish markers)
-        for c in ("Queue position (network)", "Queue position (classic rule)"):
-            queue[c] = queue[c].rank().astype(int)                     # renumber 1..n over real tasks
-        shift = queue["Queue position (classic rule)"] - queue["Queue position (network)"]
-        queue["Moved"] = [f"↑ {s}" if s > 0 else f"↓ {-s}" if s < 0 else "" for s in shift]
-        queue = queue.sort_values("Queue position (network)")
-        moved = int((shift != 0).sum())
-        up = queue.loc[shift.idxmax()] if moved else None
-        st.markdown(f"**Result:** the network kept the textbook order for {len(queue) - moved} tasks and moved "
-                    f"**{moved}** of them" + (f" — e.g. *{up['Task']}* moved up "
-                                              f"{int(shift.max())} place{'s' if int(shift.max()) != 1 else ''}." if moved else "."))
-        table(queue[["Queue position (network)", "Task", "Moved", "Queue position (classic rule)"]], height=300,
-              explain=False)
-        with st.expander("Show the scores behind the queue"):
-            table(queue, height=300)
-
-        # Step 4 — the schedule and the comparison
-        step(3)
-        starts, ms = ssgs.decode(p, g["score"].tolist())
+        # numbers shared by every view below (real tasks only — Start/Finish markers have duration 0)
+        real = [i for i in range(p.n) if p.durations[i] > 0]
+        score = g["score"]
+        lo, hi = score[real].min(), score[real].max()
+        prio = ((score - lo) / max(1e-9, hi - lo)).clip(0, 1)
+        starts, ms = ssgs.decode(p, score.tolist())
         shots = {name.split(" (")[0]: ssgs.decode(p, v)[1] for name, v in rules(p).items()}
         best_rule = min(shots, key=shots.get)
+        nodes = pd.DataFrame({
+            "Task": [p.task_names[i] for i in real], "GNN priority": prio[real].round(3),
+            "Queue position": pd.Series([g["rank"][i] for i in real]).rank().astype(int).values,
+            "Queue position (classic rule)": pd.Series([g["lst_rank"][i] for i in real]).rank().astype(int).values,
+            "Duration": [p.durations[i] for i in real], "Spare time (slack)": [p.lst[i] - p.est[i] for i in real],
+            "Workers/machines it needs": g["features"][real, g["feature_names"].index("resource load")].round(3),
+            "Classic rule score": g["lst_term"][real].round(2), "Network's adjustment": g["correction"][real].round(2),
+            "Final priority": score[real].round(2)})
+        nodes["Places moved"] = nodes["Queue position (classic rule)"] - nodes["Queue position"]
+        nodes = nodes.sort_values("Queue position")
+        moved = int((nodes["Places moved"] != 0).sum())
+
+        c = st.columns(4)
+        kpi(c[0], "⚡ Network run time", f"{infer_ms:.0f} ms", ex.GNN_KPIS["time"])
+        kpi(c[1], "🗓️ One-shot makespan", f"{ms}", f"lower bound {p.lower_bound} · " + ex.GNN_KPIS["makespan"])
+        kpi(c[2], "📏 Best textbook rule", f"{shots[best_rule]}", f"{best_rule} · " + ex.GNN_KPIS["rule"])
+        kpi(c[3], "🧠 Network size", f"{g['parameters']:,}", "2 layers × 4 heads · " + ex.GNN_KPIS["size"])
+        st.write("")
+
+        # 1 — priority heatmap over the project network
+        st.subheader("🕸️ 1. Neural priority heatmap over the project network")
+        st.plotly_chart(charts.priority_dag(p, prio, g["rank"]), width="stretch")
+        explain_view("dag")
+
+        # 2 — the queue, and what the network changed
+        st.subheader("🎯 2. The priority queue — and what the network changed")
+        st.markdown(f"The network kept the textbook order for **{len(nodes) - moved}** tasks and moved **{moved}**."
+                    + (f" Largest move: *{nodes.loc[nodes['Places moved'].abs().idxmax(), 'Task']}* "
+                       f"({int(nodes.loc[nodes['Places moved'].abs().idxmax(), 'Places moved']):+d} places)."
+                       if moved else ""))
+        st.plotly_chart(charts.priority_bars(nodes), width="stretch")
+        explain_view("bars")
+        if moved:
+            st.plotly_chart(charts.correction_bars(nodes), width="stretch")
+        else:
+            st.info("On this project the network agreed with the textbook rule for every task — no moves to show.")
+        explain_view("moved")
+
+        # 3 — common-sense check
+        st.subheader("🔍 3. Does it behave like an experienced planner? Slack vs. priority")
+        st.plotly_chart(charts.slack_scatter(nodes), width="stretch")
+        explain_view("scatter")
+
+        st.markdown("##### 📋 Every task: facts, scores and queue position")
+        st.caption("Colour = priority (yellow = first, purple = last). Hover a column header for its meaning.")
+        cols = ["Queue position", "Task", "GNN priority", "Places moved", "Queue position (classic rule)",
+                "Spare time (slack)", "Duration", "Workers/machines it needs", "Classic rule score",
+                "Network's adjustment", "Final priority"]
+        st.dataframe(nodes[cols].style.background_gradient(subset=["GNN priority"], cmap="viridis")
+                     .background_gradient(subset=["Places moved"], cmap="RdBu", vmin=-max(1, nodes["Places moved"]
+                                                                                       .abs().max()),
+                                          vmax=max(1, nodes["Places moved"].abs().max()))
+                     .format(precision=2),
+                     column_config={k: st.column_config.Column(help=ex.explain_column(k)) for k in cols},
+                     hide_index=True, width="stretch", height=380)
+        legend(cols)
+        with st.expander("Show the 10 raw facts the network reads for every task (all scaled to 0–1)"):
+            facts = pd.DataFrame(g["features"], columns=[ex.FEATURE_PLAIN[f] for f in g["feature_names"]]).round(2)
+            facts.insert(0, "Task", p.task_names)
+            st.dataframe(facts.style.background_gradient(cmap="YlGnBu", subset=facts.columns[1:], vmin=0, vmax=1)
+                         .format(precision=2), hide_index=True, width="stretch", height=320)
+            st.markdown(ex.GNN_FEATURES_TABLE)
+
+        # 4 — attention
+        st.subheader("🤝 4. Who each task listened to (attention)")
+        pick = st.selectbox("Pick a task to see whom it listens to", range(1, p.n - 1),
+                            format_func=lambda i: p.task_names[i])
+        a, b = st.columns(2)
+        for col, (label, view, empty) in zip((a, b), (
+                ("⬅️ Looking back (tasks before it)", "layer 1 upstream (predecessors)",
+                 "It has no tasks before it — it can start right away."),
+                ("➡️ Looking ahead (tasks after it)", "layer 1 downstream (successors)", "No tasks are waiting for it."))):
+            weights = {p.task_names[j]: float(g["attention"][view][pick][j]) for j in range(p.n)
+                       if j != pick and g["attention"][view][pick][j] > 0}
+            col.markdown(f"**{label}:**")
+            if not weights:
+                col.caption(empty)
+            for name, wgt in sorted(weights.items(), key=lambda kv: -kv[1]):
+                col.progress(min(1.0, wgt), text=f"{name} — {wgt:.0%} of its attention")
+        st.caption("The rest of its attention goes to its own facts. A task never looks at tasks it is not connected "
+                   "to — the network follows the project's arrows.")
+        views = list(g["attention"])
+        for left, right in zip(views[0::2], views[1::2]):
+            c1, c2 = st.columns(2)
+            c1.plotly_chart(charts.attention_heatmap(p, g["attention"][left], left), width="stretch")
+            c2.plotly_chart(charts.attention_heatmap(p, g["attention"][right], right), width="stretch")
+        explain_view("attention")
+
+        # 5 — how it works
+        st.subheader("🔬 5. How the GNN works, step by step")
+        w = st.tabs([f"{icon} {i}. {title}" for i, (icon, title, *_rest) in enumerate(ex.GNN_STEPS, 1)]
+                    + ["🎓 How it learned"])
+        for i, tab in enumerate(w[:4]):
+            icon, title, short, why, how = ex.GNN_STEPS[i]
+            with tab:
+                c1, c2 = st.columns(2)
+                c1.markdown(f"**Why this step?**  \n{why}")
+                c2.markdown(f"**How does it do it?**  \n{how}")
+                if i == 0:
+                    st.markdown(ex.GNN_FEATURES_TABLE)
+                    st.latex(ex.HELP["gnn"]["formulas"][0][1])
+                elif i == 1:
+                    st.markdown(ex.GNN_HOW["layer"])
+                    st.latex(ex.HELP["gnn"]["formulas"][1][1])
+                    st.latex(ex.HELP["gnn"]["formulas"][2][1])
+                    st.markdown(ex.GNN_HOW["why_two"])
+                elif i == 2:
+                    st.latex(ex.HELP["gnn"]["formulas"][3][1])
+                    st.markdown(ex.HELP["gnn"]["formulas"][3][2] + " " + ex.HELP["gnn"]["formulas"][3][3])
+                else:
+                    st.markdown(ex.GNN_HOW["safe"])
+        with w[4]:
+            st.markdown(ex.GNN_HOW["train"])
+
+        # 6 — the schedule and the comparison
+        st.subheader("🗓️ 6. The result: one decode, before any searching")
         diff = shots[best_rule] - ms
         pl = lambda k: f"{k} period{'s' if k != 1 else ''}"
         verdict = (f"**{pl(diff)} shorter** than the best textbook rule ({best_rule}, {shots[best_rule]})" if diff > 0
                    else f"the same length as the best textbook rule ({best_rule})" if diff == 0
                    else f"{pl(-diff)} longer than the best textbook rule ({best_rule}, {shots[best_rule]}) on "
                         "this project — the search that follows has to make up the difference")
-        st.markdown(f"**Result:** the network's order gives a project of **{ms} periods** — {verdict}, "
-                    "before any searching has happened.")
+        st.markdown(f"**Result:** the network's order gives a project of **{ms} periods** — {verdict}.")
         st.plotly_chart(charts.one_shot_comparison({"GNN (trained)": ms, **shots}, p.lower_bound), width="stretch")
+        explain_view("shots")
         with st.expander("Show the timetable built from the network's order"):
             st.plotly_chart(charts.gantt(p, Result("GNN", ms, starts, 1, 1, 0.0, [ms], [ms])), width="stretch")
         st.info("**What happens next:** this schedule is attempt no. 1 of Tabu Search and Particle Swarm Search. "

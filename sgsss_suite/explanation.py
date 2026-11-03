@@ -144,6 +144,13 @@ COLUMNS = {
     "GNN rank": "Position in the GNN's order (1 = considered first).",
     "LST rank": "Position under the plain LST rule.",
     "Changed by GNN": "✔ where the network moved the activity compared with the plain rule.",
+    "GNN priority": "Final priority rescaled to 0–1 inside this project (1 = placed first, 0 = placed last). "
+                    "Same order as the final priority, just easier to read and colour.",
+    "Queue position": "Where the task stands in the network's order (1 = first in line for the schedule builder).",
+    "Places moved": "Queue position under the classic rule minus position under the network: + = moved earlier, "
+                    "− = moved later, 0 = unchanged.",
+    "Spare time (slack)": "Periods the task can slip without delaying the whole project (0 = critical).",
+    "Duration": "How many periods the task takes.",
 }
 
 AUTO_SETTINGS = ("budget = 10 × {n} activities × (1 + resource pressure {pressure:.2f}), rounded to 50; "
@@ -353,6 +360,99 @@ FEATURE_PLAIN = {
     "direct successors": "Tasks waiting directly on it", "all successors": "All tasks depending on it",
     "rank positional weight": "Work it unlocks next", "resource load": "Workers/machines it needs",
     "predecessors": "Tasks it waits for",
+}
+
+# ── GNN tab: the colourful views, each with "what you see / how to read it / why it matters" ──
+GNN_KPIS = {
+    "time": "Time for the network to read the whole project and output a priority for every task (one pass, "
+            "no searching).",
+    "makespan": "Project length you get by feeding the network's order straight into the schedule builder — "
+                "before Tabu Search or Particle Swarm Search touch it.",
+    "rule": "The best of the classic textbook priority rules on this same project, also decoded once. This is "
+            "the bar the network has to clear.",
+    "size": "Number of learned numbers (weights) inside the network, and its shape: layers × attention heads.",
+}
+
+GNN_VIEWS = {
+    "dag": ("Your project's network of tasks. Each circle is a task, each line a 'must finish before' arrow, "
+            "and the colour is the priority the trained network gave it.",
+            "**Yellow / green = high priority** (the schedule builder places it early). **Dark purple = low "
+            "priority** (it can wait). Columns run left → right in the order tasks can happen. Hover a circle "
+            "for its numbers.",
+            "You should see bright colours along the long chains that decide the project's end date, and darker "
+            "colours on short side branches. If that pattern is visible, the network has 'understood' the "
+            "structure — not memorised task numbers."),
+    "bars": ("The same priorities as a ranked list: the bar on the left is the first task the schedule builder "
+             "tries to place, the bar on the right the last.",
+             "Taller and brighter = earlier. Two tasks with almost the same height are nearly tied; small "
+             "differences there rarely change the schedule.",
+             "This queue **is** the GNN's output. Everything else on this page explains how it was produced."),
+    "moved": ("Only the tasks whose queue position the network **changed** compared with the textbook "
+              "'latest start time first' (LST) rule.",
+              "**Blue bars to the right** = moved earlier, **red bars to the left** = moved later. The length is "
+              "the number of places. Tasks not shown were left exactly where LST puts them.",
+              "LST already knows deadlines but ignores resources and how many tasks wait behind a task. These "
+              "moves are the network's learned improvement over that rule — the part that comes from the 1,080 "
+              "training projects. Few moves is normal: LST is a strong rule, the network only nudges it."),
+    "scatter": ("Each bubble is a task: left–right is its spare time (slack), up–down its priority. Bubble size "
+                "= how many workers/machines it needs; colour = how long it takes.",
+                "Bubbles at **slack 0** are on the critical path. They should sit high. Between tasks with the same "
+                "slack, the network tends to lift the big (resource-hungry) and long ones, because delaying "
+                "those blocks the most other work.",
+                "This checks the network against common sense: a planner would also do zero-slack and "
+                "bottleneck tasks first. Where a bubble breaks the pattern, look at its successors — it is usually "
+                "unlocking a busy part of the project."),
+    "attention": ("Who each task 'listened to' when the network formed its opinion. Rows = the task deciding, "
+                  "columns = the tasks it may listen to.",
+                  "Darker blue = more attention. Each row adds up to 100 %. White squares are not connected, so "
+                  "the network is not allowed to look there. 'Upstream' = tasks before it, 'downstream' = tasks "
+                  "after it; layer 2 repeats the process using what layer 1 learned, so information travels "
+                  "two steps.",
+                  "Attention is what makes it a *graph attention* network: instead of averaging all neighbours "
+                  "equally, it learns that some predecessors/successors matter more (e.g. long or resource-heavy "
+                  "ones)."),
+    "shots": ("Project length from one single decode of each priority order — the network's (blue) and each "
+              "textbook rule (grey). No searching yet.",
+              "Lower bar = shorter project = better. The dotted line is the lower bound: no schedule can be "
+              "shorter than that.",
+              "This is the honest test of the 'smart starting point'. If the blue bar is at or below the best grey "
+              "bar, TS and PSS start ahead. If not, they still start from a good order and the search closes the "
+              "gap."),
+}
+
+GNN_FEATURES_TABLE = """
+| # | Fact the network reads | Scaled by | Why it helps |
+|---|---|---|---|
+| 1 | How early it can start (EST) | critical-path length | early tasks open up the rest of the project |
+| 2 | How late it may start (LST) | critical-path length | the textbook rule — small LST = urgent |
+| 3 | How late it may finish (LFT) | critical-path length | deadline pressure seen from the end |
+| 4 | Spare time / slack (LST − EST) | critical-path length | 0 = critical: any delay delays the project |
+| 5 | How long it takes | longest duration | long tasks are harder to fit in later |
+| 6 | Tasks waiting directly on it | largest such count | many direct followers = a gateway task |
+| 7 | All tasks depending on it | number of tasks | how much of the project it holds up |
+| 8 | Work it unlocks next (GRPW) | largest GRPW | own + followers' durations |
+| 9 | Workers/machines it needs | capacity, averaged | resource-hungry tasks block others |
+| 10 | Tasks it waits for | largest such count | many prerequisites = starts late anyway |
+"""
+
+GNN_HOW = {
+    "layer": ("**One attention layer, in words.** Every task has a short list of numbers describing it (its "
+              "*picture*, h). In each layer it asks its predecessors and, separately, its successors a question "
+              "(q), compares that to each neighbour's answer (k), turns the matches into shares that add up to 1 "
+              "(the attention α), and takes that mix of the neighbours' messages (v). The two mixes (before / "
+              "after) are combined and **added** to the task's own picture, so it never forgets its own facts."),
+    "why_two": ("**Why two layers and two directions?** Upstream answers *'am I ready yet?'*, downstream "
+                "answers *'who is waiting for me?'*. After layer 1 a task knows its direct neighbours; after "
+                "layer 2 it also knows its neighbours' neighbours. A whole-project average is added at the end so "
+                "every task also sees the project as a whole (how tight resources are overall)."),
+    "train": ("**How it learned (training).** On 1,080 PSPLIB/RG30 projects it repeatedly proposed slightly "
+              "different priority orders, the schedule builder turned each into a timetable, and orders that "
+              "gave a *shorter* project were made more likely (REINFORCE, a reinforcement-learning method). No one "
+              "told it the right answer — it learned from the makespans it achieved."),
+    "safe": ("**Why it can never produce an invalid schedule.** The network only outputs an *order*. The schedule "
+             "builder (SSGS) places tasks one by one, only when all predecessors are done and enough "
+             "workers/machines are free. So precedence and capacity are guaranteed by construction; the network "
+             "can only make the schedule shorter or longer, never illegal."),
 }
 
 # ── The win tiles above the iteration table ─────────────────────────────────────────
